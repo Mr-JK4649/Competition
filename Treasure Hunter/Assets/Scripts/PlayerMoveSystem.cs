@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UIElements;
 
 public class PlayerMoveSystem : MonoBehaviour
@@ -13,7 +14,10 @@ public class PlayerMoveSystem : MonoBehaviour
     public Rigidbody Wiz_RB;        //プレイヤーのRigitbody
 
     public float LaneMoveSpeed = 0f;    //プレイヤーのレーン移動速度
-    private Vector3 Origin_Pos;         //プレイヤーの初期値 
+    public Vector3 Origin_Pos;         //プレイヤーの初期値 
+    public Vector3 Move;               //プレイヤーの微調整
+
+    public GameObject spiral;
 
     private void Start()
     {
@@ -26,12 +30,36 @@ public class PlayerMoveSystem : MonoBehaviour
 
     private void Update()
     {
+
+        //レーン移動の処理
+        LaneMove();
+
+        //プレイヤーの座標更新
+        Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
         
-        //if(Wiz_TF.position.x - 0.5f > Origin_Pos.x - 4.5f || )
-        float X_Move = Input.GetAxis("Horizontal") * LaneMoveSpeed;
-        float Y_Move = Input.GetAxis("Vertical") * LaneMoveSpeed;
-        Wiz_RB.velocity = new Vector3(X_Move, Y_Move, RunSpeed);
-            
+    }
+
+    void LaneMove() {
+
+        Move = Vector3.zero;
+
+        if (Wiz_TF.position.x - 0.5f > Origin_Pos.x - 4.5f &&
+            Wiz_TF.position.x + 0.5f < Origin_Pos.x + 4.5f)
+        {
+            Move.x = Input.GetAxis("Horizontal") * LaneMoveSpeed;
+        }
+        else {
+            Move.x = Input.GetAxis("Horizontal") * -LaneMoveSpeed * 2;
+        }
+
+        if (Wiz_TF.position.y - 0.5f > Origin_Pos.y - 4.5f &&
+            Wiz_TF.position.y + 0.5f < Origin_Pos.y + 4.5f)
+        {
+            Move.y = Input.GetAxis("Vertical") * LaneMoveSpeed;
+        }
+        else {
+            Move.y = Input.GetAxis("Vertical") * -LaneMoveSpeed * 2;
+        }
 
     }
 

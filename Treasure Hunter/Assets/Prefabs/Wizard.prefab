@@ -213,3 +213,6 @@ MonoBehaviour:
   Wiz_TF: {fileID: 0}
   Wiz_RB: {fileID: 0}
   LaneMoveSpeed: 1
+  Origin_Pos: {x: 0, y: 0, z: 0}
+  Move: {x: 0, y: 0, z: 0}
+  spiral: {fileID: 0}

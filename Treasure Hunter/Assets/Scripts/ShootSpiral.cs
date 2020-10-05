@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShootSpiral : MonoBehaviour
 {
+    public Cyclone_Move cyc_m;  // 渦のシステムのscript
+
     public GameObject ShotPoint;
     public GameObject Spiral;
 
@@ -11,6 +13,8 @@ public class ShootSpiral : MonoBehaviour
     float x = 0;
     float y = 0;
     float z = 0;
+
+    public float DodgeSpeed;
 
     void Update()
     {
@@ -24,6 +28,7 @@ public class ShootSpiral : MonoBehaviour
             z = 0f;
             SpiralEulerAngles = new Vector3(x, y, z);
             SpiralShot();
+            cyc_m.z = DodgeSpeed;
         }
 
         //左クリック＆シフト
@@ -35,6 +40,7 @@ public class ShootSpiral : MonoBehaviour
             z = 0f;
             SpiralEulerAngles = new Vector3(x, y, z);
             SpiralShot();
+            cyc_m.z = DodgeSpeed;
         }
         else
         {
@@ -48,6 +54,7 @@ public class ShootSpiral : MonoBehaviour
                 z = -90f;
                 SpiralEulerAngles = new Vector3(x, y, z);
                 SpiralShot();
+                cyc_m.x = -DodgeSpeed;
             }
         }
             //右クリック＆シフト
@@ -59,6 +66,7 @@ public class ShootSpiral : MonoBehaviour
             z = 0f;
             SpiralEulerAngles = new Vector3(x, y, z);
             SpiralShot();
+            cyc_m.y = -DodgeSpeed;
         }
         else
         {
@@ -71,6 +79,7 @@ public class ShootSpiral : MonoBehaviour
                 z = 90f;
                 SpiralEulerAngles = new Vector3(x, y, z);
                 SpiralShot();
+                cyc_m.x = DodgeSpeed;
             }
         }
 

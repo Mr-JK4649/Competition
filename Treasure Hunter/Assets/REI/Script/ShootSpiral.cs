@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ShootSpiral : MonoBehaviour
 {
+
+    
+
     public GameObject ShotPoint;
     public GameObject Spiral;
 

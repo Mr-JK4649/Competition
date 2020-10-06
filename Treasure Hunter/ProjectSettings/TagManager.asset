@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Spiral
+  - Block
   layers:
   - Default
   - TransparentFX

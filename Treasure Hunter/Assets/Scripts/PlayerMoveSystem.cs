@@ -17,7 +17,9 @@ public class PlayerMoveSystem : MonoBehaviour
     public Vector3 Origin_Pos;         //プレイヤーの初期値 
     public Vector3 Move;               //プレイヤーの微調整
 
-    public GameObject spiral;
+    public GameObject bom;             //爆発
+
+    private bool deathFlg = false;
 
     private void Start()
     {
@@ -37,6 +39,15 @@ public class PlayerMoveSystem : MonoBehaviour
         //プレイヤーの座標更新
         Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
         
+        if(deathFlg)
+            Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Instantiate(bom,this.gameObject.transform);
+        RunSpeed = -0.5f;
+        deathFlg = true;
     }
 
     void LaneMove() {

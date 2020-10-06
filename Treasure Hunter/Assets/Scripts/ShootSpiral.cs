@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class ShootSpiral : MonoBehaviour
 {
-    public Cyclone_Move cyc_m;  // 渦のシステムのscript
+    public Cyclone_Move cyc_m;          // 渦のシステムのscript
+    public PlayerMoveSystem move_sys;   // キャラクターの移動に関するやつ
 
-    public GameObject ShotPoint;
-    public GameObject Spiral;
+    public GameObject ShotPoint;        // 渦を出す位置
+    public GameObject Spiral;           // 渦のオブジェクト
 
-    Vector3 SpiralEulerAngles;
+    Vector3 SpiralEulerAngles;          //渦を出す角度
     float x = 0;
     float y = 0;
     float z = 0;
 
-    public float DodgeSpeed;
+    public float DodgeSpeed;            // キャラクターのドッジ移動量
 
     void Update()
     {
@@ -27,8 +28,8 @@ public class ShootSpiral : MonoBehaviour
             y = 0f;
             z = 0f;
             SpiralEulerAngles = new Vector3(x, y, z);
+            cyc_m.setDodgeVec(0f, 0f, DodgeSpeed);
             SpiralShot();
-            cyc_m.z = DodgeSpeed;
         }
 
         //左クリック＆シフト
@@ -39,8 +40,8 @@ public class ShootSpiral : MonoBehaviour
             y = 0f;
             z = 0f;
             SpiralEulerAngles = new Vector3(x, y, z);
+            cyc_m.setDodgeVec(0f, DodgeSpeed, 0f);
             SpiralShot();
-            cyc_m.z = DodgeSpeed;
         }
         else
         {
@@ -53,8 +54,8 @@ public class ShootSpiral : MonoBehaviour
                 y = 0f;
                 z = -90f;
                 SpiralEulerAngles = new Vector3(x, y, z);
+                cyc_m.setDodgeVec(-DodgeSpeed, 0f, 0f);
                 SpiralShot();
-                cyc_m.x = -DodgeSpeed;
             }
         }
             //右クリック＆シフト
@@ -65,8 +66,8 @@ public class ShootSpiral : MonoBehaviour
             y = 0f;
             z = 0f;
             SpiralEulerAngles = new Vector3(x, y, z);
+            cyc_m.setDodgeVec(0f, -DodgeSpeed, 0f);
             SpiralShot();
-            cyc_m.y = -DodgeSpeed;
         }
         else
         {
@@ -78,8 +79,9 @@ public class ShootSpiral : MonoBehaviour
                 y = 0f;
                 z = 90f;
                 SpiralEulerAngles = new Vector3(x, y, z);
+                cyc_m.setDodgeVec(DodgeSpeed, 0f, 0f);
                 SpiralShot();
-                cyc_m.x = DodgeSpeed;
+                
             }
         }
 
@@ -87,10 +89,8 @@ public class ShootSpiral : MonoBehaviour
 
     public void SpiralShot()
     {
-            Vector3 SpiralPos = ShotPoint.transform.position;
-            GameObject newSpiral = Instantiate(Spiral, SpiralPos, Quaternion.Euler(SpiralEulerAngles));
-        Vector3 dir = ShotPoint.transform.eulerAngles = SpiralEulerAngles;
+        Vector3 SpiralPos = ShotPoint.transform.position;
+        GameObject newSpiral = Instantiate(Spiral, SpiralPos, Quaternion.Euler(SpiralEulerAngles));
         newSpiral.name = Spiral.name;
-            Destroy(newSpiral, 0.8f);
     }
 }

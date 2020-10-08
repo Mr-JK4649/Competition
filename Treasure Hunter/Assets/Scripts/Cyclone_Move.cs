@@ -21,6 +21,7 @@ public class Cyclone_Move : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         switch (this.gameObject.name) {
+
             case "UpSpiral":
                 plms.SpiralMoveNum = 0;
                 break;
@@ -37,9 +38,6 @@ public class Cyclone_Move : MonoBehaviour
                 plms.SpiralMoveNum = 3;
                 break;
 
-            case "AccelSpiral":
-                plms.SpiralMoveNum = 4;
-                break;
         }
 
         Destroy(this.gameObject, 0.2f);

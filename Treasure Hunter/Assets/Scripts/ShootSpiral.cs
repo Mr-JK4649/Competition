@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class ShootSpiral : MonoBehaviour
 {
@@ -22,24 +23,80 @@ public class ShootSpiral : MonoBehaviour
     void Update()
     {
 
-        //マウスホイールクリック
-        if (Input.GetMouseButtonDown(2))
-        {
-            Debug.Log("マウスホイールクリック");
-            x = 90f;
-            y = 0f;
-            z = 0f;
-            SpiralEulerAngles = new Vector3(x, y, z);
-            spiralName = "AccelSpiral";
-            SpiralShot();
-        }
+        ////マウスホイールクリック
+        //if (Input.GetMouseButtonDown(2))
+        //{
+        //    Debug.Log("マウスホイールクリック");
+        //    x = 90f;
+        //    y = 0f;
+        //    z = 0f;
+        //    SpiralEulerAngles = new Vector3(x, y, z);
+        //    spiralName = "AccelSpiral";
+        //    SpiralShot();
+        //}
 
-        //左クリック＆シフト
-        if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftShift))
-        {
-            if (plms.lanePos[0] != Vector3.zero)
+        ////左クリック＆シフト
+        //if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    if (plms.lanePos[0] != Vector3.zero)
+        //    {
+        //        Debug.Log("左クリック＆シフト");
+        //        x = 0f;
+        //        y = 0f;
+        //        z = 0f;
+        //        SpiralEulerAngles = new Vector3(x, y, z);
+        //        spiralName = "UpSpiral";
+        //        SpiralShot();
+        //    }
+        //}
+        //else
+        //{
+        //    //左クリック
+        //    if (Input.GetMouseButtonDown(0) && plms.lanePos[1] != Vector3.zero)
+        //    {
+        //        Debug.Log("左クリック");
+        //        Vector3 dir = ShotPoint.transform.up;
+        //        x = 0f;
+        //        y = 0f;
+        //        z = -90f;
+        //        SpiralEulerAngles = new Vector3(x, y, z);
+        //        spiralName = "LeftSpiral";
+        //        SpiralShot();
+        //    }
+        //}
+        ////右クリック＆シフト
+        //if (Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    if (plms.lanePos[3] != Vector3.zero)
+        //    {
+        //        Debug.Log("右クリック＆シフト");
+        //        x = 0f;
+        //        y = 0f;
+        //        z = 0f;
+        //        SpiralEulerAngles = new Vector3(x, y, z);
+        //        spiralName = "DownSpiral";
+        //        SpiralShot();
+        //    }
+        //}
+        //else
+        //{
+        //    //右クリック
+        //    if (Input.GetMouseButtonDown(1) && plms.lanePos[2] != Vector3.zero)
+        //    {
+        //        Debug.Log("右クリック");
+        //        x = 0f;
+        //        y = 0f;
+        //        z = 90f;
+        //        SpiralEulerAngles = new Vector3(x, y, z);
+        //        spiralName = "RightSpiral";
+        //        SpiralShot();
+                
+        //    }
+        //}
+
+
+            if (Input.GetKey(KeyCode.W) && Input.GetMouseButtonDown(0))
             {
-                Debug.Log("左クリック＆シフト");
                 x = 0f;
                 y = 0f;
                 z = 0f;
@@ -47,14 +104,8 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "UpSpiral";
                 SpiralShot();
             }
-        }
-        else
-        {
-            //左クリック
-            if (Input.GetMouseButtonDown(0) && plms.lanePos[1] != Vector3.zero)
+            else if (Input.GetKey(KeyCode.A) && Input.GetMouseButtonDown(0))
             {
-                Debug.Log("左クリック");
-                Vector3 dir = ShotPoint.transform.up;
                 x = 0f;
                 y = 0f;
                 z = -90f;
@@ -62,13 +113,17 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "LeftSpiral";
                 SpiralShot();
             }
-        }
-        //右クリック＆シフト
-        if (Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.LeftShift))
-        {
-            if (plms.lanePos[3] != Vector3.zero)
+            else if (Input.GetKey(KeyCode.D) && Input.GetMouseButtonDown(0))
             {
-                Debug.Log("右クリック＆シフト");
+                x = 0f;
+                y = 0f;
+                z = 90f;
+                SpiralEulerAngles = new Vector3(x, y, z);
+                spiralName = "RightSpiral";
+                SpiralShot();
+            }
+            else if (Input.GetKey(KeyCode.S) && Input.GetMouseButtonDown(0))
+            {
                 x = 0f;
                 y = 0f;
                 z = 0f;
@@ -76,21 +131,14 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "DownSpiral";
                 SpiralShot();
             }
-        }
-        else
+        else if (Input.GetMouseButtonDown(0))
         {
-            //右クリック
-            if (Input.GetMouseButtonDown(1) && plms.lanePos[2] != Vector3.zero)
-            {
-                Debug.Log("右クリック");
-                x = 0f;
-                y = 0f;
-                z = 90f;
-                SpiralEulerAngles = new Vector3(x, y, z);
-                spiralName = "RightSpiral";
-                SpiralShot();
-                
-            }
+            x = 90f;
+            y = 0f;
+            z = 0f;
+            SpiralEulerAngles = new Vector3(x, y, z);
+            spiralName = "AccelSpiral";
+            SpiralShot();
         }
 
     }

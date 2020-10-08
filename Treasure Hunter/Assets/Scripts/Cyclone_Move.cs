@@ -10,32 +10,39 @@ using UnityEngine;
 public class Cyclone_Move : MonoBehaviour
 {
 
-    public Vector3 dodgeVec;        //ドッジ回避用のベクトル3
+    private PlayerMoveSystem plms;
 
-
-    //ベクトルを設定する関数
-    public void setDodgeVec(float x,float y,float z) {
-        dodgeVec = new Vector3(x, y, z);
-    }
-
-    //ベクトルを初期化する関数
-    public void InitDodgeVec() {
-        dodgeVec = Vector3.zero;
-    }
-
-    //何かのオブジェクトに接触したら(Trriger)
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == ("Player"))
-        {
-            other.gameObject.GetComponent<Rigidbody>().AddForce(dodgeVec, ForceMode.Impulse);
-            Destroy(this.gameObject, 0.2f);
-        }
-    }
-
-    //触れなかったオブジェクトは1秒後に自動的に削除
     private void Start()
     {
+        plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
         Destroy(this.gameObject, 1.0f);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        switch (this.gameObject.name) {
+            case "UpSpiral":
+                plms.SpiralMoveNum = 0;
+                break;
+
+            case "LeftSpiral":
+                plms.SpiralMoveNum = 1;
+                break;
+
+            case "RightSpiral":
+                plms.SpiralMoveNum = 2;
+                break;
+
+            case "DownSpiral":
+                plms.SpiralMoveNum = 3;
+                break;
+
+            case "AccelSpiral":
+                plms.SpiralMoveNum = 4;
+                break;
+        }
+
+        Destroy(this.gameObject, 0.2f);
+    }
+
 }

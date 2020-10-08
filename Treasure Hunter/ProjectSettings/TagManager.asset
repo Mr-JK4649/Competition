@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spiral
   - Block
+  - Lane
   layers:
   - Default
   - TransparentFX

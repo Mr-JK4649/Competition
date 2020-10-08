@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootSpiral : MonoBehaviour
 {
-    public Cyclone_Move cyc_m;          // 渦のシステムのscript
-    public PlayerMoveSystem move_sys;   // キャラクターの移動に関するやつ
+
+    public PlayerMoveSystem plms;
 
     public GameObject ShotPoint;        // 渦を出す位置
     public GameObject Spiral;           // 渦のオブジェクト
+    private string spiralName;          //渦の名前
 
     Vector3 SpiralEulerAngles;          //渦を出す角度
     float x = 0;
@@ -28,25 +30,28 @@ public class ShootSpiral : MonoBehaviour
             y = 0f;
             z = 0f;
             SpiralEulerAngles = new Vector3(x, y, z);
-            cyc_m.setDodgeVec(0f, 0f, DodgeSpeed);
+            spiralName = "AccelSpiral";
             SpiralShot();
         }
 
         //左クリック＆シフト
         if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftShift))
         {
-            Debug.Log("左クリック＆シフト");
-            x = 0f;
-            y = 0f;
-            z = 0f;
-            SpiralEulerAngles = new Vector3(x, y, z);
-            cyc_m.setDodgeVec(0f, DodgeSpeed, 0f);
-            SpiralShot();
+            if (plms.lanePos[0] != Vector3.zero)
+            {
+                Debug.Log("左クリック＆シフト");
+                x = 0f;
+                y = 0f;
+                z = 0f;
+                SpiralEulerAngles = new Vector3(x, y, z);
+                spiralName = "UpSpiral";
+                SpiralShot();
+            }
         }
         else
         {
             //左クリック
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && plms.lanePos[1] != Vector3.zero)
             {
                 Debug.Log("左クリック");
                 Vector3 dir = ShotPoint.transform.up;
@@ -54,32 +59,35 @@ public class ShootSpiral : MonoBehaviour
                 y = 0f;
                 z = -90f;
                 SpiralEulerAngles = new Vector3(x, y, z);
-                cyc_m.setDodgeVec(-DodgeSpeed, 0f, 0f);
+                spiralName = "LeftSpiral";
                 SpiralShot();
             }
         }
-            //右クリック＆シフト
+        //右クリック＆シフト
         if (Input.GetMouseButtonDown(1) && Input.GetKey(KeyCode.LeftShift))
         {
-            Debug.Log("右クリック＆シフト");
-            x = 0f;
-            y = 0f;
-            z = 0f;
-            SpiralEulerAngles = new Vector3(x, y, z);
-            cyc_m.setDodgeVec(0f, -DodgeSpeed, 0f);
-            SpiralShot();
+            if (plms.lanePos[3] != Vector3.zero)
+            {
+                Debug.Log("右クリック＆シフト");
+                x = 0f;
+                y = 0f;
+                z = 0f;
+                SpiralEulerAngles = new Vector3(x, y, z);
+                spiralName = "DownSpiral";
+                SpiralShot();
+            }
         }
         else
         {
             //右クリック
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) && plms.lanePos[2] != Vector3.zero)
             {
                 Debug.Log("右クリック");
                 x = 0f;
                 y = 0f;
                 z = 90f;
                 SpiralEulerAngles = new Vector3(x, y, z);
-                cyc_m.setDodgeVec(DodgeSpeed, 0f, 0f);
+                spiralName = "RightSpiral";
                 SpiralShot();
                 
             }
@@ -91,6 +99,6 @@ public class ShootSpiral : MonoBehaviour
     {
         Vector3 SpiralPos = ShotPoint.transform.position;
         GameObject newSpiral = Instantiate(Spiral, SpiralPos, Quaternion.Euler(SpiralEulerAngles));
-        newSpiral.name = Spiral.name;
+        newSpiral.name = spiralName;
     }
 }

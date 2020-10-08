@@ -43,12 +43,12 @@ public class PlayerMoveSystem : MonoBehaviour
             Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         Instantiate(bom,this.gameObject.transform);
         RunSpeed = -0.5f;
         deathFlg = true;
-    }
+    }*/
 
     void LaneMove() {
 

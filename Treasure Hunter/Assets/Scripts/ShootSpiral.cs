@@ -95,7 +95,7 @@ public class ShootSpiral : MonoBehaviour
         //}
 
 
-            if (Input.GetKey(KeyCode.W) && Input.GetMouseButtonDown(0))
+            if (Input.GetKey(KeyCode.W) && Input.GetMouseButtonDown(0) && plms.lanePos[0] != Vector3.zero)
             {
                 x = 0f;
                 y = 0f;
@@ -104,7 +104,7 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "UpSpiral";
                 SpiralShot();
             }
-            else if (Input.GetKey(KeyCode.A) && Input.GetMouseButtonDown(0))
+            else if (Input.GetKey(KeyCode.A) && Input.GetMouseButtonDown(0) && plms.lanePos[1] != Vector3.zero)
             {
                 x = 0f;
                 y = 0f;
@@ -113,7 +113,7 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "LeftSpiral";
                 SpiralShot();
             }
-            else if (Input.GetKey(KeyCode.D) && Input.GetMouseButtonDown(0))
+            else if (Input.GetKey(KeyCode.D) && Input.GetMouseButtonDown(0) && plms.lanePos[2] != Vector3.zero)
             {
                 x = 0f;
                 y = 0f;
@@ -122,7 +122,7 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "RightSpiral";
                 SpiralShot();
             }
-            else if (Input.GetKey(KeyCode.S) && Input.GetMouseButtonDown(0))
+            else if (Input.GetKey(KeyCode.S) && Input.GetMouseButtonDown(0) && plms.lanePos[3] != Vector3.zero)
             {
                 x = 0f;
                 y = 0f;
@@ -131,15 +131,15 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "DownSpiral";
                 SpiralShot();
             }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            x = 90f;
-            y = 0f;
-            z = 0f;
-            SpiralEulerAngles = new Vector3(x, y, z);
-            spiralName = "AccelSpiral";
-            SpiralShot();
-        }
+            else if (Input.GetMouseButtonDown(0))
+            {
+                x = 90f;
+                y = 0f;
+                z = 0f;
+                SpiralEulerAngles = new Vector3(x, y, z);
+                spiralName = "AccelSpiral";
+                SpiralShot();
+            }
 
     }
 

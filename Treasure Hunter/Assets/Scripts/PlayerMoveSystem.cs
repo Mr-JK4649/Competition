@@ -75,8 +75,8 @@ public class PlayerMoveSystem : MonoBehaviour
 
         Move = Vector3.zero;
 
-        if (Wiz_TF.position.x - 0.5f > Origin_Pos.x - 4.5f &&
-            Wiz_TF.position.x + 0.5f < Origin_Pos.x + 4.5f)
+        if (Wiz_TF.position.x - 0.5f > Origin_Pos.x - 13.5f &&
+            Wiz_TF.position.x + 0.5f < Origin_Pos.x + 13.5f)
         {
             Move.x = Input.GetAxis("Horizontal") * LaneMoveSpeed;
         }
@@ -84,8 +84,8 @@ public class PlayerMoveSystem : MonoBehaviour
             Move.x = Input.GetAxis("Horizontal") * -LaneMoveSpeed * 5;
         }
 
-        if (Wiz_TF.position.y - 0.5f > Origin_Pos.y - 4.5f &&
-            Wiz_TF.position.y + 0.5f < Origin_Pos.y + 4.5f)
+        if (Wiz_TF.position.y - 0.5f > Origin_Pos.y - 13.5f &&
+            Wiz_TF.position.y + 0.5f < Origin_Pos.y + 13.5f)
         {
             Move.y = Input.GetAxis("Vertical") * LaneMoveSpeed;
         }

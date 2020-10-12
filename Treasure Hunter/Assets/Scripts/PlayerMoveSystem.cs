@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Scripting;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UIElements;
 
@@ -59,7 +61,12 @@ public class PlayerMoveSystem : MonoBehaviour
         if(deathFlg && blockHitFlg)
             Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
     }
-
+    
+    // プレイヤーの加速度を返す
+    public Vector3 GetPlayerVelocity() 
+    {
+        return Wiz_RB.velocity;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (blockHitFlg)

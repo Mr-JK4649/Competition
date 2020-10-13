@@ -90,10 +90,13 @@ public class ShootSpiral : MonoBehaviour
         //        SpiralEulerAngles = new Vector3(x, y, z);
         //        spiralName = "RightSpiral";
         //        SpiralShot();
-                
+
         //    }
         //}
+        plms.setNaighborDistination();
 
+        if (GameObject.FindWithTag("Spiral") == null)
+        {
 
             if (Input.GetKey(KeyCode.W) && Input.GetMouseButtonDown(0) && plms.lanePos[0] != Vector3.zero)
             {
@@ -140,6 +143,11 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "AccelSpiral";
                 SpiralShot();
             }
+
+        }
+
+
+        
 
     }
 

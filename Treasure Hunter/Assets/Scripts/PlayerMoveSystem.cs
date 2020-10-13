@@ -130,13 +130,11 @@ public class PlayerMoveSystem : MonoBehaviour
     }
 
     //レーン移動のやつ
-    //void DodgeMovement() {
-    //    Vector3.Lerp(lanePos[SpiralMoveNum], Wiz_TF.position, );
-    //}
+    
+    //public IEnumerator SpiralMovement()
+    //{
 
-    //IEnumerator SpiralMovement() { 
-        
-    //    Vector3.Lerp(lanePos[SpiralMoveNum], Wiz_TF.position,)
+    //    Vector3.Lerp()
 
     //}
 }

@@ -1503,7 +1503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pms: {fileID: 8046776147147496687}
-  FixedCamera: 0
+  FixedCamera: 1
 --- !u!4 &8046776148147390521
 Transform:
   m_ObjectHideFlags: 0

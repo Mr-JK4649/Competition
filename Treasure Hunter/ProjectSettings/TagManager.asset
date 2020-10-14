@@ -10,6 +10,7 @@ TagManager:
   - Lane
   - Coin
   - Goal
+  - GoalStop
   layers:
   - Default
   - TransparentFX

@@ -12,18 +12,18 @@ using UnityEngine.UIElements;
 public class PlayerMoveSystem : MonoBehaviour
 {
 
-    public float RunSpeed = 0f;     //プレイヤーの自動飛行の速度
-    private GameObject Wiz;          //プレイヤーオブジェクトを入れる
-    private Transform Wiz_TF;        //プレイヤーのトランスフォーム
-    private Rigidbody Wiz_RB;        //プレイヤーのRigitbody
+    public float RunSpeed = 0f;      //プレイヤーの自動飛行の速度
+    [NonSerialized] public GameObject Wiz;          //プレイヤーオブジェクトを入れる
+    [NonSerialized] public Transform Wiz_TF;        //プレイヤーのトランスフォーム
+    [NonSerialized] public Rigidbody Wiz_RB;        //プレイヤーのRigitbody
 
     public float LaneMoveSpeed = 0f;            //プレイヤーのレーン移動速度
     public GameObject[] laneObj;                //レーンオブジェクトの位置
     public Vector3[] lanePos = new Vector3[4];  //移動先レーンの位置
     public GameObject currentLane;              //現在のレーン
-    public int SpiralMoveNum = -1;              //うずの識別番号
     public AnimationCurve dodgeSpeed;           //うずの移動速度
-    public Vector3 Origin_Pos;                 //プレイヤーの初期値
+    public float dodgeTime;                     //ドッジ回避に掛かる時間
+    public Vector3 Origin_Pos;                  //プレイヤーの初期値
     private Vector3 Move;                       //プレイヤーの微調整
 
     public bool blockHitFlg = false;    //障害物に当たるかのフラグ
@@ -46,19 +46,12 @@ public class PlayerMoveSystem : MonoBehaviour
         //レーン移動の処理
         LaneMove();
 
-        //お試しうずの移動
-        setNaighborDistination();
-        if (SpiralMoveNum != -1) {
-            Wiz_TF.position = new Vector3(lanePos[SpiralMoveNum].x, lanePos[SpiralMoveNum].y, Wiz_TF.position.z);
-            SpiralMoveNum = -1;
-        }
-            
-
         //プレイヤーの座標更新
         Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
-        
+
+
         //障害物に当たった時の処理
-        if(deathFlg && blockHitFlg)
+        if (deathFlg && blockHitFlg)
             Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
     }
     
@@ -103,7 +96,7 @@ public class PlayerMoveSystem : MonoBehaviour
     }
 
     //移動先のレーンを格納
-    void setNaighborDistination() {
+    public void setNaighborDistination() {
         int current = 0;
         while (current < 9) {
             if (currentLane.name == laneObj[current].name) break;
@@ -130,11 +123,18 @@ public class PlayerMoveSystem : MonoBehaviour
     }
 
     //レーン移動のやつ
-    
-    //public IEnumerator SpiralMovement()
-    //{
+    public IEnumerator Mover(Vector3 pos1, Vector3 pos2, AnimationCurve ac, float time)
+    {
+        float timer = 0.0f;
+        while (timer <= time)
+        {
 
-    //    Vector3.Lerp()
+            Vector3 pos = Vector3.Lerp(pos1, pos2, ac.Evaluate(timer / time));
+            transform.position = new Vector3(pos.x,pos.y,Wiz_TF.position.z);
+            
 
-    //}
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
 }

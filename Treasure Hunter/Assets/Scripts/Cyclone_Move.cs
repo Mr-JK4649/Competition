@@ -11,36 +11,48 @@ public class Cyclone_Move : MonoBehaviour
 {
 
     private PlayerMoveSystem plms;
+    private int spiralNum = -1;
 
     private void Start()
     {
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
-        Destroy(this.gameObject, 1.0f);
+        Destroy(this.gameObject, plms.dodgeTime);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        switch (this.gameObject.name) {
 
-            case "UpSpiral":
-                plms.SpiralMoveNum = 0;
-                break;
+        if (other.gameObject.tag == "Player")
+        {
+            
 
-            case "LeftSpiral":
-                plms.SpiralMoveNum = 1;
-                break;
+            switch (this.gameObject.name)
+            {
 
-            case "RightSpiral":
-                plms.SpiralMoveNum = 2;
-                break;
+                case "UpSpiral":
+                    spiralNum = 0;
+                    break;
 
-            case "DownSpiral":
-                plms.SpiralMoveNum = 3;
-                break;
+                case "LeftSpiral":
+                    spiralNum = 1;
+                    break;
 
+                case "RightSpiral":
+                    spiralNum = 2;
+                    break;
+
+                case "DownSpiral":
+                    spiralNum = 3;
+                    break;
+
+            }
+
+            if(spiralNum != -1)
+                plms.StartCoroutine(plms.Mover(plms.Wiz_TF.position, plms.lanePos[spiralNum], plms.dodgeSpeed, plms.dodgeTime));
+            
         }
-
-        Destroy(this.gameObject, 0.2f);
     }
+
+
 
 }

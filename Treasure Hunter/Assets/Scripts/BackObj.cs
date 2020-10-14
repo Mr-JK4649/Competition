@@ -10,6 +10,6 @@ public class BackObj : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.GetComponent<Rigidbody>().velocity = -playermove.GetPlayerVelocity();
+        this.GetComponent<Rigidbody>().velocity = -4 * playermove.GetPlayerVelocity();
     }
 }

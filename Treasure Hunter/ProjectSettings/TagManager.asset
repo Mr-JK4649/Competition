@@ -9,6 +9,7 @@ TagManager:
   - Camera
   - Lane
   - Coin
+  - Goal
   layers:
   - Default
   - TransparentFX

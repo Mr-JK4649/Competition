@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -17,19 +19,18 @@ public class PlayerMoveSystem : MonoBehaviour
     [NonSerialized] public Transform Wiz_TF;        //プレイヤーのトランスフォーム
     [NonSerialized] public Rigidbody Wiz_RB;        //プレイヤーのRigitbody
 
-    public float LaneMoveSpeed = 0f;            //プレイヤーのレーン移動速度
-    public GameObject[] laneObj;                //レーンオブジェクトの位置
-    public Vector3[] lanePos = new Vector3[4];  //移動先レーンの位置
-    public GameObject currentLane;              //現在のレーン
-    public AnimationCurve dodgeSpeed;           //うずの移動速度
-    public float dodgeTime;                     //ドッジ回避に掛かる時間
-    public Vector3 Origin_Pos;                  //プレイヤーの初期値
-    private Vector3 Move;                       //プレイヤーの微調整
+    [NonSerialized] public int accelTime = 0;   //加速時間
+    public float LaneMoveSpeed = 0f;                            //プレイヤーのレーン移動速度
+    public GameObject[] laneObj;                                //レーンオブジェクトの位置
+    [NonSerialized] public Vector3[] lanePos = new Vector3[4];  //移動先レーンの位置
+    [NonSerialized] public GameObject currentLane;              //現在のレーン
+    public AnimationCurve dodgeSpeed;                           //うずの移動速度
+    public float dodgeTime;                                     //ドッジ回避に掛かる時間
+    [NonSerialized] public Vector3 Origin_Pos;                  //プレイヤーの初期値
+    private Vector3 Move;                                       //プレイヤーの微調整
+    [NonSerialized] public float playerOriginSpeed;             //プレイヤーの元の速度保存用
+    public float accelForce;                                    //加速の倍率
 
-    public bool blockHitFlg = false;    //障害物に当たるかのフラグ
-    private bool deathFlg = false;      //プレイヤーが障害物に当たったかの判定
-    public GameObject bom;              //爆発
-    
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class PlayerMoveSystem : MonoBehaviour
         Wiz_RB = Wiz.GetComponent<Rigidbody>();     //プレイヤーのRigitBodyを入れる
 
         Origin_Pos = Wiz_TF.position;               //プレイヤーの初期位置を設定
+        playerOriginSpeed = RunSpeed;               //プレイヤーの速度を保存
     }
 
     private void Update()
@@ -50,25 +52,26 @@ public class PlayerMoveSystem : MonoBehaviour
         Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
 
 
-        //障害物に当たった時の処理
-        if (deathFlg && blockHitFlg)
-            Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
+        if (accelTime > 0) {
+
+            accelTime--;
+
+            if (accelTime <= 0) {
+                RunSpeed = playerOriginSpeed;
+                accelTime = 0;
+            }
+
+            
+        }
     }
     
+
     // プレイヤーの加速度を返す
     public Vector3 GetPlayerVelocity() 
     {
         return Wiz_RB.velocity;
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (blockHitFlg)
-        {
-            Instantiate(bom, this.gameObject.transform);
-            RunSpeed = -0.5f;
-            deathFlg = true;
-        }
-    }
+    
 
     //ＷＡＳＤキーの移動
     void LaneMove() {

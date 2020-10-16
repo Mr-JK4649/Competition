@@ -46,7 +46,7 @@ public class Cyclone_Move : MonoBehaviour
                     break;
 
                 case "AccelSpiral":
-                    plms.accelTime = 60 * 5;
+                    plms.accelTime = 60;
                     plms.RunSpeed = plms.playerOriginSpeed * plms.accelForce;
                     break;
 

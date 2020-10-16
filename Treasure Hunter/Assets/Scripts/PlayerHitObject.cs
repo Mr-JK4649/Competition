@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ public class PlayerHitObject : MonoBehaviour
         GameObject bom;             //爆発
 
     public Slider CoinBar;                      //コイン獲るたびに増えるバー
+    public Text ScoreText;                      //[Score:]を表示するためのテキスト
     public Text Score;                          //点数を表示するテキスト
     [NonSerialized] private int sco;           //スコア用の変数
     [SerializeField] private int CoinsScore;   //コイン一枚当たりのスコア
@@ -26,14 +28,15 @@ public class PlayerHitObject : MonoBehaviour
     private void Start()
     {
         plms = this.GetComponent<PlayerMoveSystem>();
+        ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
 
         //ステージ中のUIを標準非表示に
         CoinBar.gameObject.SetActive(false);
-        GameObject.Find("ScoreText").GetComponent<Text>().enabled = false;
+        ScoreText.enabled = false;
         Score.enabled = false;
         if (isShowUi) {
             CoinBar.gameObject.SetActive(true);
-            GameObject.Find("ScoreText").GetComponent<Text>().enabled = false;
+            ScoreText.enabled = true;
             Score.enabled = true;
         }
     }
@@ -44,7 +47,13 @@ public class PlayerHitObject : MonoBehaviour
         if (deathFlg && blockHitFlg)
             plms.Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
 
-        if (CoinBar.value >= 1.0f) {
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if (CoinBar.value >= 1.0f)
+        {
             CoinBar.value = 0f;
             CoinsScore += 100;
         }

@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class PlayerHitObject : MonoBehaviour
 {
     private PlayerMoveSystem plms;  //プレイヤーの移動を司るスクリプト
+    private GameManager gm;         //ゲームの進行などを司るスクリプト
 
     private bool deathFlg = false;  //プレイヤーが障害物に当たったかの判定
 
@@ -28,6 +29,7 @@ public class PlayerHitObject : MonoBehaviour
     private void Start()
     {
         plms = this.GetComponent<PlayerMoveSystem>();
+        gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
 
         //ステージ中のUIを標準非表示に
@@ -44,8 +46,17 @@ public class PlayerHitObject : MonoBehaviour
     private void Update()
     {
         //障害物に当たった時の処理
-        if (deathFlg && blockHitFlg)
-            plms.Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
+        if (deathFlg)
+        {
+            if(blockHitFlg)
+                plms.Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
+
+            if (Input.GetKeyDown(KeyCode.R)) {
+                gm.Retry();
+            }
+        }
+
+        
 
         
     }
@@ -66,6 +77,7 @@ public class PlayerHitObject : MonoBehaviour
             Instantiate(bom, this.gameObject.transform);
             plms.RunSpeed = -0.5f;
             deathFlg = true;
+            gm.GameOver();
         }
     }
 
@@ -77,10 +89,9 @@ public class PlayerHitObject : MonoBehaviour
                 other.gameObject.SetActive(false);
                 Destroy(other.gameObject);
                 sco += CoinsScore;
-                Score.text = sco + "点";
+                Score.text = sco.ToString() + "点";
                 CoinBar.value += 0.1f;
                 break;
-
         }
     }
 }

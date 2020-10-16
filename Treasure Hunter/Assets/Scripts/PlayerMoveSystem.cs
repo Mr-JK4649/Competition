@@ -19,7 +19,7 @@ public class PlayerMoveSystem : MonoBehaviour
     [NonSerialized] public Transform Wiz_TF;        //プレイヤーのトランスフォーム
     [NonSerialized] public Rigidbody Wiz_RB;        //プレイヤーのRigitbody
 
-    [NonSerialized] public int accelTime = 0;   //加速時間
+    
     public float LaneMoveSpeed = 0f;                            //プレイヤーのレーン移動速度
     public GameObject[] laneObj;                                //レーンオブジェクトの位置
     [NonSerialized] public Vector3[] lanePos = new Vector3[4];  //移動先レーンの位置
@@ -30,6 +30,8 @@ public class PlayerMoveSystem : MonoBehaviour
     private Vector3 Move;                                       //プレイヤーの微調整
     [NonSerialized] public float playerOriginSpeed;             //プレイヤーの元の速度保存用
     public float accelForce;                                    //加速の倍率
+    public int accelTime = 0;                                   //加速の時間
+    [NonSerialized]public int accelCount;                       //加速カウント
 
 
     private void Start()
@@ -52,18 +54,20 @@ public class PlayerMoveSystem : MonoBehaviour
         Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
 
 
-        if (accelTime > 0) {
+        if (accelCount > 0) {
 
-            accelTime--;
+            accelCount--;
 
-            if (accelTime <= 0) {
+            if (accelCount <= 0) {
                 RunSpeed = playerOriginSpeed;
-                accelTime = 0;
+                accelCount = 0;
             }
 
             
         }
     }
+
+
     
 
     // プレイヤーの加速度を返す

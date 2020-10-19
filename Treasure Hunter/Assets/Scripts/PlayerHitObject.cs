@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
@@ -27,6 +28,7 @@ public class PlayerHitObject : MonoBehaviour
 
     private void Start()
     {
+
         plms = this.GetComponent<PlayerMoveSystem>();
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();

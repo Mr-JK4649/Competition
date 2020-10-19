@@ -18890,7 +18890,7 @@ PrefabInstance:
     - target: {fileID: 1486970566721273057, guid: 5bf4bedc0f20fbc4ba1fe1cda55612aa,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -27
+      value: -28.7
       objectReference: {fileID: 0}
     - target: {fileID: 1486970566954000204, guid: 5bf4bedc0f20fbc4ba1fe1cda55612aa,
         type: 3}
@@ -95851,7 +95851,7 @@ PrefabInstance:
     - target: {fileID: 2120246083106265702, guid: a7442be0be43a414c941575994481adf,
         type: 3}
       propertyPath: LaneMoveSpeed
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2120246083106265722, guid: a7442be0be43a414c941575994481adf,
         type: 3}
@@ -95872,6 +95872,11 @@ PrefabInstance:
         type: 3}
       propertyPath: isShowUi
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120246083106265722, guid: a7442be0be43a414c941575994481adf,
+        type: 3}
+      propertyPath: coinsScore
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2120246084196753001, guid: a7442be0be43a414c941575994481adf,
         type: 3}

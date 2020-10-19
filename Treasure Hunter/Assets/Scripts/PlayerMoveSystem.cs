@@ -40,6 +40,7 @@ public class PlayerMoveSystem : MonoBehaviour
         Wiz_TF = Wiz.GetComponent<Transform>();     //プレイヤーのTransFormを入れる
         Wiz_RB = Wiz.GetComponent<Rigidbody>();     //プレイヤーのRigitBodyを入れる
 
+        currentLane = laneObj[4];
         Origin_Pos = Wiz_TF.position;               //プレイヤーの初期位置を設定
         playerOriginSpeed = RunSpeed;               //プレイヤーの速度を保存
     }

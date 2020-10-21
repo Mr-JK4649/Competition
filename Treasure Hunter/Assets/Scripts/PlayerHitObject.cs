@@ -3,31 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class PlayerHitObject : MonoBehaviour
 {
-    private PlayerMoveSystem plms;  //プレイヤーの移動を司るスクリプト
-    private GameManager gm;         //ゲームの進行などを司るスクリプト
+    private PlayerMoveSystem plms;                  //プレイヤーの移動を司るスクリプト
+    private GameManager gm;                         //ゲームの進行などを司るスクリプト
 
-    private bool deathFlg = false;  //プレイヤーが障害物に当たったかの判定
+    private bool deathFlg = false;                  //プレイヤーが障害物に当たったかの判定
 
-    [SerializeField] 
-        bool blockHitFlg = false;   //障害物に当たるかのフラグ
+    [SerializeField] bool blockHitFlg = false;      //障害物に当たるかのフラグ
     
-    [SerializeField]
-        GameObject bom;             //爆発
+    [SerializeField] GameObject bom;                //爆発
 
-    public Slider CoinBar;                      //コイン獲るたびに増えるバー
-    public Text ScoreText;                      //[Score:]を表示するためのテキスト
-    public Text Score;                          //点数を表示するテキスト
-    [NonSerialized] private int sco;           //スコア用の変数
-    [SerializeField] private int CoinsScore;   //コイン一枚当たりのスコア
-    [SerializeField] private bool isShowUi = false;     //UIを見せるかどうかのやつ
+    public Slider CoinBar;                          //コイン獲るたびに増えるバー
+    public Text ScoreText;                          //[Score:]を表示するためのテキスト
+    public Text Score;                              //点数を表示するテキスト
+    private int sco;                                //スコア用の変数
+    private int coinCount = 0;                      //コインの枚数
+    [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
+    [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
 
     private void Start()
     {
+
         plms = this.GetComponent<PlayerMoveSystem>();
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
@@ -55,10 +56,6 @@ public class PlayerHitObject : MonoBehaviour
                 gm.Retry();
             }
         }
-
-        
-
-        
     }
 
     private void FixedUpdate()
@@ -66,7 +63,7 @@ public class PlayerHitObject : MonoBehaviour
         if (CoinBar.value >= 1.0f)
         {
             CoinBar.value = 0f;
-            CoinsScore += 100;
+            coinsScore += 100;
         }
     }
 
@@ -83,13 +80,15 @@ public class PlayerHitObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         switch (other.gameObject.tag)
         {
             case "Coin":
                 other.gameObject.SetActive(false);
                 Destroy(other.gameObject);
-                sco += CoinsScore;
-                Score.text = sco.ToString() + "点";
+                sco += coinsScore;
+                coinCount += 1;
+                Score.text = sco.ToString("0000000") + " 点\n" + coinCount.ToString("000") + " 枚";
                 CoinBar.value += 0.1f;
                 break;
         }

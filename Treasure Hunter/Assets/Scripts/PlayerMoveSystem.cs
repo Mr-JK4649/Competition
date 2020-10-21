@@ -33,6 +33,7 @@ public class PlayerMoveSystem : MonoBehaviour
     public int accelTime = 0;                                   //加速の時間
     [NonSerialized]public int accelCount;                       //加速カウント
 
+    
 
     private void Start()
     {

@@ -11,6 +11,7 @@ TagManager:
   - Coin
   - Goal
   - GoalStop
+  - Curve
   layers:
   - Default
   - TransparentFX

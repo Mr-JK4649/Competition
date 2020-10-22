@@ -55,21 +55,23 @@ public class PlayerMoveSystem : MonoBehaviour
         //プレイヤーの座標更新
         Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
 
-
+        //加速カウントが0では無ければ
         if (accelCount > 0) {
 
             accelCount--;
 
+            //時間が経過したらプレイヤーの速度を徐々に初期化
             if (accelCount <= 0) {
-                RunSpeed = playerOriginSpeed;
+                StartCoroutine("SlowInitSpeed");
                 accelCount = 0;
             }
+   
+        }
 
             
-        }
+
     }
-
-
+    
     
 
     // プレイヤーの加速度を返す
@@ -77,7 +79,6 @@ public class PlayerMoveSystem : MonoBehaviour
     {
         return Wiz_RB.velocity;
     }
-    
 
     //ＷＡＳＤキーの移動
     void LaneMove() {
@@ -145,5 +146,18 @@ public class PlayerMoveSystem : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
+    }
+
+    private IEnumerator SlowInitSpeed() {
+
+        while (RunSpeed > playerOriginSpeed) {
+            RunSpeed -= 0.4f;
+
+            yield return null;
+        }
+
+        RunSpeed = playerOriginSpeed;
+
+        
     }
 }

@@ -2116,6 +2116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99f6cbe0e901ee41817cafd51fc327a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  framerate: 60
+  currentFramerate: 0
 --- !u!4 &1427686745
 Transform:
   m_ObjectHideFlags: 0
@@ -8786,7 +8788,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  dodgeTime: 0.5
+  dodgeTime: 0.25
   accelForce: 3
   accelTime: 200
 --- !u!23 &5806982534825648761
@@ -9674,9 +9676,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockHitFlg: 1
   bom: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
-  CoinBar: {fileID: 115239499}
-  ScoreText: {fileID: 327280291}
-  Score: {fileID: 285116904}
   coinsScore: 100
   isShowUi: 1
 --- !u!1 &8699383569383643721

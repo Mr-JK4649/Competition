@@ -18,9 +18,9 @@ public class PlayerHitObject : MonoBehaviour
     
     [SerializeField] GameObject bom;                //爆発
 
-    public Slider CoinBar;                          //コイン獲るたびに増えるバー
-    public Text ScoreText;                          //[Score:]を表示するためのテキスト
-    public Text Score;                              //点数を表示するテキスト
+    private Slider CoinBar;                          //コイン獲るたびに増えるバー
+    private Text ScoreText;                          //[Score:]を表示するためのテキスト
+    private Text Score;                              //点数を表示するテキスト
     private int sco;                                //スコア用の変数
     private int coinCount = 0;                      //コインの枚数
     [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
@@ -31,7 +31,9 @@ public class PlayerHitObject : MonoBehaviour
 
         plms = this.GetComponent<PlayerMoveSystem>();
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
+        CoinBar = GameObject.Find("CoinChainGage").GetComponent<Slider>();
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        Score = GameObject.Find("Score").GetComponent<Text>();
 
         //ステージ中のUIを標準非表示に
         CoinBar.gameObject.SetActive(false);

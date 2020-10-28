@@ -5,6 +5,23 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
+    
+    [SerializeField,Tooltip("ゲームのFPS値を設定するやつね")] 
+    private int framerate;
+
+    [Tooltip("現在のFPS値の近似値のやつね")]
+    public int currentFramerate;
+
+    private void Start()
+    {
+        Application.targetFrameRate = framerate;
+    }
+
+    private void Update()
+    {
+        currentFramerate = (int)(1f / Time.deltaTime);
+    }
+
     //ゲームオーバーした時の判定
     public void GameOver() {
         GameObject gameoverText = new GameObject("GameOverText");
@@ -21,6 +38,8 @@ public class GameManager : MonoBehaviour
         gmt.color = new Color(255f, 0f, 0f);
     }
 
+
+    //ゲームオーバー時にリトライ機能を追加
     public void Retry() {
         SceneManager.LoadScene("MainScene");
     }

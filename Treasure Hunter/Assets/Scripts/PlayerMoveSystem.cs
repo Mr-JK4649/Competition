@@ -13,6 +13,7 @@ using UnityEngine.UIElements;
 
 public class PlayerMoveSystem : MonoBehaviour
 {
+    private GameManager gm;
 
     public float RunSpeed = 0f;      //プレイヤーの自動飛行の速度
     [NonSerialized] public GameObject Wiz;          //プレイヤーオブジェクトを入れる
@@ -37,6 +38,7 @@ public class PlayerMoveSystem : MonoBehaviour
 
     private void Start()
     {
+
         Wiz = this.gameObject;                      //プレイヤーオブジェクトを入れる
         Wiz_TF = Wiz.GetComponent<Transform>();     //プレイヤーのTransFormを入れる
         Wiz_RB = Wiz.GetComponent<Rigidbody>();     //プレイヤーのRigitBodyを入れる
@@ -44,6 +46,8 @@ public class PlayerMoveSystem : MonoBehaviour
         currentLane = laneObj[4];
         Origin_Pos = Wiz_TF.position;               //プレイヤーの初期位置を設定
         playerOriginSpeed = RunSpeed;               //プレイヤーの速度を保存
+
+        gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
     }
 
     private void Update()
@@ -55,24 +59,28 @@ public class PlayerMoveSystem : MonoBehaviour
         //プレイヤーの座標更新
         Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
 
+
+    }
+
+    private void FixedUpdate()
+    {
+
         //加速カウントが0では無ければ
-        if (accelCount > 0) {
+        if (accelCount > 0)
+        {
 
             accelCount--;
 
             //時間が経過したらプレイヤーの速度を徐々に初期化
-            if (accelCount <= 0) {
+            if (accelCount <= 0)
+            {
                 StartCoroutine("SlowInitSpeed");
                 accelCount = 0;
             }
-   
+
         }
-
-            
-
     }
-    
-    
+
 
     // プレイヤーの加速度を返す
     public Vector3 GetPlayerVelocity() 
@@ -151,7 +159,8 @@ public class PlayerMoveSystem : MonoBehaviour
     private IEnumerator SlowInitSpeed() {
 
         while (RunSpeed > playerOriginSpeed) {
-            RunSpeed -= 0.4f;
+            float diff = 60f / gm.currentFramerate * 0.4f;
+            RunSpeed -= diff;
 
             yield return null;
         }

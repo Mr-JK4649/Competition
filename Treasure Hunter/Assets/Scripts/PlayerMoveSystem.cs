@@ -63,8 +63,8 @@ public class PlayerMoveSystem : MonoBehaviour
         //プレイヤーの座標更新
         Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
 
-        if (Input.GetKeyDown(KeyCode.Z) && lastCheckPoint != Vector3.zero)
-            this.transform.position = lastCheckPoint;
+        //if (Input.GetKeyDown(KeyCode.R) && lastCheckPoint != Vector3.zero)
+        //    this.transform.position = lastCheckPoint;
 
     }
 

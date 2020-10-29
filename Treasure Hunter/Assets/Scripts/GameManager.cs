@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
+    [NonSerialized]public Text GameOverText;
+    [NonSerialized] public Text GameClearText;
 
     void Awake()
     {
@@ -19,6 +23,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = framerate;
+        GameOverText = GameObject.Find("GameOverText").GetComponent<Text>();
+        GameOverText.enabled = false;
+
+        GameClearText = GameObject.Find("GameClearText").GetComponent<Text>();
+        GameClearText.enabled = false;
     }
 
     private void Update()
@@ -28,18 +37,20 @@ public class GameManager : MonoBehaviour
 
     //ゲームオーバーした時の判定
     public void GameOver() {
-        GameObject gameoverText = new GameObject("GameOverText");
-        gameoverText.transform.parent = GameObject.Find("InStageUI").transform;
-        gameoverText.transform.localPosition = Vector3.zero;
-        gameoverText.AddComponent<Text>();
-        Text gmt = gameoverText.GetComponent<Text>();
-        gmt.horizontalOverflow = HorizontalWrapMode.Overflow;
-        gmt.verticalOverflow = VerticalWrapMode.Overflow;
-        gmt.text = "GameOver\n[r] key to Retry";
-        gmt.fontSize = 40;
-        gmt.alignment = TextAnchor.MiddleCenter;
-        gmt.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
-        gmt.color = new Color(255f, 0f, 0f);
+        //GameObject gameoverText = new GameObject("GameOverText");
+        //gameoverText.transform.parent = GameObject.Find("InStageUI").transform;
+        //gameoverText.transform.localPosition = Vector3.zero;
+        //gameoverText.AddComponent<Text>();
+        //Text gmt = gameoverText.GetComponent<Text>();
+        //gmt.horizontalOverflow = HorizontalWrapMode.Overflow;
+        //gmt.verticalOverflow = VerticalWrapMode.Overflow;
+        //gmt.text = "GameOver\n[r] key to Retry";
+        //gmt.fontSize = 40;
+        //gmt.alignment = TextAnchor.MiddleCenter;
+        //gmt.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+        //gmt.color = new Color(255f, 0f, 0f);
+
+        GameOverText.enabled = true;
     }
 
 

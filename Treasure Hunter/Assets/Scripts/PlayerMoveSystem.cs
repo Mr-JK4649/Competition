@@ -19,7 +19,7 @@ public class PlayerMoveSystem : MonoBehaviour
     [NonSerialized] public GameObject Wiz;          //プレイヤーオブジェクトを入れる
     [NonSerialized] public Transform Wiz_TF;        //プレイヤーのトランスフォーム
     [NonSerialized] public Rigidbody Wiz_RB;        //プレイヤーのRigitbody
-
+    private CheckPoint check;
     
     public float LaneMoveSpeed = 0f;                            //プレイヤーのレーン移動速度
     public GameObject[] laneObj;                                //レーンオブジェクトの位置
@@ -38,8 +38,12 @@ public class PlayerMoveSystem : MonoBehaviour
 
     private void Start()
     {
-
+        //if(check.checkFlg == true)
+        //{
+        //    this.GetComponent<Transform>().position = check.CheckPointTransForm().position;
+        //}
         Wiz = this.gameObject;                      //プレイヤーオブジェクトを入れる
+        //if (check.CheckPointFlg() == true) Wiz.GetComponent<Transform>().position = check.CheckPointTransForm().position;   
         Wiz_TF = Wiz.GetComponent<Transform>();     //プレイヤーのTransFormを入れる
         Wiz_RB = Wiz.GetComponent<Rigidbody>();     //プレイヤーのRigitBodyを入れる
 

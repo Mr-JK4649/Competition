@@ -5,7 +5,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     [SerializeField,Tooltip("ゲームのFPS値を設定するやつね")] 
     private int framerate;
 
@@ -43,5 +47,5 @@ public class GameManager : MonoBehaviour
     public void Retry() {
         SceneManager.LoadScene("MainScene");
     }
-
+ 
 }

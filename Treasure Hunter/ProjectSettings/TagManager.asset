@@ -12,6 +12,7 @@ TagManager:
   - Goal
   - GoalStop
   - Curve
+  - CheckPoint
   layers:
   - Default
   - TransparentFX

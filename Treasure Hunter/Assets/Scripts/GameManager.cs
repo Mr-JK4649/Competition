@@ -5,8 +5,16 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public Animator blackOut;
+    private Image blackOutImage;
+    private bool blackOutFlg = false;
 
-    [NonSerialized]public Text GameOverText;
+    public float aaa;
+
+    private GameObject pl;
+    private PlayerMoveSystem plms;
+
+    [NonSerialized] public Text GameOverText;
     [NonSerialized] public Text GameClearText;
 
     void Awake()
@@ -28,11 +36,32 @@ public class GameManager : MonoBehaviour
 
         GameClearText = GameObject.Find("GameClearText").GetComponent<Text>();
         GameClearText.enabled = false;
+
+        blackOutImage = GameObject.Find("BlackoutImage").GetComponent<Image>();
+        pl = GameObject.Find("Wizard");
+        plms = pl.GetComponent<PlayerMoveSystem>();
     }
 
     private void Update()
     {
         currentFramerate = (int)(1f / Time.deltaTime);
+
+        aaa = blackOutImage.color.a;
+
+        blackOut.SetFloat("BlackOutAlphaValue", aaa);
+
+        if (aaa == 1f)
+        {
+            Retry();
+            blackOut.SetTrigger("EndBlackOut");
+            blackOutFlg = true;
+        }
+
+        if (aaa == 0f && blackOutFlg)
+        {
+            blackOut.SetTrigger("FinishBlackOut");
+            blackOutFlg = false;
+        }
     }
 
     //ゲームオーバーした時の判定
@@ -51,12 +80,18 @@ public class GameManager : MonoBehaviour
         //gmt.color = new Color(255f, 0f, 0f);
 
         GameOverText.enabled = true;
+
+        blackOut.SetTrigger("StartBlackOut");
+
     }
 
 
     //ゲームオーバー時にリトライ機能を追加
     public void Retry() {
-        SceneManager.LoadScene("MainScene");
+        //SceneManager.LoadScene("MainScene");
+        plms.RunSpeed = plms.playerOriginSpeed;
+        GameOverText.enabled = false;
+        pl.transform.position = plms.lastCheckPoint;
     }
 
     

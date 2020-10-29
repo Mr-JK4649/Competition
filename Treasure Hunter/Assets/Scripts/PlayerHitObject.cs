@@ -48,18 +48,13 @@ public class PlayerHitObject : MonoBehaviour
 
     private void Update()
     {
-        //障害物に当たった時の処理
-        if (deathFlg)
-        {
-            if(blockHitFlg)
-                plms.Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
+        ////障害物に当たった時の処理
+        //if (deathFlg)
+        //{
+        //    if(blockHitFlg)
+        //        plms.Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
 
-            if (Input.GetKeyDown(KeyCode.R)) {
-
-                gm.GameOverText.enabled = false;
-                this.transform.position = plms.lastCheckPoint;
-            }
-        }
+        //}
     }
 
     private void FixedUpdate()
@@ -76,7 +71,9 @@ public class PlayerHitObject : MonoBehaviour
         if (blockHitFlg)
         {
             Instantiate(bom, this.gameObject.transform);
+            plms.accelCount = 0;
             plms.RunSpeed = -0.5f;
+            
             deathFlg = true;
             gm.GameOver();
         }

@@ -34,7 +34,7 @@ public class PlayerMoveSystem : MonoBehaviour
     public int accelTime = 0;                                   //加速の時間
     [NonSerialized]public int accelCount;                       //加速カウント
 
-    
+    public Vector3 lastCheckPoint;
 
     private void Start()
     {
@@ -63,6 +63,8 @@ public class PlayerMoveSystem : MonoBehaviour
         //プレイヤーの座標更新
         Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
 
+        if (Input.GetKeyDown(KeyCode.Z) && lastCheckPoint != Vector3.zero)
+            this.transform.position = lastCheckPoint;
 
     }
 

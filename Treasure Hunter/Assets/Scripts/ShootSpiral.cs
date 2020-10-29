@@ -20,8 +20,9 @@ public class ShootSpiral : MonoBehaviour
 
     public float DodgeSpeed;            // キャラクターのドッジ移動量
 
-    private float hori, ver;              //十字キー/スティックの方向
+    public float hori, ver;             //十字キー/スティックの方向
     private bool cont_A;                //Aキーを押すやつ
+    private float oldHori, oldVer;      //前のフレームの傾き
 
     void Update()
     {
@@ -32,8 +33,8 @@ public class ShootSpiral : MonoBehaviour
         if (GameObject.FindWithTag("Spiral") == null)
         {
 
-            if (ver == 1.0f && (Input.GetMouseButtonDown(0) || cont_A == true) && 
-                plms.lanePos[0] != Vector3.zero)
+            //縦方向のうず移動
+            if (ver > 0f && cont_A == true && plms.lanePos[0] != Vector3.zero)
             {
                 x = 0f;
                 y = 0f;
@@ -42,28 +43,7 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "UpSpiral";
                 SpiralShot();
             }
-            else if (hori == -1 && (Input.GetMouseButtonDown(0) || cont_A == true) &&
-                plms.lanePos[1] != Vector3.zero)
-            {
-                x = 0f;
-                y = 0f;
-                z = -90f;
-                SpiralEulerAngles = new Vector3(x, y, z);
-                spiralName = "LeftSpiral";
-                SpiralShot();
-            }
-            else if (hori == 1 && (Input.GetMouseButtonDown(0) || cont_A == true) &&
-                plms.lanePos[2] != Vector3.zero)
-            {
-                x = 0f;
-                y = 0f;
-                z = 90f;
-                SpiralEulerAngles = new Vector3(x, y, z);
-                spiralName = "RightSpiral";
-                SpiralShot();
-            }
-            else if (ver == -1 &&  (Input.GetMouseButtonDown(0) || cont_A == true) &&
-                plms.lanePos[3] != Vector3.zero)
+            else if (ver < 0f && cont_A == true && plms.lanePos[3] != Vector3.zero)
             {
                 x = 0f;
                 y = 0f;
@@ -72,7 +52,27 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "DownSpiral";
                 SpiralShot();
             }
-            else if (cont_A == true)
+            else if (hori < 0 && cont_A == true && plms.lanePos[1] != Vector3.zero)
+            {
+                x = 0f;
+                y = 0f;
+                z = -90f;
+                SpiralEulerAngles = new Vector3(x, y, z);
+                spiralName = "LeftSpiral";
+                SpiralShot();
+            }
+            else if (hori > 0 && cont_A == true && plms.lanePos[2] != Vector3.zero)
+            {
+                x = 0f;
+                y = 0f;
+                z = 90f;
+                SpiralEulerAngles = new Vector3(x, y, z);
+                spiralName = "RightSpiral";
+                SpiralShot();
+            }
+            
+            //前方加速
+            if (cont_A == true)
             {
                 x = 90f;
                 y = 0f;
@@ -83,65 +83,70 @@ public class ShootSpiral : MonoBehaviour
             }
 
         }
+        {
+            //if (GameObject.FindWithTag("Spiral") == null)
+            //{
 
-        //if (GameObject.FindWithTag("Spiral") == null)
-        //{
+            //    if ((Input.GetKey(KeyCode.W) || Input.GetAxis("Vertical") == 1) &&
+            //        (Input.GetMouseButtonDown(0) || Input.GetButton("Cont_A") == true)
+            //        && plms.lanePos[0] != Vector3.zero)
+            //    {
+            //        x = 0f;
+            //        y = 0f;
+            //        z = 0f;
+            //        SpiralEulerAngles = new Vector3(x, y, z);
+            //        spiralName = "UpSpiral";
+            //        SpiralShot();
+            //    }
+            //    else if ((Input.GetKey(KeyCode.A) || Input.GetAxis("Horizontal") == -1) &&
+            //        (Input.GetMouseButtonDown(0) || Input.GetButton("Cont_A") == true) &&
+            //        plms.lanePos[1] != Vector3.zero)
+            //    {
+            //        x = 0f;
+            //        y = 0f;
+            //        z = -90f;
+            //        SpiralEulerAngles = new Vector3(x, y, z);
+            //        spiralName = "LeftSpiral";
+            //        SpiralShot();
+            //    }
+            //    else if ((Input.GetKey(KeyCode.D) || Input.GetAxis("Horizontal") == 1) &&
+            //        (Input.GetMouseButtonDown(0) || Input.GetButton("Cont_A") == true) &&
+            //        plms.lanePos[2] != Vector3.zero)
+            //    {
+            //        x = 0f;
+            //        y = 0f;
+            //        z = 90f;
+            //        SpiralEulerAngles = new Vector3(x, y, z);
+            //        spiralName = "RightSpiral";
+            //        SpiralShot();
+            //    }
+            //    else if ( (Input.GetKey(KeyCode.S) || Input.GetAxis("Vertical") == -1) &&
+            //              (Input.GetMouseButtonDown(0) || Input.GetButton("Cont_A") == true) &&
+            //              plms.lanePos[3] != Vector3.zero)
+            //    {
+            //        x = 0f;
+            //        y = 0f;
+            //        z = 0f;
+            //        SpiralEulerAngles = new Vector3(x, y, z);
+            //        spiralName = "DownSpiral";
+            //        SpiralShot();
+            //    }
+            //    else if (Input.GetButton("Cont_A") == true)
+            //    {
+            //        x = 90f;
+            //        y = 0f;
+            //        z = 0f;
+            //        SpiralEulerAngles = new Vector3(x, y, z);
+            //        spiralName = "AccelSpiral";
+            //        SpiralShot();
+            //    }
 
-        //    if ((Input.GetKey(KeyCode.W) || Input.GetAxis("Vertical") == 1) &&
-        //        (Input.GetMouseButtonDown(0) || Input.GetButton("Cont_A") == true)
-        //        && plms.lanePos[0] != Vector3.zero)
-        //    {
-        //        x = 0f;
-        //        y = 0f;
-        //        z = 0f;
-        //        SpiralEulerAngles = new Vector3(x, y, z);
-        //        spiralName = "UpSpiral";
-        //        SpiralShot();
-        //    }
-        //    else if ((Input.GetKey(KeyCode.A) || Input.GetAxis("Horizontal") == -1) &&
-        //        (Input.GetMouseButtonDown(0) || Input.GetButton("Cont_A") == true) &&
-        //        plms.lanePos[1] != Vector3.zero)
-        //    {
-        //        x = 0f;
-        //        y = 0f;
-        //        z = -90f;
-        //        SpiralEulerAngles = new Vector3(x, y, z);
-        //        spiralName = "LeftSpiral";
-        //        SpiralShot();
-        //    }
-        //    else if ((Input.GetKey(KeyCode.D) || Input.GetAxis("Horizontal") == 1) &&
-        //        (Input.GetMouseButtonDown(0) || Input.GetButton("Cont_A") == true) &&
-        //        plms.lanePos[2] != Vector3.zero)
-        //    {
-        //        x = 0f;
-        //        y = 0f;
-        //        z = 90f;
-        //        SpiralEulerAngles = new Vector3(x, y, z);
-        //        spiralName = "RightSpiral";
-        //        SpiralShot();
-        //    }
-        //    else if ( (Input.GetKey(KeyCode.S) || Input.GetAxis("Vertical") == -1) &&
-        //              (Input.GetMouseButtonDown(0) || Input.GetButton("Cont_A") == true) &&
-        //              plms.lanePos[3] != Vector3.zero)
-        //    {
-        //        x = 0f;
-        //        y = 0f;
-        //        z = 0f;
-        //        SpiralEulerAngles = new Vector3(x, y, z);
-        //        spiralName = "DownSpiral";
-        //        SpiralShot();
-        //    }
-        //    else if (Input.GetButton("Cont_A") == true)
-        //    {
-        //        x = 90f;
-        //        y = 0f;
-        //        z = 0f;
-        //        SpiralEulerAngles = new Vector3(x, y, z);
-        //        spiralName = "AccelSpiral";
-        //        SpiralShot();
-        //    }
+            //}
+        }
 
-        //}
+        
+        oldHori = hori;
+        oldVer = ver;
     }
 
     public void SpiralShot()
@@ -155,6 +160,6 @@ public class ShootSpiral : MonoBehaviour
         hori = Input.GetAxis("Horizontal");
         ver = Input.GetAxis("Vertical");
 
-        cont_A = Input.GetButtonDown("Cont_A");
+        cont_A = Input.GetButtonDown("Cont_A") | Input.GetMouseButtonDown(0);
     }
 }

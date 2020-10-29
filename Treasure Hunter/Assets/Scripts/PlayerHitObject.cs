@@ -93,6 +93,12 @@ public class PlayerHitObject : MonoBehaviour
                 Score.text = sco.ToString("0000000") + " 点\n" + coinCount.ToString("000") + " 枚";
                 CoinBar.value += 0.1f;
                 break;
+
+            case "CheckPoint":
+                plms.lastCheckPoint = other.gameObject.transform.position;
+                break;
         }
+
+
     }
 }

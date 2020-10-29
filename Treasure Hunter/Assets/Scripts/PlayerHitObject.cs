@@ -55,7 +55,9 @@ public class PlayerHitObject : MonoBehaviour
                 plms.Wiz_RB.velocity = new Vector3(0f, -9.81f, 0f);
 
             if (Input.GetKeyDown(KeyCode.R)) {
-                gm.Retry();
+
+                gm.GameOverText.enabled = false;
+                this.transform.position = plms.lastCheckPoint;
             }
         }
     }
@@ -96,6 +98,10 @@ public class PlayerHitObject : MonoBehaviour
 
             case "CheckPoint":
                 plms.lastCheckPoint = other.gameObject.transform.position;
+                break;
+
+            case "Goal":
+                gm.GameClearText.enabled = true;
                 break;
         }
 

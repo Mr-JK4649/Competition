@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public Animator blackOut;
+    private Animator blackOut;
     private Image blackOutImage;
     private bool blackOutFlg = false;
 
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         GameClearText = GameObject.Find("GameClearText").GetComponent<Text>();
         GameClearText.enabled = false;
 
+        blackOut = GameObject.Find("BlackoutImage").GetComponent<Animator>();
         blackOutImage = GameObject.Find("BlackoutImage").GetComponent<Image>();
         pl = GameObject.Find("Wizard");
         plms = pl.GetComponent<PlayerMoveSystem>();
@@ -61,7 +62,11 @@ public class GameManager : MonoBehaviour
         {
             blackOut.SetTrigger("FinishBlackOut");
             blackOutFlg = false;
+            Debug.Log("ｕｎｎｋｏ");
         }
+
+        //if (Input.GetKeyDown(KeyCode.R))
+        //    SceneManager.LoadScene("MainScene");
     }
 
     //ゲームオーバーした時の判定

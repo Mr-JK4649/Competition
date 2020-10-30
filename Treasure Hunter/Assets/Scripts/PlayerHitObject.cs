@@ -70,10 +70,9 @@ public class PlayerHitObject : MonoBehaviour
     {
         if (blockHitFlg)
         {
-            Instantiate(bom, this.gameObject.transform);
+            //Instantiate(bom, this.gameObject.transform);
             plms.accelCount = 0;
             plms.RunSpeed = -0.5f;
-            
             deathFlg = true;
             gm.GameOver();
         }

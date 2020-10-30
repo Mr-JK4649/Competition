@@ -70,9 +70,7 @@ public class ShootSpiral : MonoBehaviour
                 spiralName = "RightSpiral";
                 SpiralShot();
             }
-            
-            //前方加速
-            if (cont_A == true)
+            else if (cont_A == true)
             {
                 x = 90f;
                 y = 0f;

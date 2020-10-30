@@ -66,15 +66,24 @@ public class PlayerHitObject : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision other)
     {
         if (blockHitFlg)
         {
-            //Instantiate(bom, this.gameObject.transform);
-            plms.accelCount = 0;
-            plms.RunSpeed = -0.5f;
-            deathFlg = true;
-            gm.GameOver();
+            switch (other.gameObject.tag) {
+                case "Block":
+                    //Instantiate(bom, this.gameObject.transform);
+                    plms.accelCount = 0;
+                    plms.RunSpeed = -0.5f;
+                    deathFlg = true;
+                    gm.GameOver();
+                    break;
+
+                case "Wall":
+                    Debug.Log("壁に衝突");
+                    break;
+            }
+            
         }
     }
 

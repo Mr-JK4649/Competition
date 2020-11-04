@@ -2565,7 +2565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1313741323
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3067,6 +3067,24 @@ Transform:
   m_Father: {fileID: 1339377211}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1399880730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5672411373488630141, guid: b462d242e25431740b4c7cfa19234aa3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1390700585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1399880731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399880730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dfb10c1ea25586418bfbb44c216d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1410644281
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,7 +3128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410644281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.27, y: 8.77, z: -9.9578}
+  m_LocalPosition: {x: 14.85, y: 8.77, z: -9.9578}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 782631846}
@@ -4048,6 +4066,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 487294735894617719, guid: 457099e0fbef9824c8e96a46aab7e139,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 457099e0fbef9824c8e96a46aab7e139, type: 3}
 --- !u!1001 &1683107992
@@ -4982,6 +5005,7 @@ GameObject:
   - component: {fileID: 2098810963}
   - component: {fileID: 2098810958}
   - component: {fileID: 2098810957}
+  - component: {fileID: 2098810964}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Player
@@ -4997,7 +5021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098810955}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.73, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 410147888}
@@ -5177,6 +5201,19 @@ MonoBehaviour:
   accelForce: 3
   accelTime: 50
   lastCheckPoint: {x: 0, y: 0, z: 0}
+--- !u!65 &2098810964
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098810955}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 25, y: 5, z: 25}
+  m_Center: {x: 0, y: -2, z: 0}
 --- !u!1 &2109761845
 GameObject:
   m_ObjectHideFlags: 0

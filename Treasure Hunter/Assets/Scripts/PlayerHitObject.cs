@@ -18,32 +18,14 @@ public class PlayerHitObject : MonoBehaviour
     
     [SerializeField] GameObject bom;                //爆発
 
-    private Slider CoinBar;                          //コイン獲るたびに増えるバー
-    private Text ScoreText;                          //[Score:]を表示するためのテキスト
-    private Text Score;                              //点数を表示するテキスト
-    private int sco;                                //スコア用の変数
-    private int coinCount = 0;                      //コインの枚数
-    [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
-    [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
+    
 
     private void Start()
     {
 
         plms = this.GetComponent<PlayerMoveSystem>();
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
-        CoinBar = GameObject.Find("CoinChainGage").GetComponent<Slider>();
-        ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-        Score = GameObject.Find("Score").GetComponent<Text>();
-
-        //ステージ中のUIを標準非表示に
-        CoinBar.gameObject.SetActive(false);
-        ScoreText.enabled = false;
-        Score.enabled = false;
-        if (isShowUi) {
-            CoinBar.gameObject.SetActive(true);
-            ScoreText.enabled = true;
-            Score.enabled = true;
-        }
+        
     }
 
     private void Update()
@@ -57,14 +39,7 @@ public class PlayerHitObject : MonoBehaviour
         //}
     }
 
-    private void FixedUpdate()
-    {
-        if (CoinBar.value >= 1.0f)
-        {
-            CoinBar.value = 0f;
-            coinsScore += 100;
-        }
-    }
+    
 
     private void OnCollisionEnter(Collision other)
     {
@@ -93,12 +68,12 @@ public class PlayerHitObject : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Coin":
-                other.gameObject.SetActive(false);
-                Destroy(other.gameObject);
-                sco += coinsScore;
-                coinCount += 1;
-                Score.text = sco.ToString("0000000") + " 点\n" + coinCount.ToString("000") + " 枚";
-                CoinBar.value += 0.1f;
+                //other.gameObject.SetActive(false);
+                //Destroy(other.gameObject);
+                //sco += coinsScore;
+                //coinCount += 1;
+                //Score.text = sco.ToString("0000000") + " 点\n" + coinCount.ToString("000") + " 枚";
+                //CoinBar.value += 0.1f;
                 break;
 
             case "CheckPoint":
@@ -112,6 +87,5 @@ public class PlayerHitObject : MonoBehaviour
 
 
     }
-
     
 }

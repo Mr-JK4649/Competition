@@ -5,17 +5,25 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private Animator blackOut;
-    private Image blackOutImage;
-    private bool blackOutFlg = false;
+    private Animator blackOut;                  //画面暗転用のアニメーター
+    private Image blackOutImage;                //画面暗転用のImage
+    private bool blackOutFlg = false;           //画面暗転用のフラグ
 
-    public float aaa;
+    public float aaa;                           //Imageのアルファ値を入れる変数
 
-    private GameObject pl;
-    private PlayerMoveSystem plms;
+    private GameObject pl;                      //プレイヤー
+    private PlayerMoveSystem plms;              //プレイヤーの移動を司るスクリプト
 
-    [NonSerialized] public Text GameOverText;
-    [NonSerialized] public Text GameClearText;
+    [NonSerialized] public Text GameOverText;   //ゲームオーバーのテキスト
+    [NonSerialized] public Text GameClearText;  //ゲームクリアのテキスト
+
+    private Slider CoinBar;                          //コイン獲るたびに増えるバー
+    private Text ScoreText;                          //[Score:]を表示するためのテキスト
+    private Text Score;                              //点数を表示するテキスト
+    private int sco;                                //スコア用の変数
+    private int coinCount = 0;                      //コインの枚数
+    [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
+    [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
 
     void Awake()
     {
@@ -41,6 +49,22 @@ public class GameManager : MonoBehaviour
         blackOutImage = GameObject.Find("BlackoutImage").GetComponent<Image>();
         pl = GameObject.Find("Wizard");
         plms = pl.GetComponent<PlayerMoveSystem>();
+
+        //以下ステージUI
+        CoinBar = GameObject.Find("CoinChainGage").GetComponent<Slider>();
+        ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        Score = GameObject.Find("Score").GetComponent<Text>();
+
+        //ステージ中のUIを標準非表示に
+        CoinBar.gameObject.SetActive(false);
+        ScoreText.enabled = false;
+        Score.enabled = false;
+        if (isShowUi)
+        {
+            CoinBar.gameObject.SetActive(true);
+            ScoreText.enabled = true;
+            Score.enabled = true;
+        }
     }
 
     private void Update()
@@ -69,20 +93,18 @@ public class GameManager : MonoBehaviour
         //    SceneManager.LoadScene("MainScene");
     }
 
+    private void FixedUpdate()
+    {
+        if (CoinBar.value >= 1.0f)
+        {
+            CoinBar.value = 0f;
+            coinsScore += 100;
+        }
+    }
+
     //ゲームオーバーした時の判定
     public void GameOver() {
-        //GameObject gameoverText = new GameObject("GameOverText");
-        //gameoverText.transform.parent = GameObject.Find("InStageUI").transform;
-        //gameoverText.transform.localPosition = Vector3.zero;
-        //gameoverText.AddComponent<Text>();
-        //Text gmt = gameoverText.GetComponent<Text>();
-        //gmt.horizontalOverflow = HorizontalWrapMode.Overflow;
-        //gmt.verticalOverflow = VerticalWrapMode.Overflow;
-        //gmt.text = "GameOver\n[r] key to Retry";
-        //gmt.fontSize = 40;
-        //gmt.alignment = TextAnchor.MiddleCenter;
-        //gmt.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
-        //gmt.color = new Color(255f, 0f, 0f);
+        
 
         GameOverText.enabled = true;
 
@@ -99,6 +121,11 @@ public class GameManager : MonoBehaviour
         pl.transform.position = plms.lastCheckPoint;
     }
 
-    
- 
+    public void GetCoin() {
+        sco += coinsScore;
+        coinCount += 1;
+        Score.text = sco.ToString("0000000") + " 点\n" + coinCount.ToString("000") + " 枚";
+        CoinBar.value += 0.1f;
+    }
+
 }

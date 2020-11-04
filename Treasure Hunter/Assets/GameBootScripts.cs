@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class GameBootScripts : MonoBehaviour
@@ -12,6 +13,13 @@ public class GameBootScripts : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //カメラの初期化
+        CameraInit();
+
+    }
+
+
+    void CameraInit() {
         vc1 = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
         vc2 = GameObject.Find("CM vcam2").GetComponent<CinemachineVirtualCamera>();
 

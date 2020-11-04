@@ -6,7 +6,7 @@ using UnityEngine.Scripting;
 public class FadeOut : MonoBehaviour
 {
 
-    public float startDistance = 10;
+    public float startDistance = 70;
     public float hiddenDistance = 2;
     private GameObject v_camera;
 

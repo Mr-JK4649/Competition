@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
             blackOut.SetTrigger("FinishBlackOut");
             blackOutFlg = false;
             Debug.Log("ｕｎｎｋｏ");
+            aaa = 0f;
         }
 
         //if (Input.GetKeyDown(KeyCode.R))

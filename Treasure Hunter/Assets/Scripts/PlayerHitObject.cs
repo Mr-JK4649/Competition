@@ -78,6 +78,7 @@ public class PlayerHitObject : MonoBehaviour
 
             case "CheckPoint":
                 plms.lastCheckPoint = other.gameObject.transform.position;
+                plms.lastVec = plms.autoRunVec;
                 break;
 
             case "Goal":
@@ -86,6 +87,11 @@ public class PlayerHitObject : MonoBehaviour
 
             case "Curve":
                 plms.autoRunVec = other.gameObject.name;
+                break;
+
+            case "correct":
+                GameObject.Find("LanePanel").transform.position = other.gameObject.transform.position;
+                plms.Wiz_TF.position = plms.currentLane.transform.position;
                 break;
         }
 

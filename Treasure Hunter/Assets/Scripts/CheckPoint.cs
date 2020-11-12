@@ -11,8 +11,8 @@ public class CheckPoint : MonoBehaviour
     //}
     //[SerializeField] private Transform pTransform; // プレイヤーの座標を格納
     /*[NonSerialized]*/
-    [SerializeField]public static Transform pTransformBuf;
-    [SerializeField]public static bool checkFlg;
+    [SerializeField] public static Transform pTransformBuf;
+    [SerializeField] public static bool checkFlg;
 
     private void Start()
     {

@@ -1,15 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
-using System.Security.AccessControl;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Scripting;
-using UnityEngine.Scripting.APIUpdating;
-using UnityEngine.UIElements;
 
 public class PlayerMoveSystem : MonoBehaviour
 {
@@ -35,12 +26,15 @@ public class PlayerMoveSystem : MonoBehaviour
     [NonSerialized]public int accelCount;                       //加速カウント
 
     public Vector3 lastCheckPoint;
+    [NonSerialized] public string lastVec;                     //最後に通ったチェックポイントのベクトル
 
     private Vector3 latestPos;  //前回のPosition
-    public Vector3 diff;
-    public float mgni;
+    public Vector3 diff;        //距離
+    public float mgni;          //距離の前のやつ(軽量化用)
 
-    public string autoRunVec = "front";
+    public string autoRunVec = "front"; //進んでる方向
+
+    private bool isCoroutine = false;
 
     private void Start()
     {
@@ -60,7 +54,6 @@ public class PlayerMoveSystem : MonoBehaviour
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
     }
 
-    public float ma;
 
     private void FixedUpdate()
     {
@@ -86,12 +79,11 @@ public class PlayerMoveSystem : MonoBehaviour
                 break;
         }
 
-        ma = Wiz_RB.mass;
 
         //加速カウントが0では無ければ
         if (accelCount > 0)
         {
-
+            GetComponent<BoxCollider>().size = new Vector3(100, 100, 5);
             accelCount--;
 
             //時間が経過したらプレイヤーの速度を徐々に初期化
@@ -108,9 +100,9 @@ public class PlayerMoveSystem : MonoBehaviour
         mgni = diff.magnitude;
 
         //ベクトルの大きさが0.01以上の時に向きを変える処理をする
-        if (diff.magnitude >= 0.01f && RunSpeed != playerOriginSpeed * accelForce)
+        if (diff.magnitude >= 0.01f && RunSpeed != playerOriginSpeed * accelForce && !isCoroutine)
         {
-            Debug.Log("向き変わったよ！");
+            Debug.Log("現在の向き : " + autoRunVec);
             transform.rotation = Quaternion.LookRotation(new Vector3(diff.x, diff.y, diff.z)); //向きを変更する
         }
 
@@ -187,6 +179,7 @@ public class PlayerMoveSystem : MonoBehaviour
     public IEnumerator Mover(Vector3 pos1, Vector3 pos2, AnimationCurve ac, float time)
     {
         float timer = 0.0f;
+        isCoroutine = true;
         while (timer <= time)
         {
 
@@ -202,9 +195,9 @@ public class PlayerMoveSystem : MonoBehaviour
                     transform.position = new Vector3(Wiz_TF.position.x, pos.y, pos.z);
                     break;
             }
-            
-            
 
+
+            isCoroutine = false;
             timer += Time.deltaTime;
             yield return null;
         }
@@ -221,7 +214,7 @@ public class PlayerMoveSystem : MonoBehaviour
         }
 
         RunSpeed = playerOriginSpeed;
-
+        GetComponent<BoxCollider>().size = new Vector3(10, 10, 5);
         
     }
 }

@@ -9,7 +9,7 @@ public class Titlescript : MonoBehaviour
     // メモ：今のところ強制起動
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
+        if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Cont_A"))
         {
             SceneManager.LoadScene("MainScene");//mainシーンをロードする
         }

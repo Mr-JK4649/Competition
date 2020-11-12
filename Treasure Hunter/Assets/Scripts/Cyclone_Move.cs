@@ -15,7 +15,7 @@ public class Cyclone_Move : MonoBehaviour
     private void Start()
     {
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
-        //Destroy(this.gameObject, plms.dodgeTime);
+        Destroy(this.gameObject, 1f);
     }
 
     void OnTriggerEnter(Collider other)

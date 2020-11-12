@@ -14,15 +14,13 @@ public class ShootSpiral : MonoBehaviour
     private string spiralName;          //渦の名前
 
     Vector3 SpiralEulerAngles;          //渦を出す角度
-    float x = 0;
-    float y = 0;
-    float z = 0;
 
     public float DodgeSpeed;            // キャラクターのドッジ移動量
 
     public float hori, ver;             //十字キー/スティックの方向
     private bool cont_A;                //Aキーを押すやつ
     private float oldHori, oldVer;      //前のフレームの傾き
+
 
     void Update()
     {
@@ -39,49 +37,41 @@ public class ShootSpiral : MonoBehaviour
                 
                 if (ver > 0f && ver != oldVer && plms.lanePos[0] != Vector3.zero)        //上
                 {
-                    x = 0f;
-                    y = 0f;
-                    z = 0f;
-                    SpiralEulerAngles = new Vector3(x, y, z);
+                    SpiralEulerAngles = new Vector3(0f, 0f, 0f);
                     spiralName = "UpSpiral";
+                    CorrectionSpiralAngles();
                     SpiralShot();
                 }
                 else if (ver < 0f && ver != oldVer && plms.lanePos[3] != Vector3.zero)   //下
                 {
-                    x = 0f;
-                    y = 0f;
-                    z = 0f;
-                    SpiralEulerAngles = new Vector3(x, y, z);
+                    SpiralEulerAngles = new Vector3(0f, 0f, 0f);
                     spiralName = "DownSpiral";
+                    CorrectionSpiralAngles();
                     SpiralShot();
                 }
                 else if (hori < 0 && hori != oldHori && plms.lanePos[1] != Vector3.zero)   //左
                 {
-                    x = 0f;
-                    y = 0f;
-                    z = -90f;
-                    SpiralEulerAngles = new Vector3(x, y, z);
+                    SpiralEulerAngles = new Vector3(0f, 0f, -90f);
                     spiralName = "LeftSpiral";
+                    CorrectionSpiralAngles();
                     SpiralShot();
                 }
                 else if (hori > 0 && hori != oldHori && plms.lanePos[2] != Vector3.zero)   //右
                 {
-                    x = 0f;
-                    y = 0f;
-                    z = 90f;
-                    SpiralEulerAngles = new Vector3(x, y, z);
+                    SpiralEulerAngles = new Vector3(0f, 0f, 90f);
                     spiralName = "RightSpiral";
+                    CorrectionSpiralAngles();
                     SpiralShot();
                 }
                 else if (cont_A == true)
                 {
-                    x = 90f;
-                    y = 0f;
-                    z = 0f;
-                    SpiralEulerAngles = new Vector3(x, y, z);
+                    SpiralEulerAngles = new Vector3(90f, 0f, 0f);
                     spiralName = "AccelSpiral";
+                    CorrectionSpiralAngles();
                     SpiralShot();
                 }
+
+                
 
             }
         }
@@ -208,17 +198,31 @@ public class ShootSpiral : MonoBehaviour
         oldVer = ver;
     }
 
+    //渦を出す処理
     public void SpiralShot()
     {
+        
         Vector3 SpiralPos = ShotPoint.transform.position;
         GameObject newSpiral = Instantiate(Spiral, SpiralPos, Quaternion.Euler(SpiralEulerAngles));
         newSpiral.name = spiralName;
     }
 
+    //入力の処理
     void InputProcess() {
         hori = Input.GetAxis("Horizontal");
         ver = Input.GetAxis("Vertical");
 
         cont_A = Input.GetButtonDown("Cont_A") | Input.GetMouseButtonDown(0);
+    }
+
+    //進む方向によって渦の角度を変える処理
+    void CorrectionSpiralAngles() {
+        switch (plms.autoRunVec)
+        {
+            case "front":                                   break;
+            case "left":    SpiralEulerAngles.y += 90f;     break;
+            case "right":   SpiralEulerAngles.y -= 90f;     break;
+            case "back":    SpiralEulerAngles.y += 180f;    break;
+        }
     }
 }

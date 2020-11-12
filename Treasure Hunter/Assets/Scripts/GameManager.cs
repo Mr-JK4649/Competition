@@ -25,6 +25,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
     [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
 
+    //以下ゴリラカメラ用
+    GameObject camf;
+    GameObject camr;
+    GameObject caml;
+    GameObject camb;
+    
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -65,15 +71,22 @@ public class GameManager : MonoBehaviour
             ScoreText.enabled = true;
             Score.enabled = true;
         }
+
+
+        //以下カメラ用
+        camf = GameObject.Find("FollowCamera");
+        camr = GameObject.Find("FollowCameraR");
+        caml = GameObject.Find("FollowCameraL");
+        camb = GameObject.Find("FollowCameraB");
     }
 
     private void Update()
     {
-        currentFramerate = (int)(1f / Time.deltaTime);
+        currentFramerate = (int)(1f / Time.deltaTime);      //現在のフレームレート近似値
 
-        aaa = blackOutImage.color.a;
+        aaa = blackOutImage.color.a;                        //暗転用画像のアルファ値
 
-        blackOut.SetFloat("BlackOutAlphaValue", aaa);
+        blackOut.SetFloat("BlackOutAlphaValue", aaa);       //暗転アニメーション開始
 
         if (aaa == 1f)
         {
@@ -92,6 +105,23 @@ public class GameManager : MonoBehaviour
 
         //if (Input.GetKeyDown(KeyCode.R))
         //    SceneManager.LoadScene("MainScene");
+
+
+        switch (plms.autoRunVec) {
+
+            case "front":
+                CameraOnOff(1, 0, 0, 0);
+                break;
+            case "right":
+                CameraOnOff(0, 1, 0, 0);
+                break;
+            case "left":
+                CameraOnOff(0, 0, 1, 0);
+                break;
+            case "back":
+                CameraOnOff(0, 0, 0, 1);
+                break;
+        }
     }
 
     private void FixedUpdate()
@@ -120,6 +150,8 @@ public class GameManager : MonoBehaviour
         plms.RunSpeed = plms.playerOriginSpeed;
         GameOverText.enabled = false;
         pl.transform.position = plms.lastCheckPoint;
+        plms.autoRunVec = plms.lastVec;
+        GameObject.Find("LanePanel").transform.position = plms.lastCheckPoint;
     }
 
     public void GetCoin() {
@@ -129,4 +161,20 @@ public class GameManager : MonoBehaviour
         CoinBar.value += 0.1f;
     }
 
+    //カメラ4つのオンオフ切り替え
+    void CameraOnOff(int f,int r,int l,int b) {
+
+        if (f == 1) camf.SetActive(true);
+        else camf.SetActive(false);
+
+        if (r == 1) camr.SetActive(true);
+        else camr.SetActive(false);
+
+        if (l == 1) caml.SetActive(true);
+        else caml.SetActive(false);
+
+        if (b == 1) camb.SetActive(true);
+        else camb.SetActive(false);
+
+    }
 }

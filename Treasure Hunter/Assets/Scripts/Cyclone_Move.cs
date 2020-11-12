@@ -1,5 +1,4 @@
 ﻿/****************************
- 
  プレイヤーを飛ばす処理(風の渦に使う)
  * 各パブリックの座標変数には各座標に飛ぶ勢いを入れる
  *****************************/
@@ -11,36 +10,49 @@ public class Cyclone_Move : MonoBehaviour
 {
 
     private PlayerMoveSystem plms;
+    private int spiralNum = -1;
 
     private void Start()
     {
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
-        Destroy(this.gameObject, 1.0f);
+        //Destroy(this.gameObject, plms.dodgeTime);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        switch (this.gameObject.name) {
 
-            case "UpSpiral":
-                plms.SpiralMoveNum = 0;
-                break;
+        if (other.gameObject.tag == "Player")
+        {
+            
+            switch (this.gameObject.name)
+            {
 
-            case "LeftSpiral":
-                plms.SpiralMoveNum = 1;
-                break;
+                case "UpSpiral":    spiralNum = 0;  break;      //上にドッジ
 
-            case "RightSpiral":
-                plms.SpiralMoveNum = 2;
-                break;
+                case "LeftSpiral":  spiralNum = 1;  break;      //左にドッジ
 
-            case "DownSpiral":
-                plms.SpiralMoveNum = 3;
-                break;
+                case "RightSpiral": spiralNum = 2;  break;      //右にドッジ
 
+                case "DownSpiral":  spiralNum = 3;  break;      //下にドッジ
+
+                case "AccelSpiral":                             //前方に加速
+                    plms.accelCount = plms.accelTime;
+                    if (plms.accelCount > 0)
+                        plms.StopCoroutine("SlowInitSpeed");
+                    plms.RunSpeed = plms.playerOriginSpeed * plms.accelForce;
+                    break;
+
+            }
+
+            Destroy(this.gameObject);
+
+            //移動のフラグが立ったら移動コルーチン起動
+            if (spiralNum != -1)
+                plms.StartCoroutine(plms.Mover(plms.Wiz_TF.position, plms.lanePos[spiralNum], plms.dodgeSpeed, plms.dodgeTime));
+            
         }
-
-        Destroy(this.gameObject, 0.2f);
     }
+
+
 
 }

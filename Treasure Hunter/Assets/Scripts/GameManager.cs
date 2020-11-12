@@ -73,11 +73,11 @@ public class GameManager : MonoBehaviour
         }
 
 
-        //以下カメラ用
-        camf = GameObject.Find("FollowCamera");
-        camr = GameObject.Find("FollowCameraR");
-        caml = GameObject.Find("FollowCameraL");
-        camb = GameObject.Find("FollowCameraB");
+        ////以下カメラ用
+        //camf = GameObject.Find("FollowCamera");
+        //camr = GameObject.Find("FollowCameraR");
+        //caml = GameObject.Find("FollowCameraL");
+        //camb = GameObject.Find("FollowCameraB");
     }
 
     private void Update()
@@ -164,17 +164,17 @@ public class GameManager : MonoBehaviour
     //カメラ4つのオンオフ切り替え
     void CameraOnOff(int f,int r,int l,int b) {
 
-        if (f == 1) camf.SetActive(true);
-        else camf.SetActive(false);
+        //if (f == 1) camf.SetActive(true);
+        //else camf.SetActive(false);
 
-        if (r == 1) camr.SetActive(true);
-        else camr.SetActive(false);
+        //if (r == 1) camr.SetActive(true);
+        //else camr.SetActive(false);
 
-        if (l == 1) caml.SetActive(true);
-        else caml.SetActive(false);
+        //if (l == 1) caml.SetActive(true);
+        //else caml.SetActive(false);
 
-        if (b == 1) camb.SetActive(true);
-        else camb.SetActive(false);
+        //if (b == 1) camb.SetActive(true);
+        //else camb.SetActive(false);
 
     }
 }

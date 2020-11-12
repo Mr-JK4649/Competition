@@ -83,6 +83,10 @@ public class PlayerHitObject : MonoBehaviour
             case "Goal":
                 gm.GameClearText.enabled = true;
                 break;
+
+            case "Curve":
+                plms.autoRunVec = other.gameObject.name;
+                break;
         }
 
 

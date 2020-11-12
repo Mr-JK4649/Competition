@@ -15,7 +15,7 @@ public class Cyclone_Move : MonoBehaviour
     private void Start()
     {
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
-        Destroy(this.gameObject, plms.dodgeTime);
+        //Destroy(this.gameObject, plms.dodgeTime);
     }
 
     void OnTriggerEnter(Collider other)
@@ -44,8 +44,10 @@ public class Cyclone_Move : MonoBehaviour
 
             }
 
+            Destroy(this.gameObject);
+
             //移動のフラグが立ったら移動コルーチン起動
-            if(spiralNum != -1)
+            if (spiralNum != -1)
                 plms.StartCoroutine(plms.Mover(plms.Wiz_TF.position, plms.lanePos[spiralNum], plms.dodgeSpeed, plms.dodgeTime));
             
         }

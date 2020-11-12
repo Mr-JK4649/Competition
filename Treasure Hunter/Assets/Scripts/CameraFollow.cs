@@ -18,7 +18,7 @@ public class CameraFollow : MonoBehaviour
             this.gameObject.GetComponent<Transform>().position = new Vector3(pms.Origin_Pos.x, pms.Origin_Pos.y + 4.5f, pl.position.z - 20.5f);
         }
         else {
-            this.gameObject.GetComponent<Transform>().position = new Vector3(pl.position.x, pl.position.y + 1.5f, pl.position.z - 5.5f);
+            this.gameObject.GetComponent<Transform>().position = new Vector3(pl.position.x, pl.position.y + 4.5f, pl.position.z - 20.5f);
         }
 
 

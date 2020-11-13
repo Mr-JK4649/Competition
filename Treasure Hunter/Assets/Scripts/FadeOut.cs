@@ -17,12 +17,12 @@ public class FadeOut : MonoBehaviour
     {
         v_camera = GameObject.Find("Wizard");
     }
-    private void Update()
-    {
 
+    private void FixedUpdate()
+    {
         //V_cameraとオブジェクトの距離を変数dに入れる
         var d = Vector3.Distance(v_camera.transform.position, transform.position);
-        
+
         //透明度をいじるための変数格納
         var color = this.GetComponent<Renderer>().material.color;
 

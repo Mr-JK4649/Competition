@@ -20,18 +20,19 @@ public class PlayerRotate : MonoBehaviour
         plms = this.GetComponent<PlayerMoveSystem>();
     }
 
-    private void Update()
+
+    private void FixedUpdate()
     {
         if (plms.accelCount > 0)
         {
-            if(spinFlg)
+            if (spinFlg)
                 StartCoroutine("AccelRotate");
             spinFlg = false;
         }
 
 
         AccelAngleChangeLaneMove();
-            
+
 
     }
 

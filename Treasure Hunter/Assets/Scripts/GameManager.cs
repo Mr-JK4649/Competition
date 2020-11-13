@@ -82,6 +82,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //ポーズする
+        if(Input.GetButtonDown("Pause"))
+            Time.timeScale = 1 - Time.timeScale;
+    }
+
+    private void FixedUpdate()
+    {
+
         currentFramerate = (int)(1f / Time.deltaTime);      //現在のフレームレート近似値
 
         aaa = blackOutImage.color.a;                        //暗転用画像のアルファ値
@@ -107,7 +115,8 @@ public class GameManager : MonoBehaviour
         //    SceneManager.LoadScene("MainScene");
 
 
-        switch (plms.autoRunVec) {
+        switch (plms.autoRunVec)
+        {
 
             case "front":
                 CameraOnOff(1, 0, 0, 0);
@@ -122,10 +131,7 @@ public class GameManager : MonoBehaviour
                 CameraOnOff(0, 0, 0, 1);
                 break;
         }
-    }
 
-    private void FixedUpdate()
-    {
         if (CoinBar.value >= 1.0f)
         {
             CoinBar.value = 0f;

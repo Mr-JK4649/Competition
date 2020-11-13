@@ -22,11 +22,10 @@ public class ShootSpiral : MonoBehaviour
     private float oldHori, oldVer;      //前のフレームの傾き
 
 
-    void Update()
+    private void FixedUpdate()
     {
-
         InputProcess();
-        
+
         plms.setNaighborDistination();
 
         //version1.3
@@ -34,7 +33,7 @@ public class ShootSpiral : MonoBehaviour
             if (GameObject.FindWithTag("Spiral") == null)
             {
 
-                
+
                 if (ver > 0f && ver != oldVer && plms.lanePos[0] != Vector3.zero)        //上
                 {
                     SpiralEulerAngles = new Vector3(0f, 0f, 0f);
@@ -71,7 +70,7 @@ public class ShootSpiral : MonoBehaviour
                     SpiralShot();
                 }
 
-                
+
 
             }
         }
@@ -193,7 +192,7 @@ public class ShootSpiral : MonoBehaviour
             //}
         }
 
-        
+
         oldHori = hori;
         oldVer = ver;
     }

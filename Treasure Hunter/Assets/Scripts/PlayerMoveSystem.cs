@@ -1,15 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
-using System.Security.AccessControl;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Scripting;
-using UnityEngine.Scripting.APIUpdating;
-using UnityEngine.UIElements;
 
 public class PlayerMoveSystem : MonoBehaviour
 {
@@ -19,12 +10,12 @@ public class PlayerMoveSystem : MonoBehaviour
     [NonSerialized] public GameObject Wiz;          //プレイヤーオブジェクトを入れる
     [NonSerialized] public Transform Wiz_TF;        //プレイヤーのトランスフォーム
     [NonSerialized] public Rigidbody Wiz_RB;        //プレイヤーのRigitbody
-    private CheckPoint check;
     
     public float LaneMoveSpeed = 0f;                            //プレイヤーのレーン移動速度
+
     public GameObject[] laneObj;                                //レーンオブジェクトの位置
-    [NonSerialized] public Vector3[] lanePos = new Vector3[4];  //移動先レーンの位置
-    [NonSerialized] public GameObject currentLane;              //現在のレーン
+    public Vector3[] lanePos = new Vector3[4];                  //移動先レーンの位置
+    public GameObject currentLane;                              //現在のレーン
     public AnimationCurve dodgeSpeed;                           //うずの移動速度
     public float dodgeTime;                                     //ドッジ回避に掛かる時間
     [NonSerialized] public Vector3 Origin_Pos;                  //プレイヤーの初期値
@@ -35,6 +26,15 @@ public class PlayerMoveSystem : MonoBehaviour
     [NonSerialized]public int accelCount;                       //加速カウント
 
     public Vector3 lastCheckPoint;
+    [NonSerialized] public string lastVec;                     //最後に通ったチェックポイントのベクトル
+
+    private Vector3 latestPos;  //前回のPosition
+    public Vector3 diff;        //距離
+    public float mgni;          //距離の前のやつ(軽量化用)
+
+    public string autoRunVec = "front"; //進んでる方向
+
+    private bool isCoroutine = false;
 
     private void Start()
     {
@@ -54,27 +54,36 @@ public class PlayerMoveSystem : MonoBehaviour
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
     }
 
-    private void Update()
-    {
-
-        //レーン移動の処理
-        LaneMove();
-
-        //プレイヤーの座標更新
-        Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
-
-        //if (Input.GetKeyDown(KeyCode.R) && lastCheckPoint != Vector3.zero)
-        //    this.transform.position = lastCheckPoint;
-
-    }
 
     private void FixedUpdate()
     {
 
+        //レーン移動の処理
+        //LaneMove();
+
+        switch (autoRunVec) {
+            case "front":
+                Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
+                break;
+
+            case "left":
+                Wiz_RB.velocity = new Vector3(-RunSpeed, Move.y, Move.x);
+                break;
+
+            case "right":
+                Wiz_RB.velocity = new Vector3(RunSpeed, Move.y, Move.x);
+                break;
+
+            case "back":
+                Wiz_RB.velocity = new Vector3(Move.x, Move.y, -RunSpeed);
+                break;
+        }
+
+
         //加速カウントが0では無ければ
         if (accelCount > 0)
         {
-
+            GetComponent<BoxCollider>().size = new Vector3(100, 100, 5);
             accelCount--;
 
             //時間が経過したらプレイヤーの速度を徐々に初期化
@@ -85,6 +94,19 @@ public class PlayerMoveSystem : MonoBehaviour
             }
 
         }
+
+        diff = transform.position - latestPos;   //前回からどこに進んだかをベクトルで取得
+
+        mgni = diff.magnitude;
+
+        //ベクトルの大きさが0.01以上の時に向きを変える処理をする
+        if (diff.magnitude >= 0.01f && RunSpeed != playerOriginSpeed * accelForce && !isCoroutine)
+        {
+            Debug.Log("現在の向き : " + autoRunVec);
+            transform.rotation = Quaternion.LookRotation(new Vector3(diff.x, diff.y, diff.z)); //向きを変更する
+        }
+
+        latestPos = transform.position;  //前回のPositionの更新
     }
 
 
@@ -99,25 +121,31 @@ public class PlayerMoveSystem : MonoBehaviour
 
         Move = Vector3.zero;
 
-        if (Wiz_TF.position.x - 0.5f > Origin_Pos.x - 13.5f &&
-            Wiz_TF.position.x + 0.5f < Origin_Pos.x + 13.5f)
-        {
-            Move.x = Input.GetAxis("Horizontal") * LaneMoveSpeed;
-        }
-        else {
-            Move.x = Input.GetAxis("Horizontal") * -LaneMoveSpeed * 5;
-        }
+        int isAccel = RunSpeed > playerOriginSpeed ? 5 : 1;
 
-        if (Wiz_TF.position.y - 0.5f > Origin_Pos.y - 13.5f &&
-            Wiz_TF.position.y + 0.5f < Origin_Pos.y + 13.5f)
-        {
-            Move.y = Input.GetAxis("Vertical") * LaneMoveSpeed;
-        }
-        else {
-            Move.y = Input.GetAxis("Vertical") * -LaneMoveSpeed * 5;
-        }
+        //if (Wiz_TF.position.x - 0.5f > Origin_Pos.x - 13.5f &&
+        //    Wiz_TF.position.x + 0.5f < Origin_Pos.x + 13.5f)
+        //{
+        //    Move.x = Input.GetAxis("Horizontal") * LaneMoveSpeed * isAccel;
+        //}
+        //else {
+        //    Move.x = Input.GetAxis("Horizontal") * -LaneMoveSpeed * 5 * isAccel;
+        //}
+
+        //if (Wiz_TF.position.y - 0.5f > Origin_Pos.y - 13.5f &&
+        //    Wiz_TF.position.y + 0.5f < Origin_Pos.y + 13.5f)
+        //{
+        //    Move.y = Input.GetAxis("Vertical") * LaneMoveSpeed * isAccel;
+        //}
+        //else {
+        //    Move.y = Input.GetAxis("Vertical") * -LaneMoveSpeed * 5 * isAccel;
+        //}
+
+        Move.x = Input.GetAxis("Horizontal") * LaneMoveSpeed * isAccel;
+        Move.y = Input.GetAxis("Vertical") * LaneMoveSpeed * isAccel;
 
     }
+
 
     //移動先のレーンを格納
     public void setNaighborDistination() {
@@ -126,6 +154,7 @@ public class PlayerMoveSystem : MonoBehaviour
             if (currentLane.name == laneObj[current].name) break;
             current++;
         }
+        
 
         //上のレーン
         if (current / 3 > 0) lanePos[0] = laneObj[current - 3].transform.position;
@@ -150,18 +179,31 @@ public class PlayerMoveSystem : MonoBehaviour
     public IEnumerator Mover(Vector3 pos1, Vector3 pos2, AnimationCurve ac, float time)
     {
         float timer = 0.0f;
+        isCoroutine = true;
         while (timer <= time)
         {
 
             Vector3 pos = Vector3.Lerp(pos1, pos2, ac.Evaluate(timer / time));
-            transform.position = new Vector3(pos.x,pos.y,Wiz_TF.position.z);
-            
+            switch (autoRunVec) {
+                case "front":
+                case "back":
+                    transform.position = new Vector3(pos.x, pos.y, Wiz_TF.position.z);
+                    break;
 
+                case "right":
+                case "left":
+                    transform.position = new Vector3(Wiz_TF.position.x, pos.y, pos.z);
+                    break;
+            }
+
+
+            isCoroutine = false;
             timer += Time.deltaTime;
             yield return null;
         }
     }
 
+    //徐々に減速
     private IEnumerator SlowInitSpeed() {
 
         while (RunSpeed > playerOriginSpeed) {
@@ -172,7 +214,7 @@ public class PlayerMoveSystem : MonoBehaviour
         }
 
         RunSpeed = playerOriginSpeed;
-
+        GetComponent<BoxCollider>().size = new Vector3(10, 10, 5);
         
     }
 }

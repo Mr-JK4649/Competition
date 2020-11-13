@@ -6,13 +6,15 @@ using UnityEngine;
 
 public class GameBootScripts : MonoBehaviour
 {
-
+    private PlayerMoveSystem plms;
     private CinemachineVirtualCamera vc1;
     private CinemachineVirtualCamera vc2;
 
     // Start is called before the first frame update
     void Start()
     {
+        plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
+
         //カメラの初期化
         CameraInit();
 

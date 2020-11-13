@@ -12,8 +12,6 @@ public class PlayerHitObject : MonoBehaviour
     private PlayerMoveSystem plms;                  //プレイヤーの移動を司るスクリプト
     private GameManager gm;                         //ゲームの進行などを司るスクリプト
 
-    private bool deathFlg = false;                  //プレイヤーが障害物に当たったかの判定
-
     [SerializeField] bool blockHitFlg = false;      //障害物に当たるかのフラグ
     
     [SerializeField] GameObject bom;                //爆発
@@ -47,11 +45,13 @@ public class PlayerHitObject : MonoBehaviour
         {
             switch (other.gameObject.tag) {
                 case "Block":
-                    //Instantiate(bom, this.gameObject.transform);
-                    plms.accelCount = 0;
-                    plms.RunSpeed = -0.5f;
-                    deathFlg = true;
-                    gm.GameOver();
+                    if (gm.aaa <= 0)
+                    {
+                        //Instantiate(bom, this.gameObject.transform);
+                        plms.accelCount = 0;
+                        plms.RunSpeed = 0f;
+                        gm.GameOver();
+                    }
                     break;
 
                 case "Wall":
@@ -78,10 +78,20 @@ public class PlayerHitObject : MonoBehaviour
 
             case "CheckPoint":
                 plms.lastCheckPoint = other.gameObject.transform.position;
+                plms.lastVec = plms.autoRunVec;
                 break;
 
             case "Goal":
                 gm.GameClearText.enabled = true;
+                break;
+
+            case "Curve":
+                plms.autoRunVec = other.gameObject.name;
+                break;
+
+            case "correct":
+                GameObject.Find("LanePanel").transform.position = other.gameObject.transform.position;
+                plms.Wiz_TF.position = plms.currentLane.transform.position;
                 break;
         }
 

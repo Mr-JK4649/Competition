@@ -139,7 +139,8 @@ public class GameManager : MonoBehaviour
 
         GameOverText.enabled = true;
 
-        blackOut.SetTrigger("StartBlackOut");
+        if(aaa == 0f)
+            blackOut.SetTrigger("StartBlackOut");
 
     }
 

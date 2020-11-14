@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Meta
   m_EditorClassIdentifier: 
   ExporterVersion: VRoidStudio-0.11.2
-  Title: 
-  Version: 
-  Author: 
+  Title: player
+  Version: 0
+  Author: 0
   ContactInformation: 
   Reference: 
   Thumbnail: {fileID: 2800000, guid: 458e16f86311f5149b22e3a25a223d08, type: 3}

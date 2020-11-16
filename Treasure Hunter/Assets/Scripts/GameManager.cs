@@ -137,6 +137,9 @@ public class GameManager : MonoBehaviour
             CoinBar.value = 0f;
             coinsScore += 100;
         }
+
+        if (GameObject.FindWithTag("Player") == null)
+            SceneManager.LoadScene("ResultScene");
     }
 
     //ゲームオーバーした時の判定

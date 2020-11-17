@@ -8,7 +8,7 @@ public class InhaleCoin : MonoBehaviour
     private Transform pl;
     private PlayerMoveSystem plms;
     private GameManager gm;
-    [SerializeField]private bool inhale = false;
+    [SerializeField]private bool inhale = true;
 
     private float time = 0f;
 
@@ -20,14 +20,16 @@ public class InhaleCoin : MonoBehaviour
         plms = player.GetComponent<PlayerMoveSystem>();
     }
 
-    void Update()
+
+    private void FixedUpdate()
     {
-        if (inhale) {
+        if (inhale)
+        {
 
             time += 0.003f;
 
             transform.position = Vector3.MoveTowards(transform.position, pl.position, plms.RunSpeed * time);
-            
+
         }
 
         float distance = (transform.position - pl.position).sqrMagnitude;
@@ -37,7 +39,6 @@ public class InhaleCoin : MonoBehaviour
             Destroy(this.gameObject);
             gm.GetCoin();
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)

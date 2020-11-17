@@ -26,10 +26,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
 
     //以下ゴリラカメラ用
-    GameObject camf;
-    GameObject camr;
-    GameObject caml;
-    GameObject camb;
+    Camera camf;
+    Camera camr;
+    Camera caml;
+    Camera camb;
     
     void Awake()
     {
@@ -74,14 +74,22 @@ public class GameManager : MonoBehaviour
 
 
         ////以下カメラ用
-        //camf = GameObject.Find("FollowCamera");
-        //camr = GameObject.Find("FollowCameraR");
-        //caml = GameObject.Find("FollowCameraL");
-        //camb = GameObject.Find("FollowCameraB");
+        camf = GameObject.Find("FollowCamera").GetComponent<Camera>();
+        camr = GameObject.Find("FollowCameraR").GetComponent<Camera>();
+        caml = GameObject.Find("FollowCameraL").GetComponent<Camera>();
+        camb = GameObject.Find("FollowCameraB").GetComponent<Camera>();
     }
 
     private void Update()
     {
+        //ポーズする
+        if(Input.GetButtonDown("Pause"))
+            Time.timeScale = 1 - Time.timeScale;
+    }
+
+    private void FixedUpdate()
+    {
+
         currentFramerate = (int)(1f / Time.deltaTime);      //現在のフレームレート近似値
 
         aaa = blackOutImage.color.a;                        //暗転用画像のアルファ値
@@ -107,7 +115,8 @@ public class GameManager : MonoBehaviour
         //    SceneManager.LoadScene("MainScene");
 
 
-        switch (plms.autoRunVec) {
+        switch (plms.autoRunVec)
+        {
 
             case "front":
                 CameraOnOff(1, 0, 0, 0);
@@ -122,15 +131,15 @@ public class GameManager : MonoBehaviour
                 CameraOnOff(0, 0, 0, 1);
                 break;
         }
-    }
 
-    private void FixedUpdate()
-    {
         if (CoinBar.value >= 1.0f)
         {
             CoinBar.value = 0f;
             coinsScore += 100;
         }
+
+        if (GameObject.FindWithTag("Player") == null)
+            SceneManager.LoadScene("ResultScene");
     }
 
     //ゲームオーバーした時の判定
@@ -165,17 +174,17 @@ public class GameManager : MonoBehaviour
     //カメラ4つのオンオフ切り替え
     void CameraOnOff(int f,int r,int l,int b) {
 
-        //if (f == 1) camf.SetActive(true);
-        //else camf.SetActive(false);
+        if (f == 1) camf.enabled = true;
+        else camf.enabled = false;
 
-        //if (r == 1) camr.SetActive(true);
-        //else camr.SetActive(false);
+        if (r == 1) camr.enabled = true;
+        else camr.enabled = false;
 
-        //if (l == 1) caml.SetActive(true);
-        //else caml.SetActive(false);
+        if (l == 1) caml.enabled = true;
+        else caml.enabled = false;
 
-        //if (b == 1) camb.SetActive(true);
-        //else camb.SetActive(false);
+        if (b == 1) camb.enabled = true;
+        else camb.enabled = false;
 
     }
 }

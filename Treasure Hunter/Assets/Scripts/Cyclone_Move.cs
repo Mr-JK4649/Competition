@@ -11,11 +11,13 @@ public class Cyclone_Move : MonoBehaviour
 
     private PlayerMoveSystem plms;
     private int spiralNum = -1;
+    private Animator animator;
 
     private void Start()
     {
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
         Destroy(this.gameObject, 1f);
+        animator = GameObject.Find("Player02").GetComponent<Animator>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,15 +25,16 @@ public class Cyclone_Move : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
-            
+
+
             switch (this.gameObject.name)
             {
 
                 case "UpSpiral":    spiralNum = 0;  break;      //上にドッジ
 
-                case "LeftSpiral":  spiralNum = 1;  break;      //左にドッジ
+                case "LeftSpiral":  spiralNum = 1; animator.SetTrigger("Spiral");  break;      //左にドッジ
 
-                case "RightSpiral": spiralNum = 2;  break;      //右にドッジ
+                case "RightSpiral": spiralNum = 2; animator.SetTrigger("Spiral");  break;      //右にドッジ
 
                 case "DownSpiral":  spiralNum = 3;  break;      //下にドッジ
 

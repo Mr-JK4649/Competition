@@ -43,21 +43,21 @@ public class ShootSpiral : MonoBehaviour
                 }
                 else if (ver < 0f && ver != oldVer && plms.lanePos[3] != Vector3.zero)   //下
                 {
-                    SpiralEulerAngles = new Vector3(0f, 0f, 0f);
+                    SpiralEulerAngles = new Vector3(0f, 0f, 180f);
                     spiralName = "DownSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
                 }
                 else if (hori < 0 && hori != oldHori && plms.lanePos[1] != Vector3.zero)   //左
                 {
-                    SpiralEulerAngles = new Vector3(0f, 0f, -90f);
+                    SpiralEulerAngles = new Vector3(0f, 0f, 90f);
                     spiralName = "LeftSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
                 }
                 else if (hori > 0 && hori != oldHori && plms.lanePos[2] != Vector3.zero)   //右
                 {
-                    SpiralEulerAngles = new Vector3(0f, 0f, 90f);
+                    SpiralEulerAngles = new Vector3(0f, 0f, -90f);
                     spiralName = "RightSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();

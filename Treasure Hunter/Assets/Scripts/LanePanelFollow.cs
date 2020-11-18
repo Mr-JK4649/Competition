@@ -14,10 +14,10 @@ public class LanePanelFollow : MonoBehaviour
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-
-        switch(plms.autoRunVec) {
+        switch (plms.autoRunVec)
+        {
             case "front":
                 this.transform.localRotation = Quaternion.Euler(0, 0, 0);
                 this.gameObject.GetComponent<Transform>().position = new Vector3(this.transform.position.x, this.transform.position.y, pl.position.z);
@@ -38,7 +38,6 @@ public class LanePanelFollow : MonoBehaviour
                 this.gameObject.GetComponent<Transform>().position = new Vector3(this.transform.position.x, this.transform.position.y, pl.position.z);
                 break;
         }
-        
     }
 
 

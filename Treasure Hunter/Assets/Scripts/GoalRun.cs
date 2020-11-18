@@ -16,7 +16,7 @@ public class GoalRun : MonoBehaviour
         point = stopObject.GetComponent<Transform>().position;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         float Player_z = GameObject.Find("Wizard").transform.position.z;
         if (goalStop == false)
@@ -28,6 +28,7 @@ public class GoalRun : MonoBehaviour
             this.GetComponent<Transform>().position = new Vector3(point.x, this.GetComponent<Transform>().position.y, point.z);
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "GoalStop")

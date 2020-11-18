@@ -8,9 +8,9 @@ public class GoodCurveScripts : MonoBehaviour
     GameObject cm1;
     GameObject cm2;
 
+    
 
     private PlayerMoveSystem plms;
-    public bool flg = false;
     private float size;
     private string objName;
     private float pl_oriSpd;
@@ -20,7 +20,7 @@ public class GoodCurveScripts : MonoBehaviour
     private void Start()
     {
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
-        size = this.GetComponent<BoxCollider>().size.y;
+        size = this.GetComponent<BoxCollider>().size.y / 2;
         objName = this.name;
         pl_oriSpd = plms.playerOriginSpeed;
         //plms.autoRunVec = this.name;
@@ -47,29 +47,32 @@ public class GoodCurveScripts : MonoBehaviour
                 Debug.Log("カメラ１");
             }
 
-        flg = true;
+        plms.curveFlg = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (Mathf.Abs(plms.runSpd.x) < 5) plms.runSpd.x = 0;
-        if (Mathf.Abs(plms.runSpd.y) < 5) plms.runSpd.y = 0;
-        if (Mathf.Abs(plms.runSpd.z) < 5) plms.runSpd.z = 0;
+        if (Mathf.Abs(plms.runSpd.x) < pl_oriSpd / 2) plms.runSpd.x = 0;
+        if (Mathf.Abs(plms.runSpd.y) < pl_oriSpd / 2) plms.runSpd.y = 0;
+        if (Mathf.Abs(plms.runSpd.z) < pl_oriSpd / 2) plms.runSpd.z = 0;
         if (Mathf.Abs(plms.runSpd.x) > pl_oriSpd / 2) plms.runSpd.x = plms.RunSpeed * (objName == "left" ? -1 : 1);
         if (Mathf.Abs(plms.runSpd.z) > pl_oriSpd / 2) plms.runSpd.z = plms.RunSpeed * (objName == "back" ? -1 : 1);
         plms.autoRunVec = this.name;
-        flg = false;
+        plms.curveFlg = false;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player") CalcPlayerSpd(this.name);
+        if (other.gameObject.tag == "Player") CalcPlayerSpd(this.name,(this.transform.position - other.transform.position));
         Debug.Log("ステイ");
     }
 
-    void CalcPlayerSpd(string thisname){
+    void CalcPlayerSpd(string thisname,Vector3 dis){
 
-        float diff = (plms.runSpd.z / (pl_oriSpd * plms.accelForce)) * 10;
+        //float diff = (plms.runSpd.z / (plms.RunSpeed * plms.accelForce)) * 10;
+        float diff = (plms.runSpd.x + plms.runSpd.z) / pl_oriSpd;
+
+        if (plms.RunSpeed != pl_oriSpd) diff *= 5;
 
         switch (thisname) {
             case "front":
@@ -80,8 +83,10 @@ public class GoodCurveScripts : MonoBehaviour
 
             case "right":
             case "left":
-                plms.runSpd.z = Mathf.MoveTowards(plms.runSpd.z, 0f, diff);
-                plms.runSpd.x += thisname == "right" ? diff : -diff;
+                //plms.runSpd.z = Mathf.MoveTowards(plms.runSpd.z, 0f, diff);
+                //plms.runSpd.x += thisname == "right" ? diff : -diff;
+                plms.runSpd.z = plms.RunSpeed * (dis.z / size);
+                plms.runSpd.x = plms.RunSpeed - plms.runSpd.z;
                 break;
         }
 

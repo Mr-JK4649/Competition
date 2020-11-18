@@ -39,6 +39,8 @@ public class PlayerMoveSystem : MonoBehaviour
 
     private bool isCoroutine = false;
 
+    public bool curveFlg = false;
+
     private void Start()
     {
         //if(check.checkFlg == true)
@@ -86,6 +88,18 @@ public class PlayerMoveSystem : MonoBehaviour
         }
 
         //座標の更新ver2
+        if (RunSpeed != playerOriginSpeed) {
+            switch (autoRunVec) {
+                case "front":   runSpd.z = RunSpeed;
+                    break;
+                case "right":   runSpd.x = RunSpeed;
+                    break;
+                case "left":    runSpd.x = -RunSpeed;
+                    break;
+                case "back":    runSpd.z = -RunSpeed;
+                    break;
+            }
+        }   //ダッシュ時のみ速度反映
         Wiz_RB.velocity = runSpd;
 
         //加速カウントが0では無ければ

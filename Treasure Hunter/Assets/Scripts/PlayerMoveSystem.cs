@@ -7,6 +7,7 @@ public class PlayerMoveSystem : MonoBehaviour
     private GameManager gm;
 
     public float RunSpeed = 0f;      //プレイヤーの自動飛行の速度
+    public Vector3 runSpd;           //移動速度Vector3版
     [NonSerialized] public GameObject Wiz;          //プレイヤーオブジェクトを入れる
     [NonSerialized] public Transform Wiz_TF;        //プレイヤーのトランスフォーム
     [NonSerialized] public Rigidbody Wiz_RB;        //プレイヤーのRigitbody
@@ -24,6 +25,8 @@ public class PlayerMoveSystem : MonoBehaviour
     public float accelForce;                                    //加速の倍率
     public int accelTime = 0;                                   //加速の時間
     [NonSerialized]public int accelCount;                       //加速カウント
+
+    
 
     public Vector3 lastCheckPoint;
     [NonSerialized] public string lastVec;                     //最後に通ったチェックポイントのベクトル
@@ -61,24 +64,29 @@ public class PlayerMoveSystem : MonoBehaviour
         //レーン移動の処理
         //LaneMove();
 
-        switch (autoRunVec) {
-            case "front":
-                Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
-                break;
+        //座標の更新
+        {
+            //switch (autoRunVec) {
+            //    case "front":
+            //        Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
+            //        break;
 
-            case "left":
-                Wiz_RB.velocity = new Vector3(-RunSpeed, Move.y, Move.x);
-                break;
+            //    case "left":
+            //        Wiz_RB.velocity = new Vector3(-RunSpeed, Move.y, Move.x);
+            //        break;
 
-            case "right":
-                Wiz_RB.velocity = new Vector3(RunSpeed, Move.y, Move.x);
-                break;
+            //    case "right":
+            //        Wiz_RB.velocity = new Vector3(RunSpeed, Move.y, Move.x);
+            //        break;
 
-            case "back":
-                Wiz_RB.velocity = new Vector3(Move.x, Move.y, -RunSpeed);
-                break;
+            //    case "back":
+            //        Wiz_RB.velocity = new Vector3(Move.x, Move.y, -RunSpeed);
+            //        break;
+            //}
         }
 
+        //座標の更新ver2
+        Wiz_RB.velocity = runSpd;
 
         //加速カウントが0では無ければ
         if (accelCount > 0)

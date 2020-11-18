@@ -871,7 +871,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68851405}
   m_LocalRotation: {x: 0.14079052, y: 0.000000029505477, z: -0.0000000041958854, w: 0.9900394}
-  m_LocalPosition: {x: 0.53, y: 4.19, z: -12}
+  m_LocalPosition: {x: 0, y: 2.4500008, z: -8.439941}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 699698790}
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68851405}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 0.5
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -991,7 +991,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68851405}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1333914c2f4e7342bc53c4ff0d13d72, type: 3}
   m_Name: 
@@ -1109,6 +1109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunSpeed: 50
+  runSpd: {x: 0, y: 0, z: 0}
   LaneMoveSpeed: 5
   laneObj:
   - {fileID: 301124191}
@@ -2065,6 +2066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunSpeed: 50
+  runSpd: {x: 0, y: 0, z: 50}
   LaneMoveSpeed: 5
   laneObj:
   - {fileID: 525800513}
@@ -3762,8 +3764,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195973678}
-  m_LocalRotation: {x: 0.33805415, y: -0.121523924, z: 0.044069275, w: 0.9322067}
-  m_LocalPosition: {x: -5.6100016, y: 8.730001, z: -26.02}
+  m_LocalRotation: {x: 0.042397283, y: 0.7441186, z: -0.04744072, w: 0.66501087}
+  m_LocalPosition: {x: -25.0701, y: -4.55, z: -8.450049}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2013819188}
@@ -3788,8 +3790,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 1
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 104551392}
+  m_Follow: {fileID: 692633239}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
@@ -4823,6 +4825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunSpeed: 50
+  runSpd: {x: 0, y: 0, z: 0}
   LaneMoveSpeed: 5
   laneObj:
   - {fileID: 299015417}
@@ -5614,7 +5617,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328311894}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -8923,7 +8926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 604943668}
+  volumeTrigger: {fileID: 328311895}
   volumeLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -9016,7 +9019,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604943667}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -9588,7 +9591,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 657539008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.77, y: 17.3, z: 7}
+  m_LocalPosition: {x: 14.77, y: 17.3, z: 2205}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 692633239}
@@ -9824,16 +9827,16 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.5
+    y: 0.5
+    width: 0.5
+    height: 0.5
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -9855,8 +9858,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 677684840}
-  m_LocalRotation: {x: -0.19697867, y: -0.017994378, z: 0.0036049187, w: -0.98023605}
-  m_LocalPosition: {x: 50.392582, y: 5.5875435, z: 22.586365}
+  m_LocalRotation: {x: -0.13001394, y: -0.81287175, z: 0.19865198, w: -0.5318582}
+  m_LocalPosition: {x: -7.875299, y: 29.832726, z: 2370.5388}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10905,6 +10908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunSpeed: 50
+  runSpd: {x: 0, y: 0, z: 0}
   LaneMoveSpeed: 5
   laneObj:
   - {fileID: 301124191}
@@ -14982,6 +14986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e22939288a859541bbdcb5965d4040d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flg: 0
 --- !u!1 &1214789071
 GameObject:
   m_ObjectHideFlags: 0
@@ -20736,7 +20741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 1560053403}
+  volumeTrigger: {fileID: 328311895}
   volumeLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -20829,7 +20834,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1560053402}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -25824,7 +25829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 13.6601, y: 6.1800027, z: -15.369999}
+  m_FollowOffset: {x: -14.8, y: 1.9, z: 0}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1

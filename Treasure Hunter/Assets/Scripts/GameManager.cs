@@ -26,11 +26,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
     [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
 
-    //以下ゴリラカメラ用
-    Camera camf;
-    Camera camr;
-    Camera caml;
-    Camera camb;
+    ////以下ゴリラカメラ用
+    //Camera camf;
+    //Camera camr;
+    //Camera caml;
+    //Camera camb;
     
     void Awake()
     {
@@ -75,10 +75,6 @@ public class GameManager : MonoBehaviour
 
 
         ////以下カメラ用
-        //camf = GameObject.Find("FollowCamera").GetComponent<Camera>();
-        //camr = GameObject.Find("FollowCameraR").GetComponent<Camera>();
-        //caml = GameObject.Find("FollowCameraL").GetComponent<Camera>();
-        //camb = GameObject.Find("FollowCameraB").GetComponent<Camera>();
     }
 
     private void Update()
@@ -116,22 +112,22 @@ public class GameManager : MonoBehaviour
         //    SceneManager.LoadScene("MainScene");
 
 
-        switch (plms.autoRunVec)
-        {
+        //switch (plms.autoRunVec)
+        //{
 
-            case "front":
-                CameraOnOff(1, 0, 0, 0);
-                break;
-            case "right":
-                CameraOnOff(0, 1, 0, 0);
-                break;
-            case "left":
-                CameraOnOff(0, 0, 1, 0);
-                break;
-            case "back":
-                CameraOnOff(0, 0, 0, 1);
-                break;
-        }
+        //    case "front":
+        //        CameraOnOff(1, 0, 0, 0);
+        //        break;
+        //    case "right":
+        //        CameraOnOff(0, 1, 0, 0);
+        //        break;
+        //    case "left":
+        //        CameraOnOff(0, 0, 1, 0);
+        //        break;
+        //    case "back":
+        //        CameraOnOff(0, 0, 0, 1);
+        //        break;
+        //}
 
         if (CoinBar.value >= 1.0f)
         {

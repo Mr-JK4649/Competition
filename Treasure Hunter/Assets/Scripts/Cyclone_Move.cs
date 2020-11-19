@@ -32,9 +32,9 @@ public class Cyclone_Move : MonoBehaviour
 
                 case "UpSpiral":    spiralNum = 0;  break;      //上にドッジ
 
-                case "LeftSpiral":  spiralNum = 1; animator.SetTrigger("Spiral");  break;      //左にドッジ
+                case "LeftSpiral":  spiralNum = 1; animator.SetTrigger("Spiral_L");  break;      //左にドッジ
 
-                case "RightSpiral": spiralNum = 2; animator.SetTrigger("Spiral");  break;      //右にドッジ
+                case "RightSpiral": spiralNum = 2; animator.SetTrigger("Spiral_R");  break;      //右にドッジ
 
                 case "DownSpiral":  spiralNum = 3;  break;      //下にドッジ
 

@@ -7,6 +7,7 @@ public class GoodCurveScripts : MonoBehaviour
 {
     GameObject cm1;
     GameObject cm2;
+    GameObject cm3;
 
     
 
@@ -26,24 +27,27 @@ public class GoodCurveScripts : MonoBehaviour
         //以下カメラ操作
         cm1 = GameObject.Find("CM vcam1");
         cm2 = GameObject.Find("CM vcam2");
+        cm2 = GameObject.Find("CM vcam3");
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        int priry1 = cm1.GetComponent<CinemachineVirtualCamera>().Priority;
-        int priry2 = cm2.GetComponent<CinemachineVirtualCamera>().Priority;
+        //int priry1 = cm1.GetComponent<CinemachineVirtualCamera>().Priority;
+        //int priry2 = cm2.GetComponent<CinemachineVirtualCamera>().Priority;
 
-            if (priry1 >= priry2)
-            {
-                cm2.GetComponent<CinemachineVirtualCamera>().Priority = cm1.GetComponent<CinemachineVirtualCamera>().Priority + 1;
-                Debug.Log("カメラ２");
-            }
+        //if (priry1 >= priry2)
+        //{
+        //    cm2.GetComponent<CinemachineVirtualCamera>().Priority = cm1.GetComponent<CinemachineVirtualCamera>().Priority + 1;
+        //    Debug.Log("カメラ２");
+        //}
 
-            if (priry2 >= priry1)
-            {
-                cm1.GetComponent<CinemachineVirtualCamera>().Priority = cm2.GetComponent<CinemachineVirtualCamera>().Priority + 1;
-                Debug.Log("カメラ１");
-            }
+        //if (priry2 >= priry1)
+        //{
+        //    cm1.GetComponent<CinemachineVirtualCamera>().Priority = cm2.GetComponent<CinemachineVirtualCamera>().Priority + 1;
+        //    Debug.Log("カメラ１");
+        //}
+
+        CameraSwitching();
 
         pl_oriSpd = plms.playerOriginSpeed;
         plms.curveFlg = true;
@@ -115,4 +119,19 @@ public class GoodCurveScripts : MonoBehaviour
         plms.runSpd = rs;
 
     }
+
+    //カメラの切り替え
+    void CameraSwitching()
+    {
+
+        cm1.GetComponent<CinemachineVirtualCamera>().Priority = objName == "front" ? 1 : 0;
+        cm2.GetComponent<CinemachineVirtualCamera>().Priority = objName == "right" ? 1 : 0;
+        cm3.GetComponent<CinemachineVirtualCamera>().Priority = objName == "left" ? 1 : 0;
+        //cm4.GetComponent<CinemachineVirtualCamera>().Priority = objName == "back" ? 1 : 0;
+
+
+
+
+    }
+
 }

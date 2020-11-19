@@ -88,7 +88,7 @@ public class PlayerMoveSystem : MonoBehaviour
         }
 
         //座標の更新ver2
-        if (RunSpeed != playerOriginSpeed) {
+        if (RunSpeed != playerOriginSpeed && !curveFlg) {
             switch (autoRunVec) {
                 case "front":   runSpd.z = RunSpeed;
                     break;
@@ -122,7 +122,7 @@ public class PlayerMoveSystem : MonoBehaviour
         mgni = diff.magnitude;
 
         //ベクトルの大きさが0.01以上の時に向きを変える処理をする
-        if (diff.magnitude >= 0.01f && RunSpeed != playerOriginSpeed * accelForce && !isCoroutine)
+        if (diff.magnitude >= 0.01f && !isCoroutine)
         {
             Debug.Log("現在の向き : " + autoRunVec);
             transform.rotation = Quaternion.LookRotation(new Vector3(diff.x, diff.y, diff.z)); //向きを変更する

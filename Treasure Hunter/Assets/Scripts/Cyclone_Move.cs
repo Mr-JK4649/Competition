@@ -40,10 +40,10 @@ public class Cyclone_Move : MonoBehaviour
 
                 case "AccelSpiral":                             //前方に加速
                     plms.accelCount = plms.accelTime;
-                    animator.SetTrigger("Spiral_UP");
                     if (plms.accelCount > 0)
                         plms.StopCoroutine("SlowInitSpeed");
                     plms.RunSpeed = plms.playerOriginSpeed * plms.accelForce;
+                    animator.SetTrigger("Spiral_UP");
                     break;
 
             }

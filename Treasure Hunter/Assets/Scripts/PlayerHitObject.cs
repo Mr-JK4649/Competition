@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
+﻿using UnityEngine;
+
 
 public class PlayerHitObject : MonoBehaviour
 {
@@ -79,6 +73,7 @@ public class PlayerHitObject : MonoBehaviour
             case "CheckPoint":
                 plms.lastCheckPoint = other.gameObject.transform.position;
                 plms.lastVec = plms.autoRunVec;
+                plms.lastRunSpd = plms.runSpd;
                 break;
 
             case "Goal":

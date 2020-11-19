@@ -27,7 +27,7 @@ public class GoodCurveScripts : MonoBehaviour
         //以下カメラ操作
         cm1 = GameObject.Find("CM vcam1");
         cm2 = GameObject.Find("CM vcam2");
-        cm2 = GameObject.Find("CM vcam3");
+        cm3 = GameObject.Find("CM vcam3");
     }
 
     private void OnTriggerEnter(Collider other)

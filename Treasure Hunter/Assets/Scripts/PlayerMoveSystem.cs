@@ -29,6 +29,7 @@ public class PlayerMoveSystem : MonoBehaviour
     
 
     public Vector3 lastCheckPoint;
+    [NonSerialized] public Vector3 lastRunSpd;
     [NonSerialized] public string lastVec;                     //最後に通ったチェックポイントのベクトル
 
     private Vector3 latestPos;  //前回のPosition
@@ -55,6 +56,7 @@ public class PlayerMoveSystem : MonoBehaviour
         currentLane = laneObj[4];
         Origin_Pos = Wiz_TF.position;               //プレイヤーの初期位置を設定
         lastCheckPoint = Wiz_TF.position;
+        lastRunSpd = runSpd;
         playerOriginSpeed = RunSpeed;               //プレイヤーの速度を保存
 
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
@@ -169,6 +171,15 @@ public class PlayerMoveSystem : MonoBehaviour
 
     }
 
+    //リトライ時の初期化
+    public void RetrySpeedReset() {
+        if (runSpd.x > 0) runSpd.x = 50;
+        if (runSpd.y > 0) runSpd.y = 50;
+        if (runSpd.z > 0) runSpd.z = 50;
+        if (runSpd.x < 0) runSpd.x = -50;
+        if (runSpd.y < 0) runSpd.y = -50;
+        if (runSpd.z < 0) runSpd.z = -50;
+    }
 
     //移動先のレーンを格納
     public void setNaighborDistination() {

@@ -153,8 +153,9 @@ public class GameManager : MonoBehaviour
 
     //ゲームオーバー時にリトライ機能を追加
     public void Retry() {
-        //SceneManager.LoadScene("MainScene");
         plms.RunSpeed = plms.playerOriginSpeed;
+        plms.runSpd = plms.lastRunSpd;
+        plms.RetrySpeedReset();
         GameOverText.enabled = false;
         pl.transform.position = plms.lastCheckPoint;
         plms.autoRunVec = plms.lastVec;

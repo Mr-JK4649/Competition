@@ -26,16 +26,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
     [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
 
+    public ToResult tr;
+
     ////以下ゴリラカメラ用
     //Camera camf;
     //Camera camr;
     //Camera caml;
     //Camera camb;
     
-    void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+    //void Awake()
+    //{
+    //    DontDestroyOnLoad(this.gameObject);
+    //}
 
     [SerializeField,Tooltip("ゲームのFPS値を設定するやつね")] 
     private int framerate;
@@ -90,7 +92,8 @@ public class GameManager : MonoBehaviour
         currentFramerate = (int)(1f / Time.deltaTime);      //現在のフレームレート近似値
 
         aaa = blackOutImage.color.a;                        //暗転用画像のアルファ値
-
+        
+        
         blackOut.SetFloat("BlackOutAlphaValue", aaa);       //暗転アニメーション開始
 
         if (aaa == 1f)
@@ -137,9 +140,8 @@ public class GameManager : MonoBehaviour
 
         if (GameClearText.enabled == true)
         {
+            tr.SetValue(coinCount, 0, sco);
             SceneManager.LoadScene("ResultScene");
-            
-
         }
     }
 

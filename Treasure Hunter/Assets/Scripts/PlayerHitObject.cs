@@ -83,7 +83,7 @@ public class PlayerHitObject : MonoBehaviour
 
             case "Goal":
                 gm.GameClearText.enabled = true;
-                Destroy(GameObject.Find("Wizard"));
+                //Destroy(GameObject.Find("Wizard"));
                 break;
 
             case "Curve":

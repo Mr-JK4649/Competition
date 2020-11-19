@@ -135,8 +135,12 @@ public class GameManager : MonoBehaviour
             coinsScore += 100;
         }
 
-        if (GameObject.FindWithTag("Player") == null)
+        if (GameClearText.enabled == true)
+        {
             SceneManager.LoadScene("ResultScene");
+            
+
+        }
     }
 
     //ゲームオーバーした時の判定
@@ -160,7 +164,7 @@ public class GameManager : MonoBehaviour
         plms.autoRunVec = plms.lastVec;
         GameObject.Find("LanePanel").transform.position = plms.lastCheckPoint;
     }
-
+    
     public void GetCoin() {
         sco += coinsScore;
         coinCount += 1;

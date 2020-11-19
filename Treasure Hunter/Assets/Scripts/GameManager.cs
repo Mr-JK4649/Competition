@@ -75,10 +75,10 @@ public class GameManager : MonoBehaviour
 
 
         ////以下カメラ用
-        camf = GameObject.Find("FollowCamera").GetComponent<Camera>();
-        camr = GameObject.Find("FollowCameraR").GetComponent<Camera>();
-        caml = GameObject.Find("FollowCameraL").GetComponent<Camera>();
-        camb = GameObject.Find("FollowCameraB").GetComponent<Camera>();
+        //camf = GameObject.Find("FollowCamera").GetComponent<Camera>();
+        //camr = GameObject.Find("FollowCameraR").GetComponent<Camera>();
+        //caml = GameObject.Find("FollowCameraL").GetComponent<Camera>();
+        //camb = GameObject.Find("FollowCameraB").GetComponent<Camera>();
     }
 
     private void Update()

@@ -30,19 +30,20 @@ public class Cyclone_Move : MonoBehaviour
             switch (this.gameObject.name)
             {
 
-                case "UpSpiral":    spiralNum = 0;  break;      //上にドッジ
+                case "UpSpiral":    spiralNum = 0; animator.SetTrigger("Spiral_UP"); break;      //上にドッジ
 
                 case "LeftSpiral":  spiralNum = 1; animator.SetTrigger("Spiral_L");  break;      //左にドッジ
 
                 case "RightSpiral": spiralNum = 2; animator.SetTrigger("Spiral_R");  break;      //右にドッジ
 
-                case "DownSpiral":  spiralNum = 3;  break;      //下にドッジ
+                case "DownSpiral":  spiralNum = 3; animator.SetTrigger("Spiral_Down"); break;      //下にドッジ
 
                 case "AccelSpiral":                             //前方に加速
                     plms.accelCount = plms.accelTime;
                     if (plms.accelCount > 0)
                         plms.StopCoroutine("SlowInitSpeed");
                     plms.RunSpeed = plms.playerOriginSpeed * plms.accelForce;
+                    animator.SetTrigger("Spiral_UP");
                     break;
 
             }

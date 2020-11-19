@@ -30,7 +30,7 @@ public class ShootSpiral : MonoBehaviour
 
         //version1.3
         {
-            if (GameObject.FindWithTag("Spiral") == null)
+            if (GameObject.FindWithTag("Spiral") == null && !plms.curveFlg)
             {
 
 
@@ -204,6 +204,7 @@ public class ShootSpiral : MonoBehaviour
         Vector3 SpiralPos = ShotPoint.transform.position;
         GameObject newSpiral = Instantiate(Spiral, SpiralPos, Quaternion.Euler(SpiralEulerAngles));
         newSpiral.name = spiralName;
+
     }
 
     //入力の処理

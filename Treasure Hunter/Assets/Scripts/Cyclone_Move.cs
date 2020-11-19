@@ -47,7 +47,7 @@ public class Cyclone_Move : MonoBehaviour
 
             }
 
-            Destroy(this.gameObject,plms.dodgeTime);
+            Destroy(this.gameObject);
 
             //移動のフラグが立ったら移動コルーチン起動
             if (spiralNum != -1)

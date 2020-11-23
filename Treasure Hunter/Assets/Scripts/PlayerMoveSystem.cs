@@ -108,7 +108,7 @@ public class PlayerMoveSystem : MonoBehaviour
         //加速カウントが0では無ければ
         if (accelCount > 0)
         {
-            GetComponent<BoxCollider>().size = new Vector3(100, 100, 5);
+            GetComponent<BoxCollider>().size = new Vector3(50, 50, 5);
             accelCount--;
 
             //時間が経過したらプレイヤーの速度を徐々に初期化

@@ -9,13 +9,23 @@ public class GoodCurveScripts : MonoBehaviour
     GameObject cm2;
     GameObject cm3;
 
-    
 
+    private GameObject[] MainCamera = new GameObject[4];
+    private Camera[] cam = new Camera[4];
+    [SerializeField] private float[] mainCameraRotatebuf_Y = new float[4];
+    [SerializeField]private int onCamraBuf; // 起動していたカメラを保存しておく変数
     private PlayerMoveSystem plms;
     private float size;
     private string objName;
     private float pl_oriSpd;
-
+    
+    public enum CameraType{
+        FRONT,
+        BACK,
+        RIGHT,
+        LEFT,
+        MAX
+    }
 
     private void Start()
     {
@@ -23,15 +33,37 @@ public class GoodCurveScripts : MonoBehaviour
         size = this.GetComponent<BoxCollider>().size.y / 2;
         objName = this.name;
         //plms.autoRunVec = this.name;
-
+        onCamraBuf = (int)CameraType.FRONT;
         //以下カメラ操作
+        MainCamera[(int)CameraType.FRONT] = GameObject.Find("FollowCamera");    // メインカメラの情報
+        MainCamera[(int)CameraType.BACK] = GameObject.Find("FollowCameraB");    // メインカメラBの情報
+        MainCamera[(int)CameraType.LEFT] = GameObject.Find("FollowCameraL");    // メインカメラLの情報
+        MainCamera[(int)CameraType.RIGHT] = GameObject.Find("FollowCameraR");    // メインカメラRの情報
+
+        cam[(int)CameraType.FRONT] = MainCamera[(int)CameraType.FRONT].GetComponent<Camera>();    // メインカメラの情報
+        cam[(int)CameraType.BACK] = MainCamera[(int)CameraType.BACK].GetComponent<Camera>();    // メインカメラBの情報
+        cam[(int)CameraType.LEFT] = MainCamera[(int)CameraType.LEFT].GetComponent<Camera>();    // メインカメラLの情報
+        cam[(int)CameraType.RIGHT] = MainCamera[(int)CameraType.RIGHT].GetComponent<Camera>();    // メインカメラRの情報
+        
+        mainCameraRotatebuf_Y[(int)CameraType.FRONT] = 0.0f;   // カメラのトランスフォームをバックアップ
+        mainCameraRotatebuf_Y[(int)CameraType.BACK] = 180.0f;     // カメラのトランスフォームをバックアップ
+        mainCameraRotatebuf_Y[(int)CameraType.LEFT] = -90.0f;     // カメラのトランスフォームをバックアップ
+        mainCameraRotatebuf_Y[(int)CameraType.RIGHT] = 90.0f;   // カメラのトランスフォームをバックアップ
+
+        //mainCameraRotatebuf[(int)CameraType.FRONT] = MainCamera[(int)CameraType.FRONT].GetComponent<Transform>();   // カメラのトランスフォームをバックアップ
+        //mainCameraRotatebuf[(int)CameraType.BACK] = MainCamera[(int)CameraType.BACK].GetComponent<Transform>();     // カメラのトランスフォームをバックアップ
+        //mainCameraRotatebuf[(int)CameraType.LEFT] = MainCamera[(int)CameraType.LEFT].GetComponent<Transform>();     // カメラのトランスフォームをバックアップ
+        //mainCameraRotatebuf[(int)CameraType.RIGHT] = MainCamera[(int)CameraType.RIGHT].GetComponent<Transform>();   // カメラのトランスフォームをバックアップ
+
         cm1 = GameObject.Find("CM vcam1");
         cm2 = GameObject.Find("CM vcam2");
         cm3 = GameObject.Find("CM vcam3");
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
+
         //int priry1 = cm1.GetComponent<CinemachineVirtualCamera>().Priority;
         //int priry2 = cm2.GetComponent<CinemachineVirtualCamera>().Priority;
 
@@ -46,11 +78,13 @@ public class GoodCurveScripts : MonoBehaviour
         //    cm1.GetComponent<CinemachineVirtualCamera>().Priority = cm2.GetComponent<CinemachineVirtualCamera>().Priority + 1;
         //    Debug.Log("カメラ１");
         //}
-
+       
+        VirtualCameraOn();
         CameraSwitching();
 
         pl_oriSpd = plms.playerOriginSpeed;
         plms.curveFlg = true;
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -76,6 +110,7 @@ public class GoodCurveScripts : MonoBehaviour
 
         plms.autoRunVec = this.name;
         plms.curveFlg = false;
+        VirtualCameraOff();
     }
 
     private void OnTriggerStay(Collider other)
@@ -95,6 +130,7 @@ public class GoodCurveScripts : MonoBehaviour
         switch (thisname) {
             case "front":
             case "back":
+
                 plms.runSpd.x = Mathf.MoveTowards(plms.runSpd.x, 0f, diff);
                 plms.runSpd.z += thisname == "front" ? diff : -diff;
                 break;
@@ -134,4 +170,40 @@ public class GoodCurveScripts : MonoBehaviour
 
     }
 
+    void VirtualCameraOn()
+    {
+        
+        for(int i=0;i<(int)CameraType.MAX;i++)
+        {
+            if(cam[i].enabled == true)
+            {
+                onCamraBuf = i;
+                MainCamera[i].GetComponent<CinemachineBrain>().enabled = true;
+            }
+        }
+        
+    }
+
+    void VirtualCameraOff()
+    {
+        
+        
+        MainCamera[onCamraBuf].GetComponent<CinemachineBrain>().enabled = false;
+        SetBufCameraTrans();
+    }
+
+    void SetBufCameraTrans()
+    {
+        for (int i = 0; i < (int)CameraType.MAX; i++)
+        {
+
+            MainCamera[i].transform.rotation = Quaternion.Euler(MainCamera[i].transform.rotation.x, mainCameraRotatebuf_Y[i], MainCamera[i].transform.rotation.z);
+
+
+
+        }
+    }
+    
 }
+
+

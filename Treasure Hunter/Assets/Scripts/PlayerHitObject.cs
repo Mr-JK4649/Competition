@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Cinemachine;
 
 public class PlayerHitObject : MonoBehaviour
 {
@@ -10,14 +10,30 @@ public class PlayerHitObject : MonoBehaviour
     
     [SerializeField] GameObject bom;                //爆発
 
-    
-
+    GameObject cm1;     // バーチャルカメラ１の情報
+    GameObject cm2;     // バーチャルカメラ２の情報
+    GameObject cm3;     // バーチャルカメラ３の情報
+    int[] cmBuf = new int[3];     // バーチャルカメラの情報を記憶
+    enum VirCamType     // バーチャルカメラの種類
+    {
+        CM1,
+        CM2,
+        CM3,
+        MAX
+    }
     private void Start()
     {
 
         plms = this.GetComponent<PlayerMoveSystem>();
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
-        
+
+        cm1 = GameObject.Find("CM vcam1");     // バーチャルカメラ１の情報
+        cm2 = GameObject.Find("CM vcam2");     // バーチャルカメラ２の情報
+        cm3 = GameObject.Find("CM vcam3");     // バーチャルカメラ３の情報
+        cmBuf[(int)VirCamType.CM1] = cm1.GetComponent<CinemachineVirtualCamera>().Priority;      // バーチャルカメラの情報を記憶
+        cmBuf[(int)VirCamType.CM2] = cm2.GetComponent<CinemachineVirtualCamera>().Priority;      // バーチャルカメラの情報を記憶
+        cmBuf[(int)VirCamType.CM3] = cm3.GetComponent<CinemachineVirtualCamera>().Priority;      // バーチャルカメラの情報を記憶
+
     }
 
     private void Update()
@@ -74,6 +90,7 @@ public class PlayerHitObject : MonoBehaviour
                 plms.lastCheckPoint = other.gameObject.transform.position;
                 plms.lastVec = plms.autoRunVec;
                 plms.lastRunSpd = plms.runSpd;
+                SavePriority();
                 break;
 
             case "Goal":
@@ -93,5 +110,17 @@ public class PlayerHitObject : MonoBehaviour
 
 
     }
-    
+    public void SavePriority()
+    {
+        cmBuf[(int)VirCamType.CM1] = cm1.GetComponent<CinemachineVirtualCamera>().Priority;
+        cmBuf[(int)VirCamType.CM2] = cm2.GetComponent<CinemachineVirtualCamera>().Priority;
+        cmBuf[(int)VirCamType.CM3] = cm3.GetComponent<CinemachineVirtualCamera>().Priority;
+    }
+
+    public void GetPriority()
+    {
+        cm1.GetComponent<CinemachineVirtualCamera>().Priority = cmBuf[(int)VirCamType.CM1];
+        cm2.GetComponent<CinemachineVirtualCamera>().Priority = cmBuf[(int)VirCamType.CM2];
+        cm3.GetComponent<CinemachineVirtualCamera>().Priority = cmBuf[(int)VirCamType.CM3];
+    }
 }

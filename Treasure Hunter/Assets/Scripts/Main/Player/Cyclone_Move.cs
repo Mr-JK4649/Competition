@@ -16,7 +16,7 @@ public class Cyclone_Move : MonoBehaviour
     private void Start()
     {
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
-        Destroy(this.gameObject, 1f);
+        //Destroy(this.gameObject, 1f);
         animator = GameObject.Find("Player02").GetComponent<Animator>();
     }
 
@@ -48,11 +48,16 @@ public class Cyclone_Move : MonoBehaviour
 
             }
 
-            Destroy(this.gameObject,plms.dodgeTime);
+            Destroy(this.gameObject,3.0f);
+            this.gameObject.tag = "Untagged";
+            
 
             //移動のフラグが立ったら移動コルーチン起動
-            if (spiralNum != -1)
+            if (spiralNum != -1){
                 plms.StartCoroutine(plms.Mover(plms.Wiz_TF.position, plms.lanePos[spiralNum], plms.dodgeSpeed, plms.dodgeTime));
+                spiralNum = -1;
+                this.enabled = false;
+            }
             
         }
     }

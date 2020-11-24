@@ -10,12 +10,12 @@ public class FadeOut : MonoBehaviour
     private float hiddenDistance = 25;
     private GameObject v_camera;
 
-    private int coolTime = 90;
+    private int coolTime = 45;
     private int time = 0;
 
     private void Start()
     {
-        v_camera = GameObject.Find("Wizard");
+        v_camera = GameObject.Find("FollowCamera");
     }
 
     private void FixedUpdate()
@@ -37,7 +37,7 @@ public class FadeOut : MonoBehaviour
             }
             else if (d <= startDistance)        //距離が一定以下になったら透明化開始
             {
-                color.a = (d - hiddenDistance) / (startDistance - hiddenDistance) + 0.2f;
+                color.a = (d - hiddenDistance) / (startDistance - hiddenDistance) + 0.1f;
             }
             else                                //透明ではない
             {
@@ -48,4 +48,5 @@ public class FadeOut : MonoBehaviour
         //変更した処理を反映する
         this.GetComponent<Renderer>().material.color = color;
     }
+
 }

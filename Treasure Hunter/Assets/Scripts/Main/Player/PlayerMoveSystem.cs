@@ -6,13 +6,12 @@ public class PlayerMoveSystem : MonoBehaviour
 {
     private GameManager gm;
 
-    public float RunSpeed = 0f;      //プレイヤーの自動飛行の速度
-    public Vector3 runSpd;           //移動速度Vector3版
+    public float RunSpeed = 0f;                     //プレイヤーの自動飛行の速度
+    public Vector3 runSpd;                          //移動速度Vector3版
     [NonSerialized] public GameObject Wiz;          //プレイヤーオブジェクトを入れる
     [NonSerialized] public Transform Wiz_TF;        //プレイヤーのトランスフォーム
     [NonSerialized] public Rigidbody Wiz_RB;        //プレイヤーのRigitbody
     
-    public float LaneMoveSpeed = 0f;                            //プレイヤーのレーン移動速度
 
     public GameObject[] laneObj;                                //レーンオブジェクトの位置
     public Vector3[] lanePos = new Vector3[4];                  //移動先レーンの位置
@@ -20,7 +19,6 @@ public class PlayerMoveSystem : MonoBehaviour
     public AnimationCurve dodgeSpeed;                           //うずの移動速度
     public float dodgeTime;                                     //ドッジ回避に掛かる時間
     [NonSerialized] public Vector3 Origin_Pos;                  //プレイヤーの初期値
-    private Vector3 Move;                                       //プレイヤーの微調整
     [NonSerialized] public float playerOriginSpeed;             //プレイヤーの元の速度保存用
     public float accelForce;                                    //加速の倍率
     public int accelTime = 0;                                   //加速の時間
@@ -28,19 +26,20 @@ public class PlayerMoveSystem : MonoBehaviour
 
     
 
-    public Vector3 lastCheckPoint;
-    [NonSerialized] public Vector3 lastRunSpd;
-    [NonSerialized] public string lastVec;                     //最後に通ったチェックポイントのベクトル
+    public Vector3 lastCheckPoint;                              //チェックポイントの座標
+    [NonSerialized] public Vector3 lastRunSpd;                  //チェックポイント通過時の速度
+    [NonSerialized] public string lastVec;                      //チェックポイント通過時の進行ベクトル
 
-    private Vector3 latestPos;  //前回のPosition
-    public Vector3 diff;        //距離
-    public float mgni;          //距離の前のやつ(軽量化用)
+    private Vector3 latestPos;          //前回のPosition
+    private Vector3 diff;               //距離
+    private float mgni;                 //距離の前のやつ(軽量化用)
 
     public string autoRunVec = "front"; //進んでる方向
 
-    private bool isCoroutine = false;
+    private bool isCoroutine = false;   //コルーチン再生中
 
-    public bool curveFlg = false;
+    public bool curveFlg = false;       //カーブ中
+
 
     private void Start()
     {
@@ -62,50 +61,47 @@ public class PlayerMoveSystem : MonoBehaviour
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();
     }
 
-
     private void FixedUpdate()
     {
+        
+        AutoRun();      //座標の更新ver2
 
-        //レーン移動の処理
-        //LaneMove();
+        AccelAutoRun(); //加速カウントが0では無ければ
 
-        //座標の更新
+        LookAtFront();  //移動先をむく
+        
+    }
+
+    /*========================= 関　　　数 =========================*/
+
+    //自動移動
+    void AutoRun() {
+        if (curveFlg == false)
         {
-            //switch (autoRunVec) {
-            //    case "front":
-            //        Wiz_RB.velocity = new Vector3(Move.x, Move.y, RunSpeed);
-            //        break;
-
-            //    case "left":
-            //        Wiz_RB.velocity = new Vector3(-RunSpeed, Move.y, Move.x);
-            //        break;
-
-            //    case "right":
-            //        Wiz_RB.velocity = new Vector3(RunSpeed, Move.y, Move.x);
-            //        break;
-
-            //    case "back":
-            //        Wiz_RB.velocity = new Vector3(Move.x, Move.y, -RunSpeed);
-            //        break;
-            //}
-        }
-
-        //座標の更新ver2
-        if (RunSpeed != playerOriginSpeed && !curveFlg) {
-            switch (autoRunVec) {
-                case "front":   runSpd.z = RunSpeed;
-                    break;
-                case "right":   runSpd.x = RunSpeed;
-                    break;
-                case "left":    runSpd.x = -RunSpeed;
-                    break;
-                case "back":    runSpd.z = -RunSpeed;
-                    break;
+            if (RunSpeed != playerOriginSpeed)
+            { //ダッシュ時のみ速度反映
+                switch (autoRunVec)
+                {
+                    case "front":
+                        runSpd.z = RunSpeed;
+                        break;
+                    case "right":
+                        runSpd.x = RunSpeed;
+                        break;
+                    case "left":
+                        runSpd.x = -RunSpeed;
+                        break;
+                    case "back":
+                        runSpd.z = -RunSpeed;
+                        break;
+                }
             }
-        }   //ダッシュ時のみ速度反映
-        Wiz_RB.velocity = runSpd;
+            Wiz_RB.velocity = runSpd;
+        }
+    }
 
-        //加速カウントが0では無ければ
+    //加速移動
+    void AccelAutoRun() {
         if (accelCount > 0)
         {
             GetComponent<BoxCollider>().size = new Vector3(50, 50, 5);
@@ -119,76 +115,35 @@ public class PlayerMoveSystem : MonoBehaviour
             }
 
         }
+    }
 
-        diff = transform.position - latestPos;   //前回からどこに進んだかをベクトルで取得
+    //進行方向をむく関数
+    void LookAtFront() {
 
+        //前回からどこに進んだかをベクトルで取得
+        diff = transform.position - latestPos;   
+
+        //進んだ距離
         mgni = diff.magnitude;
 
         //ベクトルの大きさが0.01以上の時に向きを変える処理をする
         if (diff.magnitude >= 0.01f && !isCoroutine)
-        {
-            Debug.Log("現在の向き : " + autoRunVec);
-            transform.rotation = Quaternion.LookRotation(new Vector3(diff.x, diff.y, diff.z)); //向きを変更する
-        }
+            transform.rotation = Quaternion.LookRotation(new Vector3(diff.x, diff.y, diff.z));
 
-        latestPos = transform.position;  //前回のPositionの更新
-    }
-
-
-    // プレイヤーの加速度を返す
-    public Vector3 GetPlayerVelocity() 
-    {
-        return Wiz_RB.velocity;
-    }
-
-    //ＷＡＳＤキーの移動
-    void LaneMove() {
-
-        Move = Vector3.zero;
-
-        int isAccel = RunSpeed > playerOriginSpeed ? 5 : 1;
-
-        //if (Wiz_TF.position.x - 0.5f > Origin_Pos.x - 13.5f &&
-        //    Wiz_TF.position.x + 0.5f < Origin_Pos.x + 13.5f)
-        //{
-        //    Move.x = Input.GetAxis("Horizontal") * LaneMoveSpeed * isAccel;
-        //}
-        //else {
-        //    Move.x = Input.GetAxis("Horizontal") * -LaneMoveSpeed * 5 * isAccel;
-        //}
-
-        //if (Wiz_TF.position.y - 0.5f > Origin_Pos.y - 13.5f &&
-        //    Wiz_TF.position.y + 0.5f < Origin_Pos.y + 13.5f)
-        //{
-        //    Move.y = Input.GetAxis("Vertical") * LaneMoveSpeed * isAccel;
-        //}
-        //else {
-        //    Move.y = Input.GetAxis("Vertical") * -LaneMoveSpeed * 5 * isAccel;
-        //}
-
-        Move.x = Input.GetAxis("Horizontal") * LaneMoveSpeed * isAccel;
-        Move.y = Input.GetAxis("Vertical") * LaneMoveSpeed * isAccel;
-
-    }
-
-    //リトライ時の初期化
-    public void RetrySpeedReset() {
-        if (runSpd.x > 0) runSpd.x = 50;
-        if (runSpd.y > 0) runSpd.y = 50;
-        if (runSpd.z > 0) runSpd.z = 50;
-        if (runSpd.x < 0) runSpd.x = -50;
-        if (runSpd.y < 0) runSpd.y = -50;
-        if (runSpd.z < 0) runSpd.z = -50;
+        //前回のPositionの更新
+        latestPos = transform.position;  
     }
 
     //移動先のレーンを格納
-    public void setNaighborDistination() {
+    public void setNaighborDistination()
+    {
         int current = 0;
-        while (current < 9) {
+        while (current < 9)
+        {
             if (currentLane.name == laneObj[current].name) break;
             current++;
         }
-        
+
 
         //上のレーン
         if (current / 3 > 0) lanePos[0] = laneObj[current - 3].transform.position;
@@ -208,6 +163,8 @@ public class PlayerMoveSystem : MonoBehaviour
 
 
     }
+
+    /*========================= コルーチン =========================*/
 
     //レーン移動のやつ
     public IEnumerator Mover(Vector3 pos1, Vector3 pos2, AnimationCurve ac, float time)
@@ -251,4 +208,25 @@ public class PlayerMoveSystem : MonoBehaviour
         GetComponent<BoxCollider>().size = new Vector3(10, 10, 5);
         
     }
+
+    /*========================= 移動　以外 =========================*/
+
+    // プレイヤーの加速度を返す
+    public Vector3 GetPlayerVelocity()
+    {
+        return Wiz_RB.velocity;
+    }
+
+    //リトライ時の初期化
+    public void RetrySpeedReset()
+    {
+        if (runSpd.x > 0) runSpd.x = 50;
+        if (runSpd.y > 0) runSpd.y = 50;
+        if (runSpd.z > 0) runSpd.z = 50;
+        if (runSpd.x < 0) runSpd.x = -50;
+        if (runSpd.y < 0) runSpd.y = -50;
+        if (runSpd.z < 0) runSpd.z = -50;
+    }
+
+    
 }

@@ -20,7 +20,7 @@ public class SoundMgr : MonoBehaviour
     void Awake()
     {
         bgmAudio = gameObject.AddComponent<AudioSource>();
-        //seAudio = gameObject.AddComponent<AudioSource>();
+        seAudio = gameObject.AddComponent<AudioSource>();
 
     }
 

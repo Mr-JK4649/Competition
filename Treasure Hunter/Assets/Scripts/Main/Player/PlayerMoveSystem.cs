@@ -40,9 +40,11 @@ public class PlayerMoveSystem : MonoBehaviour
 
     public bool curveFlg = false;       //カーブ中
 
-
+    //SoundMgr soundMgr;                  // SE再生用
     private void Start()
     {
+        //soundMgr = GameObject.Find("BgmManager").GetComponent<SoundMgr>();  // SE再生用のコンポーネントの取得
+
         //if(check.checkFlg == true)
         //{
         //    this.GetComponent<Transform>().position = check.CheckPointTransForm().position;
@@ -104,6 +106,8 @@ public class PlayerMoveSystem : MonoBehaviour
     void AccelAutoRun() {
         if (accelCount > 0)
         {
+            //soundMgr.PlaySE(SoundMgr.SE_TYPE.ACTION, 2);                // SE再生
+
             GetComponent<BoxCollider>().size = new Vector3(50, 50, 5);
             accelCount--;
 

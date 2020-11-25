@@ -30,7 +30,7 @@ public class ShootSpiral : MonoBehaviour
 
         //version1.3
         {
-            if (GameObject.FindWithTag("Spiral") == null)
+            if (GameObject.FindWithTag("Spiral") == null && plms.curveFlg == false)
             {
 
 

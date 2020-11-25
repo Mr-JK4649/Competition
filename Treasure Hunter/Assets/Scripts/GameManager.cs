@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
+
+    Transform oden;
     
     private Animator blackOut;                  //画面暗転用のアニメーター
     private Image blackOutImage;                //画面暗転用のImage
@@ -89,6 +91,8 @@ public class GameManager : MonoBehaviour
         //ポーズする
         if(Input.GetButtonDown("Pause"))
             Time.timeScale = 1 - Time.timeScale;
+
+        
     }
 
     private void FixedUpdate()

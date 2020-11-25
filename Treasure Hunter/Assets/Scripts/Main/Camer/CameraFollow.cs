@@ -40,26 +40,28 @@ public class CameraFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (pms.accelCount >= 1)
-        {
-            var pos = pms.GetComponent<Transform>().position + new Vector3(0.0f, height, -distance);    // 本来到着しているカメラの位置
-            transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * attenRate);     // Lerp減衰
-            //transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);     // Toward減衰
-        }
-        else
-        {
-            if (pms.accelCount == 0 && pms.RunSpeed != pms.playerOriginSpeed)
-            {
-                //transform.position = Vector3.Lerp(transform.position, pl.position + offset, 1f - (pms.RunSpeed - pms.playerOriginSpeed) / 100f);
-                transform.position = Vector3.MoveTowards(transform.position, pl.position + offset, pms.RunSpeed / 2);     // Toward減衰
-            }
-            else
-            {
-                //新しいトランスフォームの値を代入する
-                transform.position = pl.position + offset;
-                Debug.Log("入ってる！！");
-            }
-        }
+        //if (pms.accelCount >= 1)
+        //{
+        //    var pos = pms.GetComponent<Transform>().position + new Vector3(0.0f, height, -distance);    // 本来到着しているカメラの位置
+        //    transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * attenRate);     // Lerp減衰
+        //    //transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * speed);     // Toward減衰
+        //}
+        //else
+        //{
+        //    if (pms.accelCount == 0 && pms.RunSpeed != pms.playerOriginSpeed)
+        //    {
+        //        //transform.position = Vector3.Lerp(transform.position, pl.position + offset, 1f - (pms.RunSpeed - pms.playerOriginSpeed) / 100f);
+        //        transform.position = Vector3.MoveTowards(transform.position, pl.position + offset, pms.RunSpeed / 2);     // Toward減衰
+        //    }
+        //    else
+        //    {
+        //        //新しいトランスフォームの値を代入する
+        //        transform.position = pl.position + offset;
+        //        Debug.Log("入ってる！！");
+        //    }
+        //}
+
+        transform.position = pl.position + offset;
 
         //if (pms.accelCount >= 1)
         //{

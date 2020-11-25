@@ -2,10 +2,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class GameManager : MonoBehaviour
 {
-
-    Transform oden;
     
     private Animator blackOut;                  //画面暗転用のアニメーター
     private Image blackOutImage;                //画面暗転用のImage
@@ -29,17 +28,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
 
     public ToResult tr;
-
+ 
     //以下ゴリラカメラ用
     Camera camf;
     Camera camr;
     Camera caml;
     Camera camb;
 
-    //void Awake()
-    //{
-    //    DontDestroyOnLoad(this.gameObject);
-    //}
 
     [SerializeField,Tooltip("ゲームのFPS値を設定するやつね")] 
     private int framerate;
@@ -78,7 +73,6 @@ public class GameManager : MonoBehaviour
             Score.enabled = true;
         }
 
-
         ////以下カメラ用
         camf = GameObject.Find("FollowCamera").GetComponent<Camera>();
         camr = GameObject.Find("FollowCameraR").GetComponent<Camera>();
@@ -92,7 +86,6 @@ public class GameManager : MonoBehaviour
         if(Input.GetButtonDown("Pause"))
             Time.timeScale = 1 - Time.timeScale;
 
-        
     }
 
     private void FixedUpdate()
@@ -168,7 +161,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-
     //ゲームオーバー時にリトライ機能を追加
     public void Retry() {
 
@@ -182,6 +174,7 @@ public class GameManager : MonoBehaviour
         GameObject.Find("LanePanel").transform.position = plms.lastCheckPoint;
     }
     
+    //コイン
     public void GetCoin() {
         sco += coinsScore;
         coinCount += 1;
@@ -192,17 +185,27 @@ public class GameManager : MonoBehaviour
     //カメラ4つのオンオフ切り替え
     void CameraOnOff(int f,int r,int l,int b) {
 
-        if (f == 1) camf.enabled = true;
-        else camf.enabled = false;
+        //if (f == 1) camf.enabled = true;
+        //else camf.enabled = false;
 
-        if (r == 1) camr.enabled = true;
-        else camr.enabled = false;
+        //if (r == 1) camr.enabled = true;
+        //else camr.enabled = false;
 
-        if (l == 1) caml.enabled = true;
-        else caml.enabled = false;
+        //if (l == 1) caml.enabled = true;
+        //else caml.enabled = false;
 
-        if (b == 1) camb.enabled = true;
-        else camb.enabled = false;
+        //if (b == 1) camb.enabled = true;
+        //else camb.enabled = false;
 
     }
+
+    //ゲームデータをセーブ
+    public void GameDataSave() {
+        PlayerPrefs.SetInt("Coin", coinCount);
+        PlayerPrefs.SetInt("Score", sco);
+        //PlayerPrefs.SetInt("StageNum", StageNum);
+        PlayerPrefs.Save();
+    }
+
+
 }

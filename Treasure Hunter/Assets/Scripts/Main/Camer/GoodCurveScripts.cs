@@ -13,7 +13,7 @@ public class GoodCurveScripts : MonoBehaviour
     private GameObject[] MainCamera = new GameObject[4];
     private Camera[] cam = new Camera[4];
     [SerializeField] private float[] mainCameraRotatebuf_Y = new float[4];
-    [SerializeField]private int onCamraBuf; // 起動していたカメラを保存しておく変数
+    [SerializeField] private int onCamraBuf; // 起動していたカメラを保存しておく変数
     private PlayerMoveSystem plms;
     private float size;
     private string objName;

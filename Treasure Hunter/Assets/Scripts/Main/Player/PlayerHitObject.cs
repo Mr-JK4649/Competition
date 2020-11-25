@@ -95,6 +95,7 @@ public class PlayerHitObject : MonoBehaviour
 
             case "Goal":
                 gm.GameClearText.enabled = true;
+                gm.GameDataSave();
                 //Destroy(GameObject.Find("Wizard"));
                 break;
 
@@ -104,7 +105,7 @@ public class PlayerHitObject : MonoBehaviour
 
             case "correct":
                 GameObject.Find("LanePanel").transform.position = other.gameObject.transform.position;
-                plms.Wiz_TF.position = plms.laneObj[4].transform.position;
+                //plms.Wiz_TF.position = plms.laneObj[4].transform.position;
                 break;
         }
 

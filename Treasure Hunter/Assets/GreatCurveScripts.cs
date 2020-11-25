@@ -80,7 +80,7 @@ public class GreatCurveScripts : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            curveSpeed = 1f * (plms.RunSpeed / plms.playerOriginSpeed);
+            curveSpeed = 1.5f * (plms.RunSpeed / plms.playerOriginSpeed);
 
             CalcMagnitude();
 

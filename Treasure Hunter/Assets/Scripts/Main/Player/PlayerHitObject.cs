@@ -99,12 +99,12 @@ public class PlayerHitObject : MonoBehaviour
                 break;
 
             case "Curve":
-                plms.autoRunVec = other.gameObject.name;
+                plms.StopAllCoroutines();
                 break;
 
             case "correct":
                 GameObject.Find("LanePanel").transform.position = other.gameObject.transform.position;
-                plms.Wiz_TF.position = plms.currentLane.transform.position;
+                plms.Wiz_TF.position = plms.laneObj[4].transform.position;
                 break;
         }
 

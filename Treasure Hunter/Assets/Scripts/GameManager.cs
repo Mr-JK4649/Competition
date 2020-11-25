@@ -2,9 +2,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
 public class GameManager : MonoBehaviour
 {
+
+    Transform oden;
     
     private Animator blackOut;                  //画面暗転用のアニメーター
     private Image blackOutImage;                //画面暗転用のImage
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject pl;                      //プレイヤー
     private PlayerMoveSystem plms;              //プレイヤーの移動を司るスクリプト
+    private PlayerHitObject plho;               // PlayerHitObjctスクリプト
 
     [NonSerialized] public Text GameOverText;   //ゲームオーバーのテキスト
     [NonSerialized] public Text GameClearText;  //ゲームクリアのテキスト
@@ -28,12 +30,12 @@ public class GameManager : MonoBehaviour
 
     public ToResult tr;
 
-    ////以下ゴリラカメラ用
-    //Camera camf;
-    //Camera camr;
-    //Camera caml;
-    //Camera camb;
-    
+    //以下ゴリラカメラ用
+    Camera camf;
+    Camera camr;
+    Camera caml;
+    Camera camb;
+
     //void Awake()
     //{
     //    DontDestroyOnLoad(this.gameObject);
@@ -50,7 +52,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = framerate;
         GameOverText = GameObject.Find("GameOverText").GetComponent<Text>();
         GameOverText.enabled = false;
-
+        
         GameClearText = GameObject.Find("GameClearText").GetComponent<Text>();
         GameClearText.enabled = false;
 
@@ -58,6 +60,7 @@ public class GameManager : MonoBehaviour
         blackOutImage = GameObject.Find("BlackoutImage").GetComponent<Image>();
         pl = GameObject.Find("Wizard");
         plms = pl.GetComponent<PlayerMoveSystem>();
+        plho = pl.GetComponent<PlayerHitObject>();
 
         //以下ステージUI
         CoinBar = GameObject.Find("CoinChainGage").GetComponent<Slider>();
@@ -77,6 +80,10 @@ public class GameManager : MonoBehaviour
 
 
         ////以下カメラ用
+        camf = GameObject.Find("FollowCamera").GetComponent<Camera>();
+        camr = GameObject.Find("FollowCameraR").GetComponent<Camera>();
+        caml = GameObject.Find("FollowCameraL").GetComponent<Camera>();
+        camb = GameObject.Find("FollowCameraB").GetComponent<Camera>();
     }
 
     private void Update()
@@ -84,6 +91,8 @@ public class GameManager : MonoBehaviour
         //ポーズする
         if(Input.GetButtonDown("Pause"))
             Time.timeScale = 1 - Time.timeScale;
+
+        
     }
 
     private void FixedUpdate()
@@ -114,23 +123,26 @@ public class GameManager : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.R))
         //    SceneManager.LoadScene("MainScene");
 
+        if (plms.curveFlg == false)
+        {
+            switch (plms.autoRunVec)
+            {
 
-        //switch (plms.autoRunVec)
-        //{
+                case "front":
+                    CameraOnOff(1, 0, 0, 0);
+                    break;
+                case "right":
+                    CameraOnOff(0, 1, 0, 0);
+                    break;
+                case "left":
+                    CameraOnOff(0, 0, 1, 0);
+                    break;
+                case "back":
+                    CameraOnOff(0, 0, 0, 1);
+                    break;
+            }
+        }
 
-        //    case "front":
-        //        CameraOnOff(1, 0, 0, 0);
-        //        break;
-        //    case "right":
-        //        CameraOnOff(0, 1, 0, 0);
-        //        break;
-        //    case "left":
-        //        CameraOnOff(0, 0, 1, 0);
-        //        break;
-        //    case "back":
-        //        CameraOnOff(0, 0, 0, 1);
-        //        break;
-        //}
 
         if (CoinBar.value >= 1.0f)
         {
@@ -159,12 +171,14 @@ public class GameManager : MonoBehaviour
 
     //ゲームオーバー時にリトライ機能を追加
     public void Retry() {
+
         plms.RunSpeed = plms.playerOriginSpeed;
         plms.runSpd = plms.lastRunSpd;
         plms.RetrySpeedReset();
         GameOverText.enabled = false;
         pl.transform.position = plms.lastCheckPoint;
         plms.autoRunVec = plms.lastVec;
+        plho.GetPriority();
         GameObject.Find("LanePanel").transform.position = plms.lastCheckPoint;
     }
     
@@ -178,17 +192,17 @@ public class GameManager : MonoBehaviour
     //カメラ4つのオンオフ切り替え
     void CameraOnOff(int f,int r,int l,int b) {
 
-        //if (f == 1) camf.enabled = true;
-        //else camf.enabled = false;
+        if (f == 1) camf.enabled = true;
+        else camf.enabled = false;
 
-        //if (r == 1) camr.enabled = true;
-        //else camr.enabled = false;
+        if (r == 1) camr.enabled = true;
+        else camr.enabled = false;
 
-        //if (l == 1) caml.enabled = true;
-        //else caml.enabled = false;
+        if (l == 1) caml.enabled = true;
+        else caml.enabled = false;
 
-        //if (b == 1) camb.enabled = true;
-        //else camb.enabled = false;
+        if (b == 1) camb.enabled = true;
+        else camb.enabled = false;
 
     }
 }

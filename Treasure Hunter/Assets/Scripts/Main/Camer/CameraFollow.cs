@@ -1,8 +1,5 @@
-﻿using MeshUtility;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements.Experimental;
+﻿using UnityEngine;
+using Cinemachine;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -39,6 +36,7 @@ public class CameraFollow : MonoBehaviour
 
     }
 
+    private float count = 32f;
 
     private void FixedUpdate()
     {
@@ -53,7 +51,7 @@ public class CameraFollow : MonoBehaviour
             if (pms.accelCount == 0 && pms.RunSpeed != pms.playerOriginSpeed)
             {
                 //transform.position = Vector3.Lerp(transform.position, pl.position + offset, 1f - (pms.RunSpeed - pms.playerOriginSpeed) / 100f);
-                transform.position = Vector3.MoveTowards(transform.position, pl.position + offset, pms.RunSpeed/2);     // Toward減衰
+                transform.position = Vector3.MoveTowards(transform.position, pl.position + offset, pms.RunSpeed / 2);     // Toward減衰
             }
             else
             {
@@ -62,6 +60,26 @@ public class CameraFollow : MonoBehaviour
                 Debug.Log("入ってる！！");
             }
         }
+
+        //if (pms.accelCount >= 1)
+        //{
+        //    if (count <= 35f) count += 1f;
+        //}
+        //else
+        //{
+
+        //    if (pms.accelCount == 0 && pms.RunSpeed != pms.playerOriginSpeed)
+        //    {
+        //        if (count >= 26f) count -= 0.1f;
+
+        //    }
+        //    else
+        //    {
+        //        if (count <= 32f) count += 1f;
+        //    }
+        //}
+
+        //GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>().m_Lens.FieldOfView = count;
 
 
 

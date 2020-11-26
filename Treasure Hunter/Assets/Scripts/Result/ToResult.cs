@@ -14,8 +14,8 @@ public class ToResult : MonoBehaviour
         clearTime = cl;
         point = po;
     }
-    void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+    //void Awake()
+    //{
+    //    DontDestroyOnLoad(this.gameObject);
+    //}
 }

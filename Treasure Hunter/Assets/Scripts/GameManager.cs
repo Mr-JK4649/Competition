@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
     [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
 
-    public ToResult tr;
+    //public ToResult tr;
  
     //以下ゴリラカメラ用
     Camera camf;
@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
 
         if (GameClearText.enabled == true)
         {
-            tr.SetValue(coinCount, 0, sco);
+            //tr.SetValue(coinCount, 0, sco);
             SceneManager.LoadScene("ResultScene");
         }
     }

@@ -185,17 +185,17 @@ public class GameManager : MonoBehaviour
     //カメラ4つのオンオフ切り替え
     void CameraOnOff(int f,int r,int l,int b) {
 
-        //if (f == 1) camf.enabled = true;
-        //else camf.enabled = false;
+        if (f == 1) camf.enabled = true;
+        else camf.enabled = false;
 
-        //if (r == 1) camr.enabled = true;
-        //else camr.enabled = false;
+        if (r == 1) camr.enabled = true;
+        else camr.enabled = false;
 
-        //if (l == 1) caml.enabled = true;
-        //else caml.enabled = false;
+        if (l == 1) caml.enabled = true;
+        else caml.enabled = false;
 
-        //if (b == 1) camb.enabled = true;
-        //else camb.enabled = false;
+        if (b == 1) camb.enabled = true;
+        else camb.enabled = false;
 
     }
 

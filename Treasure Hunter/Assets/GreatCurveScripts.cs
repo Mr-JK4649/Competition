@@ -72,8 +72,6 @@ public class GreatCurveScripts : MonoBehaviour
             plms.curveFlg = true;
             CalcMagnitude();
             originMagni = magni;
-            
-
 
             VirtualCameraOn();
             CameraSwitching();
@@ -100,6 +98,8 @@ public class GreatCurveScripts : MonoBehaviour
                     plms.runSpd = new Vector3(this.name == "left" ? -plms.RunSpeed : plms.RunSpeed, 0f, 0f);
                     break;
             }
+
+            plms.StartCoroutine("SlowInitSpeed");
 
 
             VirtualCameraOff();
@@ -191,7 +191,14 @@ public class GreatCurveScripts : MonoBehaviour
     {
 
 
-        MainCamera[onCamraBuf].GetComponent<CinemachineBrain>().enabled = false;
+        for (int i = 0; i < (int)CameraType.MAX; i++)
+        {
+            if (cam[i].enabled == true)
+            {
+                onCamraBuf = i;
+                MainCamera[i].GetComponent<CinemachineBrain>().enabled = false;
+            }
+        }
         SetBufCameraTrans();
     }
 

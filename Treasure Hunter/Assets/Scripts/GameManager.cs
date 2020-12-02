@@ -98,14 +98,14 @@ public class GameManager : MonoBehaviour
         
         blackOut.SetFloat("BlackOutAlphaValue", aaa);       //暗転アニメーション開始
 
-        if (aaa == 1f)
+        if (aaa == 1f && blackOutFlg == false)
         {
             Retry();
             blackOut.SetTrigger("EndBlackOut");
             blackOutFlg = true;
         }
 
-        if (aaa == 0f && blackOutFlg)
+        if (aaa == 0 && blackOutFlg == true)
         {
             blackOut.SetTrigger("FinishBlackOut");
             blackOutFlg = false;

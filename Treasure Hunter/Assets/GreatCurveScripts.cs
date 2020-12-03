@@ -57,6 +57,9 @@ public class GreatCurveScripts : MonoBehaviour
     private float[] mainCameraRotatebuf_Y = new float[4];
     private int onCamraBuf;                                             // 起動していたカメラを保存しておく変数
 
+
+    public Animator anim;
+
     private void Awake()
     {
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
@@ -75,6 +78,8 @@ public class GreatCurveScripts : MonoBehaviour
 
             VirtualCameraOn();
             CameraSwitching();
+
+            //anim.enabled = false;
         }
 
     }
@@ -99,10 +104,10 @@ public class GreatCurveScripts : MonoBehaviour
                     break;
             }
 
-            plms.StartCoroutine("SlowInitSpeed");
-
-
             VirtualCameraOff();
+
+            //anim.enabled = true;
+            
         }
 
     }

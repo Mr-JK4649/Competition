@@ -101,6 +101,7 @@ public class PlayerHitObject : MonoBehaviour
 
             case "Curve":
                 plms.StopAllCoroutines();
+                plms.isCoroutine = false;
                 break;
 
             case "correct":

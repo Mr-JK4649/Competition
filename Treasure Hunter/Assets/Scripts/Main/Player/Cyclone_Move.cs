@@ -25,7 +25,7 @@ public class Cyclone_Move : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (time >= plms.dodgeTime - 0.2f)
+        if (time >= plms.dodgeTime / 5)
         {
             this.gameObject.tag = "Untagged";
             this.transform.GetChild(0).tag = "Untagged";
@@ -41,26 +41,22 @@ public class Cyclone_Move : MonoBehaviour
 
             if (flg)
             {
+
+                
+
                 switch (this.gameObject.name)
                 {
 
-                    case "UpSpiral": spiralNum = 0; animator.SetTrigger("Spiral_UP"); break;      //上にドッジ
+                    case "UpSpiral": spiralNum = 0; animator.PlayInFixedTime("SpiralShot_Up", 0); break;      //上にドッジ
 
-                    case "LeftSpiral": spiralNum = 1; animator.SetTrigger("Spiral_L"); break;      //左にドッジ
+                    case "LeftSpiral": spiralNum = 1; animator.PlayInFixedTime("SpiralShot_L", 0); break;      //左にドッジ
 
-                    case "RightSpiral": spiralNum = 2; animator.SetTrigger("Spiral_R"); break;      //右にドッジ
+                    case "RightSpiral": spiralNum = 2; animator.PlayInFixedTime("SpiralShot_R", 0); break;      //右にドッジ
 
-                    case "DownSpiral": spiralNum = 3; animator.SetTrigger("Spiral_Down"); break;      //下にドッジ
-
-                    case "AccelSpiral":                             //前方に加速
-                        plms.accelCount = plms.accelTime;
-                        if (plms.accelCount > 0)
-                            plms.StopCoroutine("SlowInitSpeed");
-                        plms.RunSpeed = plms.playerOriginSpeed * plms.accelForce;
-                        animator.SetTrigger("Spiral_UP");
-                        break;
+                    case "DownSpiral": spiralNum = 3; animator.PlayInFixedTime("SpiralShot_Down", 0); break;      //下にドッジ
 
                 }
+
                 flg = false;
             }
 

@@ -8,6 +8,8 @@ public class ShootSpiral : MonoBehaviour
 {
 
     public PlayerMoveSystem plms;       //プレイヤーの移動を司るスクリプト
+    private Animator animator;          //アニメーション
+    private bool animeFlg = true;      //アニメーションを繰り返さないフラグ
 
     public GameObject ShotPoint;        // 渦を出す位置
     public GameObject Spiral;           // 渦のオブジェクト
@@ -18,9 +20,14 @@ public class ShootSpiral : MonoBehaviour
     public float DodgeSpeed;            // キャラクターのドッジ移動量
 
     public float hori, ver;             //十字キー/スティックの方向
-    private bool cont_A;                //Aキーを押すやつ
+    //private bool cont_A;                //Aキーを押すやつ
     private float oldHori, oldVer;      //前のフレームの傾き
 
+
+    private void Start()
+    {
+        animator = GameObject.Find("Player02").GetComponent<Animator>();
+    }
 
     private void FixedUpdate()
     {
@@ -33,6 +40,7 @@ public class ShootSpiral : MonoBehaviour
             if (GameObject.FindWithTag("Spiral") == null && plms.curveFlg == false)
             {
 
+                
 
                 if (ver > 0f && ver != oldVer && plms.lanePos[0] != Vector3.zero)        //上
                 {
@@ -62,16 +70,24 @@ public class ShootSpiral : MonoBehaviour
                     CorrectionSpiralAngles();
                     SpiralShot();
                 }
-                else if (cont_A == true)
-                {
-                    SpiralEulerAngles = new Vector3(90f, 0f, 0f);
-                    spiralName = "AccelSpiral";
-                    CorrectionSpiralAngles();
-                    SpiralShot();
-                }
+                //else if (cont_A == true)
+                //{
+                //    SpiralEulerAngles = new Vector3(90f, 0f, 0f);
+                //    spiralName = "AccelSpiral";
+                //    CorrectionSpiralAngles();
+                //    SpiralShot();
+                //}
+            }
 
-
-
+            if (Input.GetButton("Cont_A") || Input.GetMouseButton(0))
+            {
+                plms.accelCount = plms.accelTime;
+                plms.RunSpeed = plms.playerOriginSpeed * plms.accelForce;
+                if(animeFlg)animator.SetTrigger("Spiral_UP");
+                animeFlg = false;
+            }
+            else {
+                animeFlg = true;
             }
         }
 
@@ -200,7 +216,7 @@ public class ShootSpiral : MonoBehaviour
     //渦を出す処理
     public void SpiralShot()
     {
-        
+        if (plms.isCoroutine) plms.stopCoro = true;
         Vector3 SpiralPos = ShotPoint.transform.position;
         GameObject newSpiral = Instantiate(Spiral, SpiralPos, Quaternion.Euler(SpiralEulerAngles));
         newSpiral.name = spiralName;
@@ -210,8 +226,6 @@ public class ShootSpiral : MonoBehaviour
     void InputProcess() {
         hori = Input.GetAxis("Horizontal");
         ver = Input.GetAxis("Vertical");
-
-        cont_A = Input.GetButtonDown("Cont_A") | Input.GetMouseButtonDown(0);
     }
 
     //進む方向によって渦の角度を変える処理

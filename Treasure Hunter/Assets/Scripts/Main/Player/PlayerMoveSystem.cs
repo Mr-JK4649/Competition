@@ -36,7 +36,8 @@ public class PlayerMoveSystem : MonoBehaviour
 
     public string autoRunVec = "front"; //進んでる方向
 
-    private bool isCoroutine = false;   //コルーチン再生中
+    [NonSerialized] public bool isCoroutine = false;   //コルーチン再生中
+    [NonSerialized] public bool stopCoro = false;
 
     public bool curveFlg = false;       //カーブ中
 
@@ -178,6 +179,8 @@ public class PlayerMoveSystem : MonoBehaviour
         while (timer <= time)
         {
 
+            if (stopCoro) timer = time;
+
             Vector3 pos = Vector3.Lerp(pos1, pos2, ac.Evaluate(timer / time));
             switch (autoRunVec) {
                 case "front":
@@ -192,10 +195,13 @@ public class PlayerMoveSystem : MonoBehaviour
             }
 
 
-            isCoroutine = false;
+            
             timer += Time.deltaTime;
             yield return null;
         }
+
+        isCoroutine = false;
+        stopCoro = false;
     }
 
     //徐々に減速

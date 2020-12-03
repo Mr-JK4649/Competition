@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
     [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
 
-    //public ToResult tr;
  
     //以下ゴリラカメラ用
     Camera camf;
@@ -94,7 +93,6 @@ public class GameManager : MonoBehaviour
         currentFramerate = (int)(1f / Time.deltaTime);      //現在のフレームレート近似値
 
         aaa = blackOutImage.color.a;                        //暗転用画像のアルファ値
-        
         
         blackOut.SetFloat("BlackOutAlphaValue", aaa);       //暗転アニメーション開始
 
@@ -185,17 +183,17 @@ public class GameManager : MonoBehaviour
     //カメラ4つのオンオフ切り替え
     void CameraOnOff(int f,int r,int l,int b) {
 
-        if (f == 1) camf.enabled = true;
-        else camf.enabled = false;
+        if (f == 1) { camf.enabled = true; }
+        else { camf.enabled = false; }
 
-        if (r == 1) camr.enabled = true;
-        else camr.enabled = false;
+        if (r == 1) { camr.enabled = true; }
+        else { camr.enabled = false; }
 
-        if (l == 1) caml.enabled = true;
-        else caml.enabled = false;
+        if (l == 1) { caml.enabled = true; }
+        else { caml.enabled = false; }
 
-        if (b == 1) camb.enabled = true;
-        else camb.enabled = false;
+        if (b == 1) { camb.enabled = true; }
+        else { camb.enabled = false; }
 
     }
 

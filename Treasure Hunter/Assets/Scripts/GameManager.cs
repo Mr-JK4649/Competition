@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     private int coinCount = 0;                      //コインの枚数
     [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
     [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
+    private int coinSave = 0;                       //中間地点の記録用コイン変数
+    private int scoreSave = 0;                      //中間地点の記録用スコア変数
 
  
     //以下ゴリラカメラ用
@@ -96,14 +98,15 @@ public class GameManager : MonoBehaviour
         
         blackOut.SetFloat("BlackOutAlphaValue", aaa);       //暗転アニメーション開始
 
-        if (aaa == 1f)
+        if (aaa == 1f && blackOutFlg == false)
         {
             Retry();
             blackOut.SetTrigger("EndBlackOut");
+            CoinLoad();
             blackOutFlg = true;
         }
 
-        if (aaa == 0f && blackOutFlg)
+        if (aaa == 0 && blackOutFlg == true)
         {
             blackOut.SetTrigger("FinishBlackOut");
             blackOutFlg = false;
@@ -204,6 +207,20 @@ public class GameManager : MonoBehaviour
         //PlayerPrefs.SetInt("StageNum", StageNum);
         PlayerPrefs.Save();
     }
-
+    //中間地点侵入時、コインの状態を記録
+    public void CoinSave()
+    {
+        coinSave = coinCount;
+        scoreSave = sco;
+    }
+    //ゲームオーバー時、コインの状態を上書きする
+    public void CoinLoad()
+    {
+        //変数を上書き
+        coinCount = coinSave;
+        sco = scoreSave;
+        //テキストを一瞬読んで上書き
+        Score.text = sco.ToString("0000000") + " 点\n" + coinCount.ToString("000") + " 枚";
+    }
 
 }

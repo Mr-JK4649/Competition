@@ -11,7 +11,7 @@ public class Titlescript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Cont_A"))
         {
-            SceneManager.LoadScene("MainScene");//mainシーンをロードする
+            SceneManager.LoadScene("SelectScene");//Selectシーンをロードする
         }
     }
 }

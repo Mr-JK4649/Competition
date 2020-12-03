@@ -25,6 +25,7 @@ public class GreatCurveScripts : MonoBehaviour
 
     [SerializeField] private CurveVector curveVector;   //曲がる方向を選んで
     private PlayerMoveSystem plms;                      //プレイヤーの動きを司るやつ
+    private EndCurveCameraReset eccr;                   //カメラの位置リセット
     [SerializeField] private GameObject curveMid;       //カーブトンネルの中心
     [SerializeField] private GameObject curveEnd;       //カーブトンネルの出口
     private Vector3 curveEnd_pos;                       //カーブの終わり位置
@@ -63,6 +64,7 @@ public class GreatCurveScripts : MonoBehaviour
     private void Awake()
     {
         plms = GameObject.Find("Wizard").GetComponent<PlayerMoveSystem>();
+        eccr = GameObject.Find("CameraSet").GetComponent<EndCurveCameraReset>();
         curveMid_pos = curveMid.transform.position;
         curveEnd_pos = curveEnd.transform.position;
 
@@ -89,6 +91,8 @@ public class GreatCurveScripts : MonoBehaviour
         if (other.gameObject.tag == "Player") {
             plms.curveFlg = false;
             plms.autoRunVec = curveVector.ToString();
+            perDistanceToEnd = 1f;
+            
 
             //出た時に速度リセット
             switch (curveVector)
@@ -105,6 +109,7 @@ public class GreatCurveScripts : MonoBehaviour
             }
 
             VirtualCameraOff();
+            eccr.CameraPosReset();
 
             //anim.enabled = true;
             
@@ -116,7 +121,7 @@ public class GreatCurveScripts : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            curveSpeed = 1.5f * (plms.RunSpeed / plms.playerOriginSpeed);
+            curveSpeed = 5f;
 
             CalcMagnitude();
 
@@ -213,8 +218,6 @@ public class GreatCurveScripts : MonoBehaviour
         {
 
             MainCamera[i].transform.rotation = Quaternion.Euler(MainCamera[i].transform.rotation.x, mainCameraRotatebuf_Y[i], MainCamera[i].transform.rotation.z);
-
-
 
         }
     }

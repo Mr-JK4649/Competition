@@ -42,8 +42,6 @@ public class Cyclone_Move : MonoBehaviour
             if (flg)
             {
 
-                
-
                 switch (this.gameObject.name)
                 {
 

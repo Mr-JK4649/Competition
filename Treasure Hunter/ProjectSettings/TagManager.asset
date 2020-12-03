@@ -15,6 +15,7 @@ TagManager:
   - CheckPoint
   - Wall
   - correct
+  - CollectCoin
   layers:
   - Default
   - TransparentFX

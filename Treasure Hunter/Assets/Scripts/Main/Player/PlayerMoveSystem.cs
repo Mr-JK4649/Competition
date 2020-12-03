@@ -24,6 +24,8 @@ public class PlayerMoveSystem : MonoBehaviour
     public int accelTime = 0;                                   //加速の時間
     [NonSerialized]public int accelCount;                       //加速カウント
 
+    public BoxCollider coinBox;                                 //コイン集めるコライダー
+
     
 
     public Vector3 lastCheckPoint;                              //チェックポイントの座標
@@ -109,7 +111,7 @@ public class PlayerMoveSystem : MonoBehaviour
         {
             //soundMgr.PlaySE(SoundMgr.SE_TYPE.ACTION, 2);                // SE再生
 
-            GetComponent<BoxCollider>().size = new Vector3(50, 50, 5);
+            coinBox.size = new Vector3(50, 50, 5);
             accelCount--;
 
             //時間が経過したらプレイヤーの速度を徐々に初期化
@@ -215,7 +217,7 @@ public class PlayerMoveSystem : MonoBehaviour
         }
 
         RunSpeed = playerOriginSpeed;
-        GetComponent<BoxCollider>().size = new Vector3(10, 10, 5);
+        coinBox.size = new Vector3(10, 10, 5);
         
     }
 

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private GameObject pl;                      //プレイヤー
     private PlayerMoveSystem plms;              //プレイヤーの移動を司るスクリプト
     private PlayerHitObject plho;               // PlayerHitObjctスクリプト
+    private EndCurveCameraReset eccr;
 
     [NonSerialized] public Text GameOverText;   //ゲームオーバーのテキスト
     [NonSerialized] public Text GameClearText;  //ゲームクリアのテキスト
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
         pl = GameObject.Find("Wizard");
         plms = pl.GetComponent<PlayerMoveSystem>();
         plho = pl.GetComponent<PlayerHitObject>();
+        eccr = GameObject.Find("CameraSet").GetComponent<EndCurveCameraReset>();
 
         //以下ステージUI
         CoinBar = GameObject.Find("CoinChainGage").GetComponent<Slider>();
@@ -149,6 +151,8 @@ public class GameManager : MonoBehaviour
             //tr.SetValue(coinCount, 0, sco);
             SceneManager.LoadScene("ResultScene");
         }
+
+        eccr.CameraPosReset();
     }
 
     //ゲームオーバーした時の判定

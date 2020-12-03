@@ -10,7 +10,7 @@ public class AccelSwich : MonoBehaviour
     private PlayerMoveSystem plms;      //プレイヤーの移動とかを司るやつ
     private Camera fov;                 //fovを操作するやつ
 
-    [Header("fovの最大値"),Range(101,150)]
+    [Header("fovの最大値"),Range(50,150)]
     public float fovMax;
 
     [Header("fovの最小値"),Range(0,100)]

@@ -27,6 +27,7 @@ public class InhaleCoin : MonoBehaviour
         {
 
             time += 0.003f;
+            //time = 0.05f;
 
             transform.position = Vector3.MoveTowards(transform.position, pl.position, plms.RunSpeed * time);
 
@@ -43,6 +44,6 @@ public class InhaleCoin : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player") inhale = true;
+        if (other.gameObject.tag == "CollectCoin") inhale = true;
     }
 }

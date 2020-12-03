@@ -79,7 +79,7 @@ public class ShootSpiral : MonoBehaviour
                 //}
             }
 
-            if (Input.GetButton("Cont_A") || Input.GetMouseButton(0))
+            if (Input.GetButton("Cont_A") || Input.GetMouseButton(0) && plms.curveFlg == false)
             {
                 plms.accelCount = plms.accelTime;
                 plms.RunSpeed = plms.playerOriginSpeed * plms.accelForce;

@@ -90,6 +90,7 @@ public class PlayerHitObject : MonoBehaviour
                 plms.lastCheckPoint = other.gameObject.transform.position;
                 plms.lastVec = plms.autoRunVec;
                 plms.lastRunSpd = plms.runSpd;
+                gm.CoinSave();
                 SavePriority();
                 break;
 

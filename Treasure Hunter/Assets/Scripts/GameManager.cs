@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     private int coinCount = 0;                      //コインの枚数
     [SerializeField] private int coinsScore;        //コイン一枚当たりのスコア
     [SerializeField] private bool isShowUi = false; //UIを見せるかどうかのやつ
+    private int coinSave = 0;                       //中間地点の記録用コイン変数
+    private int scoreSave = 0;                      //中間地点の記録用スコア変数
 
     //public ToResult tr;
  
@@ -102,6 +104,7 @@ public class GameManager : MonoBehaviour
         {
             Retry();
             blackOut.SetTrigger("EndBlackOut");
+            CoinLoad();
             blackOutFlg = true;
         }
 
@@ -206,6 +209,20 @@ public class GameManager : MonoBehaviour
         //PlayerPrefs.SetInt("StageNum", StageNum);
         PlayerPrefs.Save();
     }
-
+    //中間地点侵入時、コインの状態を記録
+    public void CoinSave()
+    {
+        coinSave = coinCount;
+        scoreSave = sco;
+    }
+    //ゲームオーバー時、コインの状態を上書きする
+    public void CoinLoad()
+    {
+        //変数を上書き
+        coinCount = coinSave;
+        sco = scoreSave;
+        //テキストを一瞬読んで上書き
+        Score.text = sco.ToString("0000000") + " 点\n" + coinCount.ToString("000") + " 枚";
+    }
 
 }

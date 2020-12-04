@@ -941,6 +941,7 @@ GameObject:
   - component: {fileID: 1845942550}
   - component: {fileID: 1845942549}
   - component: {fileID: 1845942552}
+  - component: {fileID: 1845942553}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1008,6 +1009,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f731b95c00ed1ba499c9a39f6e5cc00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1845942553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845942548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d9065c7e6244dddaffda63eb37d64b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: c146e9b583b354f41a61355ade2ebeba, type: 3}
+  _isAutoPlay: 1
+  _volumeRate: 1
+  _delay: 0
+  _pitch: 1
+  _fadeInDuration: 0
+  _fadeOutDuration: 0
+  _isLoop: 1
+  _isAutoStop: 1
 --- !u!1 &1930288708
 GameObject:
   m_ObjectHideFlags: 0

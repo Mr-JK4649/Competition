@@ -39,7 +39,7 @@ Material:
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.33
-    - _Glossiness: 0.5
+    - _Glossiness: 0.82
     - _Metallic: 0
     - _PixelsPerUnit: 128
     - _WindQuality: 4

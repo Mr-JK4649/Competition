@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour
     public void GetCoin() {
         sco += coinsScore;
         coinCount += 1;
-        Score.text = sco.ToString("0000000") + " 点\n" + coinCount.ToString("000") + " 枚";
+        Score.text = sco.ToString("0000000")/* + " 点\n" + coinCount.ToString("000") + " 枚"*/;
         CoinBar.value += 0.1f;
     }
 

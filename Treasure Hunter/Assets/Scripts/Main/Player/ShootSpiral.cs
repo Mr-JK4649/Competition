@@ -49,7 +49,7 @@ public class ShootSpiral : MonoBehaviour
                     spiralName = "UpSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
-                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE);
+                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE1);
                 }
                 else if (ver < 0f && ver != oldVer && plms.lanePos[3] != Vector3.zero)   //下
                 {
@@ -57,7 +57,7 @@ public class ShootSpiral : MonoBehaviour
                     spiralName = "DownSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
-                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE);
+                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE1);
                 }
                 else if (hori < 0 && hori != oldHori && plms.lanePos[1] != Vector3.zero)   //左
                 {
@@ -65,7 +65,7 @@ public class ShootSpiral : MonoBehaviour
                     spiralName = "LeftSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
-                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE);
+                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE1);
                 }
                 else if (hori > 0 && hori != oldHori && plms.lanePos[2] != Vector3.zero)   //右
                 {
@@ -73,7 +73,7 @@ public class ShootSpiral : MonoBehaviour
                     spiralName = "RightSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
-                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE);
+                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE1);
                 }
                 //else if (cont_A == true)
                 //{

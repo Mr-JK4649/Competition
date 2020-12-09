@@ -95,8 +95,8 @@ public class PlayerHitObject : MonoBehaviour
                 break;
 
             case "Goal":
-                gm.GameClearText.enabled = true;
-                gm.GameDataSave();
+                //gm.GameClearText.enabled = true;
+                //gm.GameDataSave();
                 //Destroy(GameObject.Find("Wizard"));
                 break;
 

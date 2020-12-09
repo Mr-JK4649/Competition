@@ -48,5 +48,7 @@ public class TreasureBoxAnim : MonoBehaviour
             volume = PostProcessManager.instance.QuickVolume(gameObject.layer, 0f, bl);
         }
     }
+
+    
     
 }

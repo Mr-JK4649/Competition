@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
         if (GameClearText.enabled == true)
         {
             //tr.SetValue(coinCount, 0, sco);
-            //SceneManager.LoadScene("ResultScene");
+            SceneManager.LoadScene("ResultScene");
         }
 
         eccr.CameraPosReset();

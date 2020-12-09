@@ -5,9 +5,10 @@
 /// </summary>
 public static class SEPath{
 
-	public const string JINGLE10 = "SE/Jingle/jingle10";
-	public const string SYSTEM20 = "SE/system20";
-	public const string SYSTEM23 = "SE/system23";
+	public const string JINGLE10                  = "SE/Jingle/jingle10";
+	public const string MSFX_EXPLOSION_2_EXPLODE1 = "SE/msfx_explosion_2_explode1";
+	public const string SYSTEM20                  = "SE/system20";
+	public const string SYSTEM23                  = "SE/system23";
 
 }
 

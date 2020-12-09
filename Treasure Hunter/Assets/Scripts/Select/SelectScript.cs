@@ -7,9 +7,14 @@ public class SelectScript : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Cont_A"))
+        if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Cont_B"))
         {
-            SceneManager.LoadScene("MainScene");//mainシーンをロードする
+            SceneManager.LoadScene("TitleScene");//mainシーンをロードする
         }
+    }
+
+    public void OnClickStartButton()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using KanKikuchi.AudioManager;
 
 public class ShootSpiral : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class ShootSpiral : MonoBehaviour
             if (GameObject.FindWithTag("Spiral") == null && plms.curveFlg == false)
             {
 
-                
+
 
                 if (ver > 0f && ver != oldVer && plms.lanePos[0] != Vector3.zero)        //上
                 {
@@ -48,6 +49,7 @@ public class ShootSpiral : MonoBehaviour
                     spiralName = "UpSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
+                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE);
                 }
                 else if (ver < 0f && ver != oldVer && plms.lanePos[3] != Vector3.zero)   //下
                 {
@@ -55,6 +57,7 @@ public class ShootSpiral : MonoBehaviour
                     spiralName = "DownSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
+                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE);
                 }
                 else if (hori < 0 && hori != oldHori && plms.lanePos[1] != Vector3.zero)   //左
                 {
@@ -62,6 +65,7 @@ public class ShootSpiral : MonoBehaviour
                     spiralName = "LeftSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
+                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE);
                 }
                 else if (hori > 0 && hori != oldHori && plms.lanePos[2] != Vector3.zero)   //右
                 {
@@ -69,6 +73,7 @@ public class ShootSpiral : MonoBehaviour
                     spiralName = "RightSpiral";
                     CorrectionSpiralAngles();
                     SpiralShot();
+                    SEManager.Instance.Play(SEPath.MSFX_EXPLOSION_2_EXPLODE);
                 }
                 //else if (cont_A == true)
                 //{
@@ -81,6 +86,13 @@ public class ShootSpiral : MonoBehaviour
 
             if (Input.GetButton("Cont_A") || Input.GetMouseButton(0) && plms.curveFlg == false)
             {
+                //加速渦のSE
+                //var currentSENames = SEManager.Instance.GetCurrentAudioNames();
+                //if (!currentSENames.Contains("MSFX_CHRONO_GALE_WIND"))
+                //{
+                //    SEManager.Instance.Play(SEPath.MSFX_CHRONO_GALE_WIND);
+                //}
+
                 plms.accelCount = plms.accelTime;
                 plms.RunSpeed = plms.playerOriginSpeed * plms.accelForce;
                 if(animeFlg)animator.SetTrigger("Spiral_UP");

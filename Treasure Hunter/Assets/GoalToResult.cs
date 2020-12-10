@@ -6,6 +6,7 @@ public class GoalToResult : MonoBehaviour
 {
     public void ToResult() { 
         //GameObject.Find("GameSystem").GetComponent<GameManager>().
+        //
     }
     
 }

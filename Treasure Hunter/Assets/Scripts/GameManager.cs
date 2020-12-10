@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private PlayerMoveSystem plms;              //プレイヤーの移動を司るスクリプト
     private PlayerHitObject plho;               // PlayerHitObjctスクリプト
     private EndCurveCameraReset eccr;
+    private TimerScript ts;                     //Timerスクリプト
 
     [NonSerialized] public Text GameOverText;   //ゲームオーバーのテキスト
     [NonSerialized] public Text GameClearText;  //ゲームクリアのテキスト
@@ -215,7 +216,8 @@ public class GameManager : MonoBehaviour
     public void GameDataSave() {
         PlayerPrefs.SetInt("Coin", coinCount);
         PlayerPrefs.SetInt("Score", sco);
-        //PlayerPrefs.SetInt("StageNum", StageNum);
+        PlayerPrefs.SetInt("StageNum", /*StageNum*/1);
+        PlayerPrefs.SetFloat("clearTime;", ts.CountTime);
         PlayerPrefs.Save();
     }
     //中間地点侵入時、コインの状態を記録

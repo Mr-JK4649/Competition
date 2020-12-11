@@ -7,7 +7,7 @@ public class TimerScript : MonoBehaviour
 {
 
     private Text  TimerText;         //タイマー用のテキスト
-    private float CountTime;         //タイマー用の変数
+    public float CountTime;         //タイマー用の変数
     private int   Min;               //分をカウントする用の変数
     private float Sec;               //秒+ミリ秒をカウントする用の変数
     void Start()

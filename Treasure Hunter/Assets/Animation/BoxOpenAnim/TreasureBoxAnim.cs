@@ -21,8 +21,8 @@ public class TreasureBoxAnim : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             anim.SetBool("Open", true);
-
-            plms.runSpd /= 20;
+            plms.clearFlg = true;
+            plms.StopAllCoroutines();
 
         }
 
@@ -43,7 +43,7 @@ public class TreasureBoxAnim : MonoBehaviour
             bl.intensity.Override(inten);
 
 
-            plms.runSpd /= 5;
+            plms.runSpd = new Vector3(0,0,10);
 
             volume = PostProcessManager.instance.QuickVolume(gameObject.layer, 0f, bl);
         }

@@ -42,6 +42,7 @@ public class PlayerMoveSystem : MonoBehaviour
     [NonSerialized] public bool stopCoro = false;
 
     public bool curveFlg = false;       //カーブ中
+    public bool clearFlg = false;
 
     //SoundMgr soundMgr;                  // SE再生用
     private void Start()

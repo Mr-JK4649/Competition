@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         plms = pl.GetComponent<PlayerMoveSystem>();
         plho = pl.GetComponent<PlayerHitObject>();
         eccr = GameObject.Find("CameraSet").GetComponent<EndCurveCameraReset>();
+        ts = GameObject.Find("TimeBox").GetComponent<TimerScript>();
 
         //以下ステージUI
         CoinBar = GameObject.Find("CoinChainGage").GetComponent<Slider>();

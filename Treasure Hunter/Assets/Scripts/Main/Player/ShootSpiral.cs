@@ -38,7 +38,7 @@ public class ShootSpiral : MonoBehaviour
 
         //version1.3
         {
-            if (GameObject.FindWithTag("Spiral") == null && plms.curveFlg == false)
+            if (GameObject.FindWithTag("Spiral") == null && plms.curveFlg == false && plms.clearFlg == false)
             {
 
 
@@ -84,7 +84,7 @@ public class ShootSpiral : MonoBehaviour
                 //}
             }
 
-            if (Input.GetButton("Cont_A") || Input.GetMouseButton(0) && plms.curveFlg == false)
+            if (Input.GetButton("Cont_A") || Input.GetMouseButton(0) && plms.curveFlg == false && plms.clearFlg == false)
             {
                 //加速渦のSE
                 //var currentSENames = SEManager.Instance.GetCurrentAudioNames();

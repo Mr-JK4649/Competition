@@ -9,12 +9,14 @@ public class SelectScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Cont_B"))
         {
-            SceneManager.LoadScene("TitleScene");//mainシーンをロードする
+            //SceneManager.LoadScene("TitleScene");//mainシーンをロードする
+            FadeManager.Instance.LoadScene("TitleScene", 1.0f);
         }
     }
 
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene("MainScene");
+        //SceneManager.LoadScene("MainScene");
+        FadeManager.Instance.LoadScene("MainScene", 1.0f);
     }
 }

@@ -11,7 +11,8 @@ public class Titlescript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Cont_A"))
         {
-            SceneManager.LoadScene("SelectScene");//Selectシーンをロードする
+            //SceneManager.LoadScene("SelectScene");//Selectシーンをロードする
+            FadeManager.Instance.LoadScene("SelectScene", 1.0f);
         }
     }
 }

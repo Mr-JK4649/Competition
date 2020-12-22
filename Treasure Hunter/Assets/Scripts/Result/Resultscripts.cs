@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using KanKikuchi.AudioManager;
 
 public class Resultscripts : MonoBehaviour
 {
@@ -91,6 +92,7 @@ public class Resultscripts : MonoBehaviour
             num += speed;
 
             coinCountBar.value = (float)num / gageMax;
+            SEManager.Instance.Play(SEPath.BEEP1);
 
             yield return null;
         }
@@ -114,6 +116,7 @@ public class Resultscripts : MonoBehaviour
             num += speed;
 
             clearTimeBar.value = num / gageMax;
+            SEManager.Instance.Play(SEPath.BEEP1);
 
             yield return null;
         }
@@ -137,6 +140,7 @@ public class Resultscripts : MonoBehaviour
             num += speed;
 
             stageClearPer.value = num / gageMax;
+            SEManager.Instance.Play(SEPath.BEEP1);
 
             yield return null;
         }

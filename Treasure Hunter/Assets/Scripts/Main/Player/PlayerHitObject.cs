@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cinemachine;
+using KanKikuchi.AudioManager;
 
 public class PlayerHitObject : MonoBehaviour
 {
@@ -58,6 +59,7 @@ public class PlayerHitObject : MonoBehaviour
                     if (gm.aaa <= 0)
                     {
                         //Instantiate(bom, this.gameObject.transform);
+                        SEManager.Instance.Play(SEPath.ANKLESPOIL1);
                         plms.accelCount = 0;
                         plms.RunSpeed = 0f;
                         gm.GameOver();

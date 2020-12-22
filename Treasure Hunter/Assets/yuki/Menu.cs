@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI; // UIコンポーネントの使用
+using KanKikuchi.AudioManager;
 
 public class Menu : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class Menu : MonoBehaviour
 	Button stage1;
 	Button stage2;
 	Button stage3;
+
+	private int SETime = 0;
+	private bool SEflg = false;
 
 	void Start()
 	{
@@ -28,6 +32,21 @@ public class Menu : MonoBehaviour
 
     void Update()
 	{
+		if(Input.GetAxis("Vertical") != 0f && SEflg == false)
+		{
+			SEflg = true;
+			SEManager.Instance.Play(SEPath.CURSOR5);
+		}
+
+		if(SEflg == true)
+        {
+			if(SETime++ > 120)
+            {
+				SETime = 0;
+				SEflg = false;
+            }
+        }
+
 		// TryCatch文でNull回避
 		try
 		{
@@ -40,7 +59,8 @@ public class Menu : MonoBehaviour
 		catch (NullReferenceException ex)
 		{
 			// なにも選択されない場合に
-			text.text = "Unknown";
+			text.text = "NULL";
 		}
 	}
+
 }

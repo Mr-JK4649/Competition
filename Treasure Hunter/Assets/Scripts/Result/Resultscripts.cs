@@ -19,10 +19,10 @@ public class Resultscripts : MonoBehaviour
 
     private Text ScoreText;
     private Color ScoreColor;
-    public Image Rank_S;
-    public Image Rank_A;
-    public Image Rank_B;
-    public Image Rank_C;
+    private Image Rank_S;
+    private Image Rank_A;
+    private Image Rank_B;
+    private Image Rank_C;
     private Color Rank_Color;//色変更させるために使いまわす
     [SerializeField] private Slider coinCountBar;
     [SerializeField] private Slider clearTimeBar;
@@ -38,10 +38,10 @@ public class Resultscripts : MonoBehaviour
 
         StartCoroutine("CoinGageIncrease");
         ScoreText = GameObject.Find("Score").GetComponent<Text>();
-        //Rank_S = GameObject.Find("StageEvaluation_S(Image)").GetComponent<Image>();
-        //Rank_A = GameObject.Find("StageEvaluation_A(Image)").GetComponent<Image>();
-        //Rank_B = GameObject.Find("StageEvaluation_B(Image)").GetComponent<Image>();
-        //Rank_C = GameObject.Find("StageEvaluation_C(Image)").GetComponent<Image>();
+        Rank_S = GameObject.Find("StageEvaluation_S(Image)").GetComponent<Image>();
+        Rank_A = GameObject.Find("StageEvaluation_A(Image)").GetComponent<Image>();
+        Rank_B = GameObject.Find("StageEvaluation_B(Image)").GetComponent<Image>();
+        Rank_C = GameObject.Find("StageEvaluation_C(Image)").GetComponent<Image>();
 
         ScoreColor = ScoreText.color;
         ScoreColor.a = 0;

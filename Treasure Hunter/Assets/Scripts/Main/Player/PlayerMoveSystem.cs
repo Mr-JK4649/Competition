@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using KanKikuchi.AudioManager;
 
 public class PlayerMoveSystem : MonoBehaviour
 {
@@ -44,6 +45,9 @@ public class PlayerMoveSystem : MonoBehaviour
     public bool curveFlg = false;       //カーブ中
     public bool clearFlg = false;
 
+    private bool RunSEFlg = false;       // SE再生のフラグ
+    private int RunSETime = 0;
+
     //SoundMgr soundMgr;                  // SE再生用
     private void Start()
     {
@@ -75,7 +79,25 @@ public class PlayerMoveSystem : MonoBehaviour
         AccelAutoRun(); //加速カウントが0では無ければ
 
         LookAtFront();  //移動先をむく
-        
+
+        // 加速SE
+        if (RunSpeed > 140) RunSEFlg = true;
+        else
+        {
+            SEManager.Instance.FadeOut(SEPath.SFX_AURA_LOOPABLE1);
+            RunSEFlg = false;
+        }
+        if (RunSEFlg == true)
+        {
+            if (RunSETime++ <= 0)
+            {
+                SEManager.Instance.Play(SEPath.SFX_AURA_LOOPABLE1);
+            }
+            else if (RunSETime > 80)
+            {
+                RunSETime = 0;
+            }
+        }
     }
 
     /*========================= 関　　　数 =========================*/
@@ -104,6 +126,7 @@ public class PlayerMoveSystem : MonoBehaviour
             }
             Wiz_RB.velocity = runSpd;
         }
+
     }
 
     //加速移動

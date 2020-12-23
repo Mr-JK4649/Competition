@@ -538,6 +538,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1845942550}
   text: {fileID: 1200257482}
+  plms: {fileID: 0}
+  hori: 0
+  ver: 0
 --- !u!1 &731461574
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,6 +677,7 @@ GameObject:
   - component: {fileID: 754293240}
   - component: {fileID: 754293243}
   - component: {fileID: 754293244}
+  - component: {fileID: 754293245}
   m_Layer: 5
   m_Name: STAGE1
   m_TagString: Untagged
@@ -755,6 +759,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 754293245}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &754293241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,6 +838,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f731b95c00ed1ba499c9a39f6e5cc00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &754293245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754293238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84080b8f483464c93845cb502049e7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: 33fac83eef4ecf94980752a3b97b76e9, type: 3}
+  _isAutoPlay: 0
+  _volumeRate: 1
+  _delay: 0
+  _pitch: 1
+  _fadeInDuration: 0
+  _isLoop: 0
 --- !u!1 &764399560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,6 +1205,7 @@ GameObject:
   - component: {fileID: 1052845766}
   - component: {fileID: 1052845765}
   - component: {fileID: 1052845768}
+  - component: {fileID: 1052845769}
   m_Layer: 5
   m_Name: STAGE2
   m_TagString: Untagged
@@ -1240,7 +1275,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1052845766}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1052845769}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1052845766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1297,6 +1343,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1052845769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052845763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84080b8f483464c93845cb502049e7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: 33fac83eef4ecf94980752a3b97b76e9, type: 3}
+  _isAutoPlay: 0
+  _volumeRate: 1
+  _delay: 0
+  _pitch: 1
+  _fadeInDuration: 0
+  _isLoop: 0
 --- !u!1 &1109186818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,6 +1375,7 @@ GameObject:
   - component: {fileID: 1109186821}
   - component: {fileID: 1109186820}
   - component: {fileID: 1109186823}
+  - component: {fileID: 1109186824}
   m_Layer: 5
   m_Name: STAGE3
   m_TagString: Untagged
@@ -1379,7 +1445,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1109186821}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1109186824}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1109186821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1436,6 +1513,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1109186824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109186818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84080b8f483464c93845cb502049e7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClip: {fileID: 8300000, guid: 8a70bb75dd715a649ab217a65509b1ad, type: 3}
+  _isAutoPlay: 0
+  _volumeRate: 1
+  _delay: 0
+  _pitch: 1
+  _fadeInDuration: 0
+  _isLoop: 0
 --- !u!1 &1200257480
 GameObject:
   m_ObjectHideFlags: 0

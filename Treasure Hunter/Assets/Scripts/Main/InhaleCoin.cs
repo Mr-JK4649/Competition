@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
+using KanKikuchi.AudioManager;
 
 public class InhaleCoin : MonoBehaviour
 {
@@ -45,5 +46,6 @@ public class InhaleCoin : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "CollectCoin") inhale = true;
+        SEManager.Instance.Play(SEPath.MONEYDROP2);
     }
 }

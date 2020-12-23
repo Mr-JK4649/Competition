@@ -1693,10 +1693,10 @@ MonoBehaviour:
   score: 700000
   stageNum: 0
   speed: 3
-  Rank_S: {fileID: 0}
-  Rank_A: {fileID: 0}
-  Rank_B: {fileID: 0}
-  Rank_C: {fileID: 0}
+  Rank_S: {fileID: 1794668737}
+  Rank_A: {fileID: 1506657696}
+  Rank_B: {fileID: 192525777}
+  Rank_C: {fileID: 397191323}
   coinCountBar: {fileID: 478821986}
   clearTimeBar: {fileID: 32498511}
   stageClearPer: {fileID: 1747525196}

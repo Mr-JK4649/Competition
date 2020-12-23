@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Coin", coinCount);
         PlayerPrefs.SetInt("Score", sco);
         PlayerPrefs.SetInt("StageNum", /*StageNum*/1);
-        PlayerPrefs.SetFloat("clearTime;", ts.CountTime);
+        //PlayerPrefs.SetFloat("clearTime;", ts.CountTime);
         PlayerPrefs.Save();
     }
     //中間地点侵入時、コインの状態を記録

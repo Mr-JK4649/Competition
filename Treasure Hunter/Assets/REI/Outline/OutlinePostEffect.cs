@@ -20,7 +20,7 @@ public class OutlinePostEffect : MonoBehaviour
 
         _mainCamera = GetComponent<Camera>();
 
-        _maskCamera = new GameObject("MaskCamera").AddComponent<Camera>();
+        _maskCamera = new GameObject("OutlineCamera").AddComponent<Camera>();
         _maskCamera.enabled = false;
 
         _postMaterial = new Material(Post_Outline);

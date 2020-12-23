@@ -12,7 +12,7 @@ public class Resultscripts : MonoBehaviour
     //ステージクリア時に渡されるやつ
     public float cointCount;
     public float clearTime;
-    public float score;
+    public float coinScore;
     public int stageNum = 0;
     
     public float speed;
@@ -31,10 +31,10 @@ public class Resultscripts : MonoBehaviour
 
     private void Start()
     {
-        cointCount = (float)PlayerPrefs.GetInt("Coin", 0);
-        score = (float)PlayerPrefs.GetInt("Score", 0);
-        stageNum = PlayerPrefs.GetInt("StageNum", 0);
-        clearTime = PlayerPrefs.GetInt("clearTime", 0);
+        //cointCount = (float)PlayerPrefs.GetInt("Coin", 0);
+        //coinScore = (float)PlayerPrefs.GetInt("Score", 0);
+        //stageNum = PlayerPrefs.GetInt("StageNum", 0);
+        //clearTime = PlayerPrefs.GetInt("clearTime", 0);
 
         StartCoroutine("CoinGageIncrease");
         ScoreText = GameObject.Find("Score").GetComponent<Text>();
@@ -109,8 +109,16 @@ public class Resultscripts : MonoBehaviour
 
         float num = 0;
         float max = clearTimeLine[stageNum] - clearTime;
-        float gageMax = max + 100f;
+        float gageMax = clearTimeLine[stageNum];
 
+        if (max >= 0)
+        {
+            max = 300;
+        }
+        if (max < 0)
+        {
+            max = 300 - (max * -1 / (clearTimeLine[stageNum]/100));
+        }
         while (num < max)
         {
             num += speed;
@@ -135,6 +143,11 @@ public class Resultscripts : MonoBehaviour
         float max = (cointCount + clearTime) / 2;
         float gageMax = (coinMax[stageNum] + clearTimeLine[stageNum]) / 2;
 
+        if (clearTimeLine[stageNum] - clearTime >= 0) max = (cointCount + clearTimeLine[stageNum]) / 2;
+        if (clearTimeLine[stageNum] - clearTime < 0)
+        {
+            max = (cointCount + 300-((clearTimeLine[stageNum] - clearTime) * -1 / (clearTimeLine[stageNum] / 100)))/2;
+        }
         while (num < max) {
 
             num += speed;
@@ -155,8 +168,11 @@ public class Resultscripts : MonoBehaviour
     {
         float num;
         const float maxframe = 100;
+        float totalscore;
 
-        ScoreText.text = score.ToString("00000000");
+        totalscore = ScoreCalculation();
+
+        ScoreText.text = totalscore.ToString("00000000");
         num = speed / maxframe;
         while(ScoreColor.a != 1)
         {
@@ -178,9 +194,9 @@ public class Resultscripts : MonoBehaviour
 
         num = speed / maxframe;
 
-        if(stageClearPer.value >= 0.75) ColorKeep = Rank_S.color;
-        else if(stageClearPer.value >= 0.5) ColorKeep = Rank_A.color;
-        else if (stageClearPer.value >= 0.25)ColorKeep = Rank_B.color;
+        if(stageClearPer.value >= 0.9) ColorKeep = Rank_S.color;
+        else if(stageClearPer.value >= 0.7) ColorKeep = Rank_A.color;
+        else if (stageClearPer.value >= 0.5)ColorKeep = Rank_B.color;
         else ColorKeep = Rank_C.color;
         
 
@@ -189,13 +205,32 @@ public class Resultscripts : MonoBehaviour
             ColorKeep.a += num;
 
             if (ColorKeep.a >= 1) ColorKeep.a = 1;
-            if      (stageClearPer.value >= 0.75)  Rank_S.color = ColorKeep;
-            else if (stageClearPer.value >= 0.50)  Rank_A.color = ColorKeep;
-            else if (stageClearPer.value >= 0.25)  Rank_B.color = ColorKeep;
+            if      (stageClearPer.value >= 0.9)  Rank_S.color = ColorKeep;
+            else if (stageClearPer.value >= 0.7)  Rank_A.color = ColorKeep;
+            else if (stageClearPer.value >= 0.5)  Rank_B.color = ColorKeep;
             else    Rank_C.color = ColorKeep;
 
             yield return null;
 
         }
+    }
+
+    //スコア計算
+    float ScoreCalculation()
+    {
+        /***計算方法***/
+        //10万点を最高点数と置いて、時間以内にゴールできない場合、60ｆ/1000点　で点数を減らす
+
+        float timefream = clearTimeLine[stageNum] - clearTime;
+        float timescore = 0;
+        const float MAXSCORE = 100000.0F;
+
+        if (timefream >= 0) timescore = MAXSCORE;
+        if (timefream <  0)
+        {
+            timescore = MAXSCORE + timefream / 10 * 1000;
+            if (timescore <= 0) timescore = 0;
+        }
+        return timescore + coinScore ;
     }
 }

@@ -7,16 +7,17 @@ public class PlayTutorial : MonoBehaviour
 
     //[SerializeField] private Image img;
     [SerializeField] private Image[] config;            //十字ボタンの画像
+    [SerializeField] private Image[] button;            //Ａぼったん
     [SerializeField] private bool timeStop = false;     //時間が止まってるか
     public bool skipTuto = false;                       //チュートリアルをスキップしたか
 
     [SerializeField] private GameObject veriWin;        //チュートリアルスキップ確認画面
     [SerializeField] private GameObject tuto;           //チュートリアルに必要なやつども
 
-    [NonSerialized] public int tutoNum = 99;            //チュートリアルの番号
+    public int tutoNum = 99;            //チュートリアルの番号
 
 
-    [NonSerialized] public float kak;           //アニメーションにつかう
+    public float kak;           //アニメーションにつかう
     private float timeD;                        //deltaTimeの値を保存する
 
     private void Start()
@@ -47,6 +48,7 @@ public class PlayTutorial : MonoBehaviour
         {
             kak = 0;
             timeD = Time.deltaTime;
+            tutoNum = 99;
             ChangeImageTime(99);
         }
     }
@@ -58,9 +60,22 @@ public class PlayTutorial : MonoBehaviour
 
     //画像の切り替え
     void ChangeImageTime(int num) {
-        for (int i = 0; i < 5; i++) {
-            if (i == num) config[i].enabled = true;
-            else config[i].enabled = false;
+        if (tutoNum != 4 && tutoNum != 6)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (i == num) config[i].enabled = true;
+                else config[i].enabled = false;
+                button[0].enabled = false;
+                button[1].enabled = false;
+            }
+        }
+        else{
+            for (int i = 0; i < 2; i++)
+            {
+                if (i == (int)kak) button[i].enabled = true;
+                else button[i].enabled = false;
+            }
         }
     }
 

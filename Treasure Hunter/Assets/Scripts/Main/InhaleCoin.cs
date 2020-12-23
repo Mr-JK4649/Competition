@@ -39,6 +39,7 @@ public class InhaleCoin : MonoBehaviour
         {
             gameObject.SetActive(false);
             Destroy(this.gameObject);
+            SEManager.Instance.Play(SEPath.MONEYDROP3);
             gm.GetCoin();
         }
     }
@@ -46,6 +47,6 @@ public class InhaleCoin : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "CollectCoin") inhale = true;
-        SEManager.Instance.Play(SEPath.MONEYDROP2);
+        //SEManager.Instance.Play(SEPath.MONEYDROP2);
     }
 }

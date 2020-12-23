@@ -13,6 +13,7 @@ public static class SEPath{
 	public const string DON1                            = "SE/don-1";
 	public const string JINGLE10                        = "SE/Jingle/jingle10";
 	public const string MONEYDROP2                      = "SE/money-drop2";
+	public const string MONEYDROP3                      = "SE/money-drop2-copy";
 	public const string MSFX_ABYSS_MUD                  = "SE/Fantasy SFX for Particle Distort Texture effect library/msfx_abyss_mud";
 	public const string MSFX_ABYSS_PORTAL               = "SE/Fantasy SFX for Particle Distort Texture effect library/msfx_abyss_portal";
 	public const string MSFX_AURA_BELL                  = "SE/Fantasy SFX for Particle Distort Texture effect library/msfx_aura_bell";

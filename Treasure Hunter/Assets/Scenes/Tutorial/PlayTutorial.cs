@@ -10,6 +10,8 @@ public class PlayTutorial : MonoBehaviour
     [SerializeField] private Image[] button;            //Ａぼったん
     [SerializeField] private bool timeStop = false;     //時間が止まってるか
     public bool skipTuto = false;                       //チュートリアルをスキップしたか
+    [SerializeField] private Animator hold;             //ホールド指示のアニメーション
+    [SerializeField] private Text[] tutoText;           //モードを表す
 
     [SerializeField] private GameObject veriWin;        //チュートリアルスキップ確認画面
     [SerializeField] private GameObject tuto;           //チュートリアルに必要なやつども
@@ -17,7 +19,7 @@ public class PlayTutorial : MonoBehaviour
     public int tutoNum = 99;            //チュートリアルの番号
 
 
-    public float kak;           //アニメーションにつかう
+    public float kak;                           //アニメーションにつかう
     private float timeD;                        //deltaTimeの値を保存する
 
     private void Start()
@@ -51,6 +53,13 @@ public class PlayTutorial : MonoBehaviour
             tutoNum = 99;
             ChangeImageTime(99);
         }
+
+        if (skipTuto) {
+            tutoText[0].text = "チュートリアル解除：";
+            tutoText[1].text = "　自由操作可能";
+            tutoText[1].color = Color.green;
+        }
+
     }
 
 
@@ -68,6 +77,7 @@ public class PlayTutorial : MonoBehaviour
                 else config[i].enabled = false;
                 button[0].enabled = false;
                 button[1].enabled = false;
+                button[2].enabled = false;
             }
         }
         else{
@@ -105,6 +115,8 @@ public class PlayTutorial : MonoBehaviour
                 passTest = true;
                 break;
             case 6:         //コイン加速
+                hold.SetBool("AnimStart", true);
+                if(button[2].enabled == false)button[2].enabled = true;
                 if (Input.GetButtonDown("Cont_A")) passTest = true;
                 break;
         }
@@ -113,6 +125,8 @@ public class PlayTutorial : MonoBehaviour
 
         if (passTest) {
             Time.timeScale = 1;
+            hold.SetBool("AnimStart", false);
+            button[2].enabled = false;
         }
 
     }

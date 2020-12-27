@@ -135,7 +135,7 @@ public class PlayerMoveSystem : MonoBehaviour
         {
             //soundMgr.PlaySE(SoundMgr.SE_TYPE.ACTION, 2);                // SE再生
 
-            coinBox.size = new Vector3(50, 50, 5);
+            coinBox.size = new Vector3(60, 60, 5);
             accelCount--;
 
             //時間が経過したらプレイヤーの速度を徐々に初期化

@@ -12,7 +12,8 @@ public class TutoStart : MonoBehaviour
         DOWN,
         ACCEL,
         COIN,
-        COINACCEL
+        COINACCEL,
+        ENDTUTORIAL
     }
 
     public PlayTutorial plTu;
@@ -37,7 +38,7 @@ public class TutoStart : MonoBehaviour
 
                 case "Tuto6":   ToTuto(other, (int)tutoLevel.COINACCEL);break;
 
-                
+                case "Tuto7":   plTu.skipTuto = true; plTu.tutoNum = 99;break;
             }
         }
     }

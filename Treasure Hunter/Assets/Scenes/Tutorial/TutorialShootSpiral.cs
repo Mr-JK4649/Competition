@@ -34,7 +34,7 @@ public class TutorialShootSpiral : MonoBehaviour
 
         plms.setNaighborDistination();
 
-        if(pltu.tutoNum != 99){
+        if(pltu.tutoNum != 99 || pltu.skipTuto){
             if (GameObject.FindWithTag("Spiral") == null && plms.curveFlg == false && plms.clearFlg == false)
             {
 

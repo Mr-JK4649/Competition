@@ -19,6 +19,12 @@ public class InhaleCoin : MonoBehaviour
         GameObject player = GameObject.Find("Wizard");
         pl = player.transform;
         plms = player.GetComponent<PlayerMoveSystem>();
+        if (GetComponent<MeshCollider>() == false)
+        {
+            this.gameObject.AddComponent<MeshCollider>();
+            this.GetComponent<MeshCollider>().convex = true;
+            this.GetComponent<MeshCollider>().isTrigger = true;
+        }
     }
 
 
@@ -27,8 +33,7 @@ public class InhaleCoin : MonoBehaviour
         if (inhale)
         {
 
-            time += 0.003f;
-            //time = 0.05f;
+            time += 0.006f;
 
             transform.position = Vector3.MoveTowards(transform.position, pl.position, plms.RunSpeed * time);
 

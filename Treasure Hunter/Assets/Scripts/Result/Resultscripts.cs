@@ -31,10 +31,10 @@ public class Resultscripts : MonoBehaviour
 
     private void Start()
     {
-        //cointCount = (float)PlayerPrefs.GetInt("Coin", 0);
-        //coinScore = (float)PlayerPrefs.GetInt("Score", 0);
-        //stageNum = PlayerPrefs.GetInt("StageNum", 0);
-        //clearTime = PlayerPrefs.GetInt("clearTime", 0);
+        cointCount = (float)PlayerPrefs.GetInt("Coin", 0);
+        coinScore = (float)PlayerPrefs.GetInt("Score", 0);
+        stageNum = PlayerPrefs.GetInt("StageNum", 0);
+        clearTime = PlayerPrefs.GetInt("clearTime", 0);
 
         StartCoroutine("CoinGageIncrease");
         ScoreText = GameObject.Find("Score").GetComponent<Text>();

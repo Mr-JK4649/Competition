@@ -22,8 +22,10 @@ public class TreasureBoxAnim : MonoBehaviour
         {
             anim.SetBool("Open", true);
             plms.clearFlg = true;
-            plms.StopAllCoroutines();
-
+            plms.accelCount = 0;
+            plms.accelForce = 0;
+            StopAllCoroutines();
+            GameObject.Find("Wizard4").GetComponent<TutorialShootSpiral>().enabled = false;
         }
 
         
@@ -41,9 +43,7 @@ public class TreasureBoxAnim : MonoBehaviour
             Bloom bl = ScriptableObject.CreateInstance<Bloom>();
             bl.enabled.Override(true);
             bl.intensity.Override(inten);
-
-
-            plms.runSpd = new Vector3(0,0,10);
+            
 
             volume = PostProcessManager.instance.QuickVolume(gameObject.layer, 0f, bl);
         }

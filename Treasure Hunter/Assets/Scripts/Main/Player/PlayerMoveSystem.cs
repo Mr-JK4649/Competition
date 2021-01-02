@@ -104,7 +104,7 @@ public class PlayerMoveSystem : MonoBehaviour
 
     //自動移動
     void AutoRun() {
-        if (curveFlg == false)
+        if (curveFlg == false && clearFlg == false)
         {
             if (RunSpeed != playerOriginSpeed)
             { //ダッシュ時のみ速度反映
@@ -125,6 +125,27 @@ public class PlayerMoveSystem : MonoBehaviour
                 }
             }
             Wiz_RB.velocity = runSpd;
+        }
+
+
+        if (clearFlg) {
+            switch (autoRunVec)
+            {
+                case "front":
+                    runSpd = new Vector3(0, 0, 3);
+                    break;
+                case "right":
+                    runSpd = new Vector3(0, 3, 0);
+                    break;
+                case "left":
+                    runSpd = new Vector3(0, -3, 0);
+                    break;
+                case "back":
+                    runSpd = new Vector3(0, 0, -3);
+                    break;
+            }
+
+            RunSpeed = 3;
         }
 
     }

@@ -1831,6 +1831,10 @@ MonoBehaviour:
   - {fileID: 2003519213}
   - {fileID: 594579488}
   - {fileID: 261121426}
+  name:
+  - EASY
+  - NORMAL
+  - HARD
 --- !u!1 &1215515270
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,6 @@ public class SelectScript : MonoBehaviour
     public void OnClickStartButton()
     {
         //SceneManager.LoadScene("MainScene");
-        FadeManager.Instance.LoadScene("MainScene", 1.0f);
+        FadeManager.Instance.LoadScene("Tutorial", 1.0f);
     }
 }

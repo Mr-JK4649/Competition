@@ -23,4 +23,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SelectScene.unity
     guid: 8b76e98cb072e9745ba5266460d6b67b
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/Tutorial.unity
+    guid: 6f1e0f91870f4654aaad35a4dd201dc2
+  - enabled: 1
+    path: Assets/Scenes/StageEdit/Normal/NormalStageEdit.unity
+    guid: b5a0538dde99ae14bb9e4bcb0ebaa0a9
+  - enabled: 1
+    path: Assets/Scenes/StageEdit/Hard/HardStageEdit.unity
+    guid: a204c5b1e4288864faad0152afbae3d2
   m_configObjects: {}

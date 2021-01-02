@@ -53,7 +53,20 @@ public class Menu : MonoBehaviour
 			// 子供のコンポーネントにアクセスしたいのでいったん変数に格納
 			selectedObj = eventSystem.currentSelectedGameObject.gameObject;
 			// ボタンのTextコンポーネントからtextデータを取得
-			text.text = selectedObj.GetComponentInChildren<Text>().text;
+			//text.text = selectedObj.GetComponentInChildren<Text>().text;
+
+			if(selectedObj.GetComponentInChildren<Text>().text == "STAGE 1")
+            {
+				text.text = "EASY";
+			}
+			else if(selectedObj.GetComponentInChildren<Text>().text == "STAGE 2")
+			{
+				text.text = "NORMAL";
+			}
+			else if (selectedObj.GetComponentInChildren<Text>().text == "STAGE 3")
+			{
+				text.text = "HARD";
+			}
 		}
 		// 例外処理的なやつ
 		catch (NullReferenceException ex)

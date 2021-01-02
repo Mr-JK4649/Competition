@@ -1429,8 +1429,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1052845769}
-        m_MethodName: Play
+      - m_Target: {fileID: 1052845770}
+        m_MethodName: OnClickStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1440,8 +1440,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1052845770}
-        m_MethodName: OnClickStartButton
+      - m_Target: {fileID: 1052845769}
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1535,7 +1535,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1052845763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63a0c276800b1564ca7ebaa230eeef88, type: 3}
+  m_Script: {fileID: 11500000, guid: 123bbd19b9c57294082e0f3a706ec642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1109186818
@@ -1623,8 +1623,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1109186824}
-        m_MethodName: Play
+      - m_Target: {fileID: 1109186825}
+        m_MethodName: OnClickStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1634,8 +1634,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1109186825}
-        m_MethodName: OnClickStartButton
+      - m_Target: {fileID: 1109186824}
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1109186818}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d5fcc76e02f7a6439ca71b06cafb253, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c7e7c5c7aef4324db572148e0edd2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1200257480

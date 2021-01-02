@@ -25,7 +25,7 @@ public class TreasureBoxAnim : MonoBehaviour
             plms.accelCount = 0;
             plms.accelForce = 0;
             StopAllCoroutines();
-            GameObject.Find("Wizard4").GetComponent<TutorialShootSpiral>().enabled = false;
+            GameObject.Find("Wizard4").GetComponent<ShootSpiral>().enabled = false;
         }
 
         

@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 397191324}
   - component: {fileID: 397191323}
   m_Layer: 5
-  m_Name: 'StageEvaluation_C(Image) '
+  m_Name: StageEvaluation_C(Image)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

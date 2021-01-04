@@ -17,6 +17,7 @@ public class Resultscripts : MonoBehaviour
     
     public float speed;
 
+    private bool buttonPushFlg;//ボタン押すのを許可する奴～～
     private Text ScoreText;
     private Color ScoreColor;
     private Image Rank_S;
@@ -35,6 +36,8 @@ public class Resultscripts : MonoBehaviour
         coinScore = (float)PlayerPrefs.GetInt("Score", 0);
         stageNum = PlayerPrefs.GetInt("StageNum", 0);
         clearTime = PlayerPrefs.GetInt("clearTime", 0);
+
+        buttonPushFlg = false;
 
         StartCoroutine("CoinGageIncrease");
         ScoreText = GameObject.Find("Score").GetComponent<Text>();
@@ -71,6 +74,7 @@ public class Resultscripts : MonoBehaviour
     {
 
         //タイトルに戻る処理
+        if(buttonPushFlg == true)
         ToTitle();
     }
 
@@ -78,7 +82,7 @@ public class Resultscripts : MonoBehaviour
     void ToTitle() {
         if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Cont_A"))
         {
-            SceneManager.LoadScene("TitleScene");//mainシーンをロードする
+            SceneManager.LoadScene("SelectScene");//mainシーンをロードする
         }
     }
 
@@ -210,9 +214,12 @@ public class Resultscripts : MonoBehaviour
             else if (stageClearPer.value >= 0.5)  Rank_B.color = ColorKeep;
             else    Rank_C.color = ColorKeep;
 
+            
             yield return null;
 
+
         }
+        buttonPushFlg = true;
     }
 
     //スコア計算
@@ -232,5 +239,7 @@ public class Resultscripts : MonoBehaviour
             if (timescore <= 0) timescore = 0;
         }
         return timescore + coinScore ;
+
+        
     }
 }

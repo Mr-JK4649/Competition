@@ -23,7 +23,7 @@ public class PauseMenuScripts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Pause") && Time.timeScale > 0) isMenu = true;
+        if (Input.GetButtonDown("Pause") && !isMenu) isMenu = true;
 
         if (isMenu)
         {

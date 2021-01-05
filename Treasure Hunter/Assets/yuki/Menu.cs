@@ -32,23 +32,47 @@ public class Menu : MonoBehaviour
 
     void Update()
 	{
-		if(Input.GetAxis("Vertical") != 0f && SEflg == false)
-		{
-			SEflg = true;
-			SEManager.Instance.Play(SEPath.CURSOR5);
-		}
+        //if(stage1.transform.localScale.x > 1.0f)
+        //      {
+        //	SEManager.Instance.Play(SEPath.CURSOR5);
+        //}
+        //if (stage2.transform.localScale.x > 1.0f)
+        //{
+        //	SEManager.Instance.Play(SEPath.CURSOR5);
+        //}
+        //if (stage3.transform.localScale.x > 1.0f)
+        //{
+        //	SEManager.Instance.Play(SEPath.CURSOR5);
+        //}
 
-		if(SEflg == true)
+
+        if (Input.GetAxis("Vertical") != 0f && SEflg == false)
         {
-			if(SETime++ > 120)
-            {
-				SETime = 0;
-				SEflg = false;
-            }
+            SEflg = true;
+            SEManager.Instance.Play(SEPath.CURSOR5);
         }
 
-		// TryCatch文でNull回避
-		try
+        if (SEflg == true && Input.GetAxis("Vertical") == 0f)
+        {
+			SEflg = false;
+        }
+        //     if (Input.GetAxis("Vertical") != 0f && SEflg == false)
+        //     {
+        //         SEflg = true;
+        //         SEManager.Instance.Play(SEPath.CURSOR5);
+        //     }
+
+        //     if (SEflg == true)
+        //     {
+        //if(SETime++ > 120)
+        //         {
+        //	SETime = 0;
+        //	SEflg = false;
+        //         }
+        //     }
+
+        // TryCatch文でNull回避
+        try
 		{
 			// 子供のコンポーネントにアクセスしたいのでいったん変数に格納
 			selectedObj = eventSystem.currentSelectedGameObject.gameObject;

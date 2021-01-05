@@ -44,7 +44,7 @@ public class InhaleCoin : MonoBehaviour
         {
             gameObject.SetActive(false);
             Destroy(this.gameObject);
-            SEManager.Instance.Play(SEPath.MONEYDROP3);
+            SEManager.Instance.Play(SEPath.MONEYDROP3, 0.4f);
             gm.GetCoin();
         }
     }

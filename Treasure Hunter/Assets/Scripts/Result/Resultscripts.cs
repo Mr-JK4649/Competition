@@ -14,6 +14,11 @@ public class Resultscripts : MonoBehaviour
     public float clearTime;
     public float coinScore;
     public int stageNum = 0;
+    public Text[] Pers;             //パーセンテージ
+    public Text[] PerNums;          //ゲージ内部の数値
+    public Text addScorePer;        //スコアのボーナス加算
+    public Animator movePerNum;     //ボーナスのためだけにつくったアニメーション
+    public Animator movePerNum2;     //ボーナスのためだけにつくったアニメーション2
     
     public float speed;
 
@@ -67,7 +72,12 @@ public class Resultscripts : MonoBehaviour
         Rank_Color.a = 0;
         Rank_C.color = Rank_Color;
 
+        //ゲージの中の数値
+        PerNums[0].text = 0.ToString("000") + "/" + coinMax[stageNum].ToString("000") + " coins";
+        PerNums[1].text = 0.ToString("000") + "/" + clearTimeLine[stageNum].ToString("000") + "seconds";
 
+        //ボーナス加算テキスト
+        addScorePer.enabled = false;
     }
 
     void FixedUpdate()
@@ -92,10 +102,17 @@ public class Resultscripts : MonoBehaviour
         float max = cointCount;
         float gageMax = (float)coinMax[stageNum];
 
+
+        if(gageMax < cointCount)
+        {
+            gageMax = cointCount;
+        }
         while (num < max) {
             num += speed;
 
             coinCountBar.value = (float)num / gageMax;
+            Pers[0].text = (coinCountBar.value*100).ToString("00") + "%";
+            PerNums[0].text = num.ToString("000") + "/" + coinMax[stageNum].ToString("000") + " coins";
             SEManager.Instance.Play(SEPath.BEEP1);
 
             yield return null;
@@ -128,6 +145,8 @@ public class Resultscripts : MonoBehaviour
             num += speed;
 
             clearTimeBar.value = num / gageMax;
+            Pers[1].text = (clearTimeBar.value * 100).ToString("00") + "%";
+            PerNums[1].text = num.ToString("000") + "/" + clearTimeLine[stageNum].ToString("000") + "seconds";
             SEManager.Instance.Play(SEPath.BEEP1);
 
             yield return null;
@@ -144,19 +163,21 @@ public class Resultscripts : MonoBehaviour
     {
 
         float num = 0;
-        float max = (cointCount + clearTime) / 2;
-        float gageMax = (coinMax[stageNum] + clearTimeLine[stageNum]) / 2;
+        float max = (coinCountBar.value + clearTimeBar.value) * 100 / 2;
+        float gageMax = 100;
 
-        if (clearTimeLine[stageNum] - clearTime >= 0) max = (cointCount + clearTimeLine[stageNum]) / 2;
-        if (clearTimeLine[stageNum] - clearTime < 0)
-        {
-            max = (cointCount + 300-((clearTimeLine[stageNum] - clearTime) * -1 / (clearTimeLine[stageNum] / 100)))/2;
-        }
+        //if (clearTimeLine[stageNum] - clearTime >= 0) max = (cointCount + clearTimeLine[stageNum]) / 2;
+        //if (clearTimeLine[stageNum] - clearTime < 0)
+        //{
+        //    max = (cointCount + 300-((clearTimeLine[stageNum] - clearTime) * -1 / (clearTimeLine[stageNum] / 100)))/2;
+        //}
         while (num < max) {
 
-            num += speed;
+            num += speed*0.2f;
 
             stageClearPer.value = num / gageMax;
+            Pers[2].text = (stageClearPer.value * 100).ToString("00") + "%";
+            addScorePer.text = "x " + (stageClearPer.value * 100).ToString("00");
             SEManager.Instance.Play(SEPath.BEEP1);
 
             yield return null;
@@ -174,7 +195,7 @@ public class Resultscripts : MonoBehaviour
         const float maxframe = 100;
         float totalscore;
 
-        totalscore = ScoreCalculation();
+        totalscore = coinScore;
 
         ScoreText.text = totalscore.ToString("00000000");
         num = speed / maxframe;
@@ -186,7 +207,8 @@ public class Resultscripts : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine("ClearStageEvaluation");
+        //StartCoroutine("ClearStageEvaluation");
+        movePerNum.SetTrigger("AnimStart");
     }
     //ステージ評価の処理
     private IEnumerator ClearStageEvaluation()
@@ -241,5 +263,12 @@ public class Resultscripts : MonoBehaviour
         return timescore + coinScore ;
 
         
+    }
+
+    public void EndAnimFunc() {
+        addScorePer.enabled = true;
+        ScoreText.enabled = false;
+        movePerNum2.SetTrigger("AnimStart2");
+        //StartCoroutine("ClearStageEvaluation");
     }
 }

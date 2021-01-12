@@ -15,7 +15,7 @@ public class EndAnimSc : MonoBehaviour
 
     void func2_1_tr() {
         tx.enabled = true;
-        float num = rs.coinScore + rs.coinScore * clearPer.value * 100;
+        float num = rs.coinScore + rs.coinScore * clearPer.value;
         tx.text = num.ToString("00000000");
     }
 

@@ -177,7 +177,7 @@ public class Resultscripts : MonoBehaviour
 
             stageClearPer.value = num / gageMax;
             Pers[2].text = (stageClearPer.value * 100).ToString("00") + "%";
-            addScorePer.text = "x " + (stageClearPer.value * 100).ToString("00");
+            addScorePer.text = "+ " + (stageClearPer.value * 100).ToString("00") + "%";
             SEManager.Instance.Play(SEPath.BEEP1);
 
             yield return null;

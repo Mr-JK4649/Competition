@@ -10,10 +10,11 @@ public class PlayTutorial : MonoBehaviour
     [SerializeField] private Image[] button;            //Ａぼったん
     [SerializeField] private bool timeStop = false;     //時間が止まってるか
     public bool skipTuto = false;                       //チュートリアルをスキップしたか
+    public bool isSkipVeri = false;                     //スキップウィンドウが出てるかどうか
     [SerializeField] private Animator hold;             //ホールド指示のアニメーション
     [SerializeField] private Text[] tutoText;           //モードを表す
 
-    [SerializeField] private GameObject veriWin;        //チュートリアルスキップ確認画面
+    [SerializeField] private Image veriWin;        //チュートリアルスキップ確認画面
     [SerializeField] private GameObject tuto;           //チュートリアルに必要なやつども
 
     public int tutoNum = 99;            //チュートリアルの番号
@@ -25,16 +26,22 @@ public class PlayTutorial : MonoBehaviour
     private void Start()
     {
         //Time.timeScale = 0;
-        veriWin.SetActive(false);
+        veriWin.enabled = false;
     }
 
     private void Update()
     {
         //Ｋボタンを押したらスキップ確認
-        if (Input.GetKeyDown(KeyCode.K) && !skipTuto)
+        if (Input.GetButtonDown("Cont_Y") && !skipTuto)
         {
-            veriWin.SetActive(true);
+            veriWin.enabled = true;
             Time.timeScale = 0;
+        }
+
+        //スキップウィンドウが出てたら
+        if (veriWin.isActiveAndEnabled == true) {
+            if (Input.GetButtonDown("Cont_A")) SkipTutoFunc();
+            if (Input.GetButtonDown("Cont_B")) DeleteVeriWindow();
         }
 
         //チュートリアルスキップを押してなければ
@@ -145,7 +152,7 @@ public class PlayTutorial : MonoBehaviour
 
     //スキップ確認ウィンドウを消し、時間を進める
     public void DeleteVeriWindow() {
-        veriWin.SetActive(false);
+        veriWin.enabled = false;
         Time.timeScale = 1;
     }
 }

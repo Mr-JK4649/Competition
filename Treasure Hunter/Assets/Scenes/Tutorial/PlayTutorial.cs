@@ -146,6 +146,7 @@ public class PlayTutorial : MonoBehaviour
     //スキップＹＥＳ
     public void SkipTutoFunc(){
         skipTuto = true;
+        GameObject.Find("Wizard").GetComponent<TutoStart>().enabled = false;
         tuto.SetActive(false);
         DeleteVeriWindow();
     }

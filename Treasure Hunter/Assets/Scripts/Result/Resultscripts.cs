@@ -173,7 +173,7 @@ public class Resultscripts : MonoBehaviour
         //}
         while (num < max) {
 
-            num += speed*0.2f;
+            num += speed*0.65f;
 
             stageClearPer.value = num / gageMax;
             Pers[2].text = (stageClearPer.value * 100).ToString("00") + "%";

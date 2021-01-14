@@ -64,8 +64,9 @@ public class PlayerMoveSystem : MonoBehaviour
 
         currentLane = laneObj[4];
         Origin_Pos = Wiz_TF.position;               //プレイヤーの初期位置を設定
-        lastCheckPoint = Wiz_TF.position;
-        lastRunSpd = runSpd;
+        lastCheckPoint = Wiz_TF.position;           //直前の位置
+        lastRunSpd = runSpd;                        //直前の速度
+        lastVec = autoRunVec;                       //直前の進行ベクトル
         playerOriginSpeed = RunSpeed;               //プレイヤーの速度を保存
 
         gm = GameObject.Find("GameSystem").GetComponent<GameManager>();

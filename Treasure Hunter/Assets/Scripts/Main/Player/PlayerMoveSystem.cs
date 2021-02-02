@@ -129,25 +129,25 @@ public class PlayerMoveSystem : MonoBehaviour
         }
 
 
-        if (clearFlg) {
-            switch (autoRunVec)
-            {
-                case "front":
-                    runSpd = new Vector3(0, 0, 3);
-                    break;
-                case "right":
-                    runSpd = new Vector3(0, 3, 0);
-                    break;
-                case "left":
-                    runSpd = new Vector3(0, -3, 0);
-                    break;
-                case "back":
-                    runSpd = new Vector3(0, 0, -3);
-                    break;
-            }
+        //if (clearFlg) {
+        //    switch (autoRunVec)
+        //    {
+        //        case "front":
+        //            runSpd = new Vector3(0, 0, 3);
+        //            break;
+        //        case "right":
+        //            runSpd = new Vector3(0, 3, 0);
+        //            break;
+        //        case "left":
+        //            runSpd = new Vector3(0, -3, 0);
+        //            break;
+        //        case "back":
+        //            runSpd = new Vector3(0, 0, -3);
+        //            break;
+        //    }
 
-            RunSpeed = 3;
-        }
+        //    RunSpeed = 3;
+        //}
 
     }
 
@@ -227,7 +227,7 @@ public class PlayerMoveSystem : MonoBehaviour
         while (timer <= time)
         {
 
-            if (stopCoro) timer = time;
+            if (stopCoro || curveFlg) timer = time;
 
             Vector3 pos = Vector3.Lerp(pos1, pos2, ac.Evaluate(timer / time));
             switch (autoRunVec) {
@@ -256,13 +256,16 @@ public class PlayerMoveSystem : MonoBehaviour
     private IEnumerator SlowInitSpeed() {
 
         while (RunSpeed > playerOriginSpeed) {
+
             float diff = 60f / gm.currentFramerate * 0.4f;
             RunSpeed -= diff;
+
+            if (clearFlg || curveFlg) { RunSpeed = 0f; runSpd = Vector3.zero; }
 
             yield return null;
         }
 
-        RunSpeed = playerOriginSpeed;
+        if(!clearFlg) RunSpeed = playerOriginSpeed;
         coinBox.size = new Vector3(10, 10, 5);
         
     }

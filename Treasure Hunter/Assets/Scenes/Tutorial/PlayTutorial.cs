@@ -11,6 +11,7 @@ public class PlayTutorial : MonoBehaviour
     [SerializeField] private bool timeStop = false;     //時間が止まってるか
     public bool skipTuto = false;                       //チュートリアルをスキップしたか
     public bool isSkipVeri = false;                     //スキップウィンドウが出てるかどうか
+    
     [SerializeField] private Animator hold;             //ホールド指示のアニメーション
     [SerializeField] private Text[] tutoText;           //モードを表す
 

@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
     Camera caml;
     Camera camb;
 
-
     [SerializeField,Tooltip("ゲームのFPS値を設定するやつね")] 
     private int framerate;
 
@@ -93,8 +92,17 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //ポーズする
-        if(Input.GetButtonDown("Pause"))
-            Time.timeScale = 1 - Time.timeScale;
+
+        if (GameObject.Find("TutoSys"))
+        {
+            if (Input.GetButtonDown("Pause") && GameObject.Find("TutoSys").GetComponent<PlayTutorial>().tutoNum == 99)
+                Time.timeScale = 1 - Time.timeScale;
+        }
+        else
+        {
+            if (Input.GetButtonDown("Pause"))
+                Time.timeScale = 1 - Time.timeScale;
+        }
 
     }
 
